@@ -5,6 +5,10 @@ on:
     - cron: '0 * * * *'
   workflow_dispatch:
 
+concurrency:
+  group: calendar-update
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -35,6 +39,7 @@ jobs:
           git add data/occupancy_calendar.html data/occupancy.json logs/parser.log
           if ! git diff --cached --quiet; then
             git commit -m "Update occupancy calendar $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase origin main
             git push
           else
             echo "No changes to commit"
