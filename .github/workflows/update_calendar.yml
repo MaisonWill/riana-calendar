@@ -34,7 +34,7 @@ jobs:
           git config user.email "bot@example.com"
           git add data/occupancy_calendar.html data/occupancy.json logs/parser.log
           if ! git diff --cached --quiet; then
-            git commit -m "Update calendar $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git commit -m "Update occupancy calendar $(date -u +'%Y-%m-%d %H:%M UTC')"
             git push
           else
             echo "No changes to commit"
