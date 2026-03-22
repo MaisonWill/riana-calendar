@@ -1,0 +1,576 @@
+2026-03-22 02:09:31 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-03-22 02:09:31 | INFO | src.scheduler | Running immediate startup sync...
+2026-03-22 02:09:31 | INFO | __main__ | Starting occupancy update cycle for 12 properties
+2026-03-22 02:09:31 | INFO | src.fetcher | Fetching iCal for property=prop_01 (Property 01)
+2026-03-22 02:09:32 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_01.ics?s=SECRET_TOKEN_01 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:09:32 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/404 "HTTP/1.1 404 Not Found"
+2026-03-22 02:09:32 | WARNING | src.fetcher | HTTP 404 fetching iCal (attempt 1/3): https://www.airbnb.com/calendar/ical/LISTING_ID_01.ics?s=SECRET_TOKEN_01
+2026-03-22 02:09:33 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_01.ics?s=SECRET_TOKEN_01 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:09:33 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/404 "HTTP/1.1 404 Not Found"
+2026-03-22 02:09:33 | WARNING | src.fetcher | HTTP 404 fetching iCal (attempt 2/3): https://www.airbnb.com/calendar/ical/LISTING_ID_01.ics?s=SECRET_TOKEN_01
+2026-03-22 02:09:36 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_01.ics?s=SECRET_TOKEN_01 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:09:36 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/404 "HTTP/1.1 404 Not Found"
+2026-03-22 02:09:36 | WARNING | src.fetcher | HTTP 404 fetching iCal (attempt 3/3): https://www.airbnb.com/calendar/ical/LISTING_ID_01.ics?s=SECRET_TOKEN_01
+2026-03-22 02:09:36 | WARNING | src.fetcher | Failed to fetch property=prop_01: Failed to fetch iCal after 3 attempts: https://www.airbnb.com/calendar/ical/LISTING_ID_01.ics?s=SECRET_TOKEN_01
+2026-03-22 02:09:38 | INFO | src.fetcher | Fetching iCal for property=prop_02 (Property 02)
+2026-03-22 02:09:38 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_02.ics?s=SECRET_TOKEN_02 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:09:39 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/404 "HTTP/1.1 404 Not Found"
+2026-03-22 02:09:39 | WARNING | src.fetcher | HTTP 404 fetching iCal (attempt 1/3): https://www.airbnb.com/calendar/ical/LISTING_ID_02.ics?s=SECRET_TOKEN_02
+2026-03-22 02:09:40 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_02.ics?s=SECRET_TOKEN_02 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:09:40 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/404 "HTTP/1.1 404 Not Found"
+2026-03-22 02:09:40 | WARNING | src.fetcher | HTTP 404 fetching iCal (attempt 2/3): https://www.airbnb.com/calendar/ical/LISTING_ID_02.ics?s=SECRET_TOKEN_02
+2026-03-22 02:09:42 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_02.ics?s=SECRET_TOKEN_02 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:09:43 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/404 "HTTP/1.1 404 Not Found"
+2026-03-22 02:09:43 | WARNING | src.fetcher | HTTP 404 fetching iCal (attempt 3/3): https://www.airbnb.com/calendar/ical/LISTING_ID_02.ics?s=SECRET_TOKEN_02
+2026-03-22 02:09:43 | WARNING | src.fetcher | Failed to fetch property=prop_02: Failed to fetch iCal after 3 attempts: https://www.airbnb.com/calendar/ical/LISTING_ID_02.ics?s=SECRET_TOKEN_02
+2026-03-22 02:09:45 | INFO | src.fetcher | Fetching iCal for property=prop_03 (Property 03)
+2026-03-22 02:09:45 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_03.ics?s=SECRET_TOKEN_03 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:09:45 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/404 "HTTP/1.1 404 Not Found"
+2026-03-22 02:09:45 | WARNING | src.fetcher | HTTP 404 fetching iCal (attempt 1/3): https://www.airbnb.com/calendar/ical/LISTING_ID_03.ics?s=SECRET_TOKEN_03
+2026-03-22 02:09:47 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_03.ics?s=SECRET_TOKEN_03 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:09:47 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/404 "HTTP/1.1 404 Not Found"
+2026-03-22 02:09:47 | WARNING | src.fetcher | HTTP 404 fetching iCal (attempt 2/3): https://www.airbnb.com/calendar/ical/LISTING_ID_03.ics?s=SECRET_TOKEN_03
+2026-03-22 02:09:49 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_03.ics?s=SECRET_TOKEN_03 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:09:49 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/404 "HTTP/1.1 404 Not Found"
+2026-03-22 02:09:49 | WARNING | src.fetcher | HTTP 404 fetching iCal (attempt 3/3): https://www.airbnb.com/calendar/ical/LISTING_ID_03.ics?s=SECRET_TOKEN_03
+2026-03-22 02:09:49 | WARNING | src.fetcher | Failed to fetch property=prop_03: Failed to fetch iCal after 3 attempts: https://www.airbnb.com/calendar/ical/LISTING_ID_03.ics?s=SECRET_TOKEN_03
+2026-03-22 02:09:51 | INFO | src.fetcher | Fetching iCal for property=prop_04 (Property 04)
+2026-03-22 02:09:52 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_04.ics?s=SECRET_TOKEN_04 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:09:52 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/404 "HTTP/1.1 404 Not Found"
+2026-03-22 02:09:52 | WARNING | src.fetcher | HTTP 404 fetching iCal (attempt 1/3): https://www.airbnb.com/calendar/ical/LISTING_ID_04.ics?s=SECRET_TOKEN_04
+2026-03-22 02:09:53 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_04.ics?s=SECRET_TOKEN_04 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:09:53 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/404 "HTTP/1.1 404 Not Found"
+2026-03-22 02:09:53 | WARNING | src.fetcher | HTTP 404 fetching iCal (attempt 2/3): https://www.airbnb.com/calendar/ical/LISTING_ID_04.ics?s=SECRET_TOKEN_04
+2026-03-22 02:09:56 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_04.ics?s=SECRET_TOKEN_04 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:10:01 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/404 "HTTP/1.1 404 Not Found"
+2026-03-22 02:10:01 | WARNING | src.fetcher | HTTP 404 fetching iCal (attempt 3/3): https://www.airbnb.com/calendar/ical/LISTING_ID_04.ics?s=SECRET_TOKEN_04
+2026-03-22 02:10:01 | WARNING | src.fetcher | Failed to fetch property=prop_04: Failed to fetch iCal after 3 attempts: https://www.airbnb.com/calendar/ical/LISTING_ID_04.ics?s=SECRET_TOKEN_04
+2026-03-22 02:10:01 | INFO | src.scheduler | Received signal 2, shutting down scheduler...
+2026-03-22 02:10:03 | INFO | src.fetcher | Fetching iCal for property=prop_05 (Property 05)
+2026-03-22 02:10:03 | INFO | src.scheduler | Received signal 2, shutting down scheduler...
+2026-03-22 02:10:03 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_05.ics?s=SECRET_TOKEN_05 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:10:03 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/404 "HTTP/1.1 404 Not Found"
+2026-03-22 02:10:03 | WARNING | src.fetcher | HTTP 404 fetching iCal (attempt 1/3): https://www.airbnb.com/calendar/ical/LISTING_ID_05.ics?s=SECRET_TOKEN_05
+2026-03-22 02:10:04 | INFO | src.scheduler | Received signal 2, shutting down scheduler...
+2026-03-22 02:10:05 | INFO | src.scheduler | Received signal 2, shutting down scheduler...
+2026-03-22 02:10:05 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_05.ics?s=SECRET_TOKEN_05 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:10:05 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/404 "HTTP/1.1 404 Not Found"
+2026-03-22 02:10:05 | WARNING | src.fetcher | HTTP 404 fetching iCal (attempt 2/3): https://www.airbnb.com/calendar/ical/LISTING_ID_05.ics?s=SECRET_TOKEN_05
+2026-03-22 02:10:07 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_05.ics?s=SECRET_TOKEN_05 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:24:44 | INFO | __main__ | Starting occupancy update cycle for 12 properties
+2026-03-22 02:24:44 | INFO | src.fetcher | Fetching iCal for property=prop_01 (Property 01)
+2026-03-22 02:24:44 | DEBUG | httpcore.connection | connect_tcp.started host='www.airbnb.com' port=443 local_address=None timeout=30 socket_options=None
+2026-03-22 02:24:44 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68900D0>
+2026-03-22 02:24:44 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x000001F0A685D400> server_hostname='www.airbnb.com' timeout=30
+2026-03-22 02:24:44 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A6883F90>
+2026-03-22 02:24:44 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2026-03-22 02:24:44 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-03-22 02:24:44 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2026-03-22 02:24:44 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-03-22 02:24:44 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2026-03-22 02:24:45 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx'), (b'Content-Type', b'text/calendar;charset=utf-8'), (b'x-instrumentation', b'airbnb'), (b'x-server-lifecycle-phase', b'running'), (b'status', b'200 OK'), (b'x-kraken-loop-name', b'hanaro-treehouse'), (b'content-disposition', b'inline; filename="listing-1292658416910564762.ics"'), (b'x-app-git-sha', b'sha=7428ee8235e7c'), (b'x-envoy-upstream-service-time', b'179'), (b'x-instrumentation', b'airbnb'), (b'x-k8s-app-name', b'hanaro-treehouse-production'), (b'x-k8s-namespace', b'hanaro-treehouse-production'), (b'x-k8s-pod-name', b'hanaro-treehouse-production-7d47cb6b75-s979g'), (b'x-server-api-method', b'CalendarExportResource#getExportedCalendarIcal'), (b'x-server-canonical-path', b'/calendar/{ical:(?i:ical)}/{listingId}.ics'), (b'x-server-lifecycle-phase', b'running'), (b'x-server-service-name', b'Hanaro'), (b'x-airbnb-internal-trace-id', b'-NWQXsmY7Da-W7a4gRe6Vw=='), (b'Content-Encoding', b'gzip'), (b'Server-Timing', b'ingress;dur=179, upstream;dur=179'), (b'Strict-Transport-Security', b'max-age=10886400; includeSubdomains'), (b'X-Server-Name', b'www.airbnb.com'), (b'Content-Length', b'446'), (b'Expires', b'Sat, 21 Mar 2026 19:24:45 GMT'), (b'Cache-Control', b'max-age=0, no-cache, no-store'), (b'Pragma', b'no-cache'), (b'Date', b'Sat, 21 Mar 2026 19:24:45 GMT'), (b'Connection', b'keep-alive'), (b'Vary', b'Accept-Encoding'), (b'Set-Cookie', b'bev=1774121084_EAZWYxZTg0ZGY1OD; Path=/; Domain=.airbnb.com; Expires=Mon, 20-Mar-2028 19:24:44 GMT; Max-Age=63072000; Secure'), (b'Set-Cookie', b'everest_cookie=1774121084.EAODJiODczNTAxNjYwMm.C6hl5bN-nPW5DWugdSUcfmF4hYHpDs3CJa4iBfCK-MY; expires=Tue, 20-Mar-2029 19:24:45 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'bev=1774121084_EAZWYxZTg0ZGY1OD; expires=Mon, 20-Mar-2028 19:24:45 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'country=TH; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'cdn_exp_abd8871b54fcbadab=control; expires=Wed, 20-May-2026 19:24:45 GMT; path=/; domain=.airbnb.com'), (b'Alt-Svc', b'h3=":443"; ma=93600'), (b'Akamai-Request-BC', b'[a=49.231.96.221,b=469596908,c=g,n=TH_90_HATYAI,o=131445],[c=c,n=JP_13_TOKYO,o=20940],[c=c,n=US_VA_ASHBURN,o=20940],[a=247,c=o]'), (b'x-airbnb-sureride', b'c1a1o.0.dd60e731.1774121084.1bfd7aec%%i1c1o%%t1d1o.-NWQXsmY7Da-W7a4gRe6Vw==%%h1'), (b'Cachestatus', b'on'), (b'Server-Timing', b'cdn-cache; desc=MISS, edge; dur=324, origin; dur=192'), (b'origin-trial', b'AkOekvxwprBLSP7I2nhyRn5yZGt9lTJN6UIYziFKVYg5OhlzmlNDciWbBWkEQ5TYPz+aqsuIUT2pPEjPUD5dFAsAAABneyJvcmlnaW4iOiJodHRwczovL2FpcmJuYi5jb206NDQzIiwiZmVhdHVyZSI6IlByaW9yaXR5SGludHNBUEkiLCJleHBpcnkiOjE2NDc5OTM1OTksImlzU3ViZG9tYWluIjp0cnVlfQ=='), (b'x-browser-type', b'unknown'), (b'x-erf-bev-bev-is-generated', b'1'), (b'x-erf-bev-bev', b'1774121084_EAZWYxZTg0ZGY1OD'), (b'x-airbnb-everest-device-id', b'1774121084.EAODJiODczNTAxNjYwMm.C6hl5bN-nPW5DWugdSUcfmF4hYHpDs3CJa4iBfCK-MY')])
+2026-03-22 02:24:45 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292658416910564762.ics?t=8cb9df85e12c41abacb58703f4aff81c "HTTP/1.1 200 OK"
+2026-03-22 02:24:45 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2026-03-22 02:24:45 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-03-22 02:24:45 | DEBUG | httpcore.http11 | response_closed.started
+2026-03-22 02:24:45 | DEBUG | httpcore.http11 | response_closed.complete
+2026-03-22 02:24:45 | DEBUG | httpcore.connection | close.started
+2026-03-22 02:24:45 | DEBUG | httpcore.connection | close.complete
+2026-03-22 02:24:45 | INFO | src.fetcher | Fetched iCal successfully for property=prop_01
+2026-03-22 02:24:47 | INFO | src.fetcher | Fetching iCal for property=prop_02 (Property 02)
+2026-03-22 02:24:47 | DEBUG | httpcore.connection | connect_tcp.started host='www.airbnb.com' port=443 local_address=None timeout=30 socket_options=None
+2026-03-22 02:24:47 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68A31D0>
+2026-03-22 02:24:47 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x000001F0A685D880> server_hostname='www.airbnb.com' timeout=30
+2026-03-22 02:24:47 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68A2750>
+2026-03-22 02:24:47 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2026-03-22 02:24:47 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-03-22 02:24:47 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2026-03-22 02:24:47 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-03-22 02:24:47 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2026-03-22 02:24:47 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx'), (b'Content-Type', b'text/calendar;charset=utf-8'), (b'x-instrumentation', b'airbnb'), (b'x-server-lifecycle-phase', b'running'), (b'status', b'200 OK'), (b'x-kraken-loop-name', b'hanaro-treehouse'), (b'content-disposition', b'inline; filename="listing-1292664847387258979.ics"'), (b'x-app-git-sha', b'sha=7428ee8235e7c'), (b'x-envoy-upstream-service-time', b'185'), (b'x-instrumentation', b'airbnb'), (b'x-k8s-app-name', b'hanaro-treehouse-production'), (b'x-k8s-namespace', b'hanaro-treehouse-production'), (b'x-k8s-pod-name', b'hanaro-treehouse-production-7d47cb6b75-sk2td'), (b'x-server-api-method', b'CalendarExportResource#getExportedCalendarIcal'), (b'x-server-canonical-path', b'/calendar/{ical:(?i:ical)}/{listingId}.ics'), (b'x-server-lifecycle-phase', b'running'), (b'x-server-service-name', b'Hanaro'), (b'x-airbnb-internal-trace-id', b'58BldQMwzr0sKWOJXJI_sA=='), (b'Content-Encoding', b'gzip'), (b'Server-Timing', b'ingress;dur=185, upstream;dur=185'), (b'Strict-Transport-Security', b'max-age=10886400; includeSubdomains'), (b'X-Server-Name', b'www.airbnb.com'), (b'Content-Length', b'405'), (b'Expires', b'Sat, 21 Mar 2026 19:24:47 GMT'), (b'Cache-Control', b'max-age=0, no-cache, no-store'), (b'Pragma', b'no-cache'), (b'Date', b'Sat, 21 Mar 2026 19:24:47 GMT'), (b'Connection', b'keep-alive'), (b'Vary', b'Accept-Encoding'), (b'Set-Cookie', b'bev=1774121087_EAYzExN2NhYTk4MT; Path=/; Domain=.airbnb.com; Expires=Mon, 20-Mar-2028 19:24:47 GMT; Max-Age=63072000; Secure'), (b'Set-Cookie', b'everest_cookie=1774121087.EAMTVjNzYxYTM2MzA5ZD.3V3xQVW5JBsQgt5C3yiWz3b-jAkp4KhMl5sDIT-CIr0; expires=Tue, 20-Mar-2029 19:24:47 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'bev=1774121087_EAYzExN2NhYTk4MT; expires=Mon, 20-Mar-2028 19:24:47 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'country=TH; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'cdn_exp_abd8871b54fcbadab=treatment; expires=Wed, 20-May-2026 19:24:47 GMT; path=/; domain=.airbnb.com'), (b'Alt-Svc', b'h3=":443"; ma=93600'), (b'Akamai-Request-BC', b'[a=49.231.96.221,b=469597589,c=g,n=TH_90_HATYAI,o=131445],[c=c,n=JP_13_TOKYO,o=20940],[c=c,n=US_VA_ASHBURN,o=20940],[a=247,c=o]'), (b'x-airbnb-sureride', b'c1a1o.0.dd60e731.1774121087.1bfd7d95%%i1c1o%%t1d1o.58BldQMwzr0sKWOJXJI_sA==%%h1'), (b'Cachestatus', b'on'), (b'Server-Timing', b'cdn-cache; desc=MISS, edge; dur=336, origin; dur=195'), (b'origin-trial', b'AkOekvxwprBLSP7I2nhyRn5yZGt9lTJN6UIYziFKVYg5OhlzmlNDciWbBWkEQ5TYPz+aqsuIUT2pPEjPUD5dFAsAAABneyJvcmlnaW4iOiJodHRwczovL2FpcmJuYi5jb206NDQzIiwiZmVhdHVyZSI6IlByaW9yaXR5SGludHNBUEkiLCJleHBpcnkiOjE2NDc5OTM1OTksImlzU3ViZG9tYWluIjp0cnVlfQ=='), (b'x-browser-type', b'unknown'), (b'x-erf-bev-bev-is-generated', b'1'), (b'x-erf-bev-bev', b'1774121087_EAYzExN2NhYTk4MT'), (b'x-airbnb-everest-device-id', b'1774121087.EAMTVjNzYxYTM2MzA5ZD.3V3xQVW5JBsQgt5C3yiWz3b-jAkp4KhMl5sDIT-CIr0')])
+2026-03-22 02:24:47 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292664847387258979.ics?t=2e3baf6abd6441798de655393efe508d "HTTP/1.1 200 OK"
+2026-03-22 02:24:47 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2026-03-22 02:24:47 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-03-22 02:24:47 | DEBUG | httpcore.http11 | response_closed.started
+2026-03-22 02:24:47 | DEBUG | httpcore.http11 | response_closed.complete
+2026-03-22 02:24:47 | DEBUG | httpcore.connection | close.started
+2026-03-22 02:24:47 | DEBUG | httpcore.connection | close.complete
+2026-03-22 02:24:47 | INFO | src.fetcher | Fetched iCal successfully for property=prop_02
+2026-03-22 02:24:49 | INFO | src.fetcher | Fetching iCal for property=prop_03 (Property 03)
+2026-03-22 02:24:49 | DEBUG | httpcore.connection | connect_tcp.started host='www.airbnb.com' port=443 local_address=None timeout=30 socket_options=None
+2026-03-22 02:24:49 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68AA810>
+2026-03-22 02:24:49 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x000001F0A685DC70> server_hostname='www.airbnb.com' timeout=30
+2026-03-22 02:24:49 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68AA790>
+2026-03-22 02:24:49 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2026-03-22 02:24:49 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-03-22 02:24:49 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2026-03-22 02:24:49 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-03-22 02:24:49 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2026-03-22 02:24:50 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx'), (b'Content-Type', b'text/calendar;charset=utf-8'), (b'x-instrumentation', b'airbnb'), (b'x-server-lifecycle-phase', b'running'), (b'status', b'200 OK'), (b'x-kraken-loop-name', b'hanaro-treehouse'), (b'content-disposition', b'inline; filename="listing-1298286373838602814.ics"'), (b'x-app-git-sha', b'sha=7428ee8235e7c'), (b'x-envoy-upstream-service-time', b'146'), (b'x-instrumentation', b'airbnb'), (b'x-k8s-app-name', b'hanaro-treehouse-production'), (b'x-k8s-namespace', b'hanaro-treehouse-production'), (b'x-k8s-pod-name', b'hanaro-treehouse-production-8579f7df5-z52rk'), (b'x-server-api-method', b'CalendarExportResource#getExportedCalendarIcal'), (b'x-server-canonical-path', b'/calendar/{ical:(?i:ical)}/{listingId}.ics'), (b'x-server-lifecycle-phase', b'running'), (b'x-server-service-name', b'Hanaro'), (b'x-airbnb-internal-trace-id', b'wmQCJ2eFGYpI30n7vC6rKA=='), (b'Content-Encoding', b'gzip'), (b'Server-Timing', b'ingress;dur=146, upstream;dur=146'), (b'Strict-Transport-Security', b'max-age=10886400; includeSubdomains'), (b'X-Server-Name', b'www.airbnb.com'), (b'Content-Length', b'301'), (b'Expires', b'Sat, 21 Mar 2026 19:24:50 GMT'), (b'Cache-Control', b'max-age=0, no-cache, no-store'), (b'Pragma', b'no-cache'), (b'Date', b'Sat, 21 Mar 2026 19:24:50 GMT'), (b'Connection', b'keep-alive'), (b'Vary', b'Accept-Encoding'), (b'Set-Cookie', b'bev=1774121089_EAOGM3MzM2ZmI5NG; Path=/; Domain=.airbnb.com; Expires=Mon, 20-Mar-2028 19:24:50 GMT; Max-Age=63072000; Secure'), (b'Set-Cookie', b'everest_cookie=1774121089.EAOGE5YWU4ZDIwY2UyMW.gsPdsPsftyXsBVLrCcB73qSrtgB6S1kfTr5AvYVf_YQ; expires=Tue, 20-Mar-2029 19:24:50 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'bev=1774121089_EAOGM3MzM2ZmI5NG; expires=Mon, 20-Mar-2028 19:24:50 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'country=TH; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'cdn_exp_abd8871b54fcbadab=control; expires=Wed, 20-May-2026 19:24:50 GMT; path=/; domain=.airbnb.com'), (b'Alt-Svc', b'h3=":443"; ma=93600'), (b'Akamai-Request-BC', b'[a=49.231.96.197,b=313464908,c=g,n=TH_90_HATYAI,o=131445],[c=c,n=US_VA_ASHBURN,o=20940],[a=237,c=o]'), (b'x-airbnb-sureride', b'c1a1o.0.c560e731.1774121089.12af184c%%i1c1o%%t1d1o.wmQCJ2eFGYpI30n7vC6rKA==%%h1'), (b'Cachestatus', b'on'), (b'Server-Timing', b'cdn-cache; desc=MISS, edge; dur=276, origin; dur=154'), (b'origin-trial', b'AkOekvxwprBLSP7I2nhyRn5yZGt9lTJN6UIYziFKVYg5OhlzmlNDciWbBWkEQ5TYPz+aqsuIUT2pPEjPUD5dFAsAAABneyJvcmlnaW4iOiJodHRwczovL2FpcmJuYi5jb206NDQzIiwiZmVhdHVyZSI6IlByaW9yaXR5SGludHNBUEkiLCJleHBpcnkiOjE2NDc5OTM1OTksImlzU3ViZG9tYWluIjp0cnVlfQ=='), (b'x-browser-type', b'unknown'), (b'x-erf-bev-bev-is-generated', b'1'), (b'x-erf-bev-bev', b'1774121089_EAOGM3MzM2ZmI5NG'), (b'x-airbnb-everest-device-id', b'1774121089.EAOGE5YWU4ZDIwY2UyMW.gsPdsPsftyXsBVLrCcB73qSrtgB6S1kfTr5AvYVf_YQ')])
+2026-03-22 02:24:50 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298286373838602814.ics?t=5729dfe2a30c4156be4bb22b8814ad98 "HTTP/1.1 200 OK"
+2026-03-22 02:24:50 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2026-03-22 02:24:50 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-03-22 02:24:50 | DEBUG | httpcore.http11 | response_closed.started
+2026-03-22 02:24:50 | DEBUG | httpcore.http11 | response_closed.complete
+2026-03-22 02:24:50 | DEBUG | httpcore.connection | close.started
+2026-03-22 02:24:50 | DEBUG | httpcore.connection | close.complete
+2026-03-22 02:24:50 | INFO | src.fetcher | Fetched iCal successfully for property=prop_03
+2026-03-22 02:24:52 | INFO | src.fetcher | Fetching iCal for property=prop_04 (Property 04)
+2026-03-22 02:24:52 | DEBUG | httpcore.connection | connect_tcp.started host='www.airbnb.com' port=443 local_address=None timeout=30 socket_options=None
+2026-03-22 02:24:52 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68B5710>
+2026-03-22 02:24:52 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x000001F0A685E060> server_hostname='www.airbnb.com' timeout=30
+2026-03-22 02:24:52 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68B5750>
+2026-03-22 02:24:52 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2026-03-22 02:24:52 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-03-22 02:24:52 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2026-03-22 02:24:52 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-03-22 02:24:52 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2026-03-22 02:24:52 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx'), (b'Content-Type', b'text/calendar;charset=utf-8'), (b'x-instrumentation', b'airbnb'), (b'x-server-lifecycle-phase', b'running'), (b'status', b'200 OK'), (b'x-kraken-loop-name', b'hanaro-treehouse'), (b'content-disposition', b'inline; filename="listing-1291302241861413464.ics"'), (b'x-app-git-sha', b'sha=7428ee8235e7c'), (b'x-envoy-upstream-service-time', b'176'), (b'x-instrumentation', b'airbnb'), (b'x-k8s-app-name', b'hanaro-treehouse-production'), (b'x-k8s-namespace', b'hanaro-treehouse-production'), (b'x-k8s-pod-name', b'hanaro-treehouse-production-7d47cb6b75-98dcv'), (b'x-server-api-method', b'CalendarExportResource#getExportedCalendarIcal'), (b'x-server-canonical-path', b'/calendar/{ical:(?i:ical)}/{listingId}.ics'), (b'x-server-lifecycle-phase', b'running'), (b'x-server-service-name', b'Hanaro'), (b'x-airbnb-internal-trace-id', b'C-lAQdUlYELLvuetlvWLTw=='), (b'Content-Encoding', b'gzip'), (b'Server-Timing', b'ingress;dur=176, upstream;dur=176'), (b'Strict-Transport-Security', b'max-age=10886400; includeSubdomains'), (b'X-Server-Name', b'www.airbnb.com'), (b'Content-Length', b'396'), (b'Expires', b'Sat, 21 Mar 2026 19:24:52 GMT'), (b'Cache-Control', b'max-age=0, no-cache, no-store'), (b'Pragma', b'no-cache'), (b'Date', b'Sat, 21 Mar 2026 19:24:52 GMT'), (b'Connection', b'keep-alive'), (b'Vary', b'Accept-Encoding'), (b'Set-Cookie', b'bev=1774121092_EAOWNhOWZiMzM2Mz; Path=/; Domain=.airbnb.com; Expires=Mon, 20-Mar-2028 19:24:52 GMT; Max-Age=63072000; Secure'), (b'Set-Cookie', b'everest_cookie=1774121092.EAMmZiMzlkZjJkZGU2OD.5sOugTvDrFyPA6PojDu_Lz48PXRkvegvcSJuQ-PZkiI; expires=Tue, 20-Mar-2029 19:24:52 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'bev=1774121092_EAOWNhOWZiMzM2Mz; expires=Mon, 20-Mar-2028 19:24:52 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'country=TH; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'cdn_exp_abd8871b54fcbadab=treatment; expires=Wed, 20-May-2026 19:24:52 GMT; path=/; domain=.airbnb.com'), (b'Alt-Svc', b'h3=":443"; ma=93600'), (b'Akamai-Request-BC', b'[a=49.231.96.221,b=469598938,c=g,n=TH_90_HATYAI,o=131445],[c=c,n=US_VA_ASHBURN,o=20940],[a=247,c=o]'), (b'x-airbnb-sureride', b'c1a1o.0.dd60e731.1774121092.1bfd82da%%i1c1o%%t1d1o.C-lAQdUlYELLvuetlvWLTw==%%h1'), (b'Cachestatus', b'on'), (b'Server-Timing', b'cdn-cache; desc=MISS, edge; dur=296, origin; dur=250'), (b'origin-trial', b'AkOekvxwprBLSP7I2nhyRn5yZGt9lTJN6UIYziFKVYg5OhlzmlNDciWbBWkEQ5TYPz+aqsuIUT2pPEjPUD5dFAsAAABneyJvcmlnaW4iOiJodHRwczovL2FpcmJuYi5jb206NDQzIiwiZmVhdHVyZSI6IlByaW9yaXR5SGludHNBUEkiLCJleHBpcnkiOjE2NDc5OTM1OTksImlzU3ViZG9tYWluIjp0cnVlfQ=='), (b'x-browser-type', b'unknown'), (b'x-erf-bev-bev-is-generated', b'1'), (b'x-erf-bev-bev', b'1774121092_EAOWNhOWZiMzM2Mz'), (b'x-airbnb-everest-device-id', b'1774121092.EAMmZiMzlkZjJkZGU2OD.5sOugTvDrFyPA6PojDu_Lz48PXRkvegvcSJuQ-PZkiI')])
+2026-03-22 02:24:52 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1291302241861413464.ics?t=c508242628ca486e851da66567cc0f87 "HTTP/1.1 200 OK"
+2026-03-22 02:24:52 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2026-03-22 02:24:52 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-03-22 02:24:52 | DEBUG | httpcore.http11 | response_closed.started
+2026-03-22 02:24:52 | DEBUG | httpcore.http11 | response_closed.complete
+2026-03-22 02:24:52 | DEBUG | httpcore.connection | close.started
+2026-03-22 02:24:52 | DEBUG | httpcore.connection | close.complete
+2026-03-22 02:24:52 | INFO | src.fetcher | Fetched iCal successfully for property=prop_04
+2026-03-22 02:24:54 | INFO | src.fetcher | Fetching iCal for property=prop_05 (Property 05)
+2026-03-22 02:24:54 | DEBUG | httpcore.connection | connect_tcp.started host='www.airbnb.com' port=443 local_address=None timeout=30 socket_options=None
+2026-03-22 02:24:55 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68C0B50>
+2026-03-22 02:24:55 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x000001F0A685E450> server_hostname='www.airbnb.com' timeout=30
+2026-03-22 02:24:55 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68C0AD0>
+2026-03-22 02:24:55 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2026-03-22 02:24:55 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-03-22 02:24:55 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2026-03-22 02:24:55 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-03-22 02:24:55 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2026-03-22 02:24:55 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx'), (b'Content-Type', b'text/calendar;charset=utf-8'), (b'x-instrumentation', b'airbnb'), (b'x-server-lifecycle-phase', b'running'), (b'status', b'200 OK'), (b'x-kraken-loop-name', b'hanaro-treehouse'), (b'content-disposition', b'inline; filename="listing-1292667868790646090.ics"'), (b'x-app-git-sha', b'sha=7428ee8235e7c'), (b'x-envoy-upstream-service-time', b'139'), (b'x-instrumentation', b'airbnb'), (b'x-k8s-app-name', b'hanaro-treehouse-production'), (b'x-k8s-namespace', b'hanaro-treehouse-production'), (b'x-k8s-pod-name', b'hanaro-treehouse-production-7d47cb6b75-8rj25'), (b'x-server-api-method', b'CalendarExportResource#getExportedCalendarIcal'), (b'x-server-canonical-path', b'/calendar/{ical:(?i:ical)}/{listingId}.ics'), (b'x-server-lifecycle-phase', b'running'), (b'x-server-service-name', b'Hanaro'), (b'x-airbnb-internal-trace-id', b'785P13jcBoQZyXKNzOnrFg=='), (b'Content-Encoding', b'gzip'), (b'Server-Timing', b'ingress;dur=139, upstream;dur=139'), (b'Strict-Transport-Security', b'max-age=10886400; includeSubdomains'), (b'X-Server-Name', b'www.airbnb.com'), (b'Content-Length', b'302'), (b'Expires', b'Sat, 21 Mar 2026 19:24:55 GMT'), (b'Cache-Control', b'max-age=0, no-cache, no-store'), (b'Pragma', b'no-cache'), (b'Date', b'Sat, 21 Mar 2026 19:24:55 GMT'), (b'Connection', b'keep-alive'), (b'Vary', b'Accept-Encoding'), (b'Set-Cookie', b'bev=1774121095_EAMmRjOThjYjI3Mj; Path=/; Domain=.airbnb.com; Expires=Mon, 20-Mar-2028 19:24:55 GMT; Max-Age=63072000; Secure'), (b'Set-Cookie', b'everest_cookie=1774121095.EAZjUzYjczMDU1YmY5Zj.jIyQoz2jtxpVbqaBHARMDmLnBvmVE5t1XnaaCzB0ExU; expires=Tue, 20-Mar-2029 19:24:55 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'bev=1774121095_EAMmRjOThjYjI3Mj; expires=Mon, 20-Mar-2028 19:24:55 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'country=TH; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'cdn_exp_abd8871b54fcbadab=treatment; expires=Wed, 20-May-2026 19:24:55 GMT; path=/; domain=.airbnb.com'), (b'Alt-Svc', b'h3=":443"; ma=93600'), (b'Akamai-Request-BC', b'[a=49.231.96.221,b=469599476,c=g,n=TH_90_HATYAI,o=131445],[c=c,n=JP_13_TOKYO,o=20940],[c=c,n=US_VA_ASHBURN,o=20940],[a=247,c=o]'), (b'x-airbnb-sureride', b'c1a1o.0.dd60e731.1774121095.1bfd84f4%%i1c1o%%t1d1o.785P13jcBoQZyXKNzOnrFg==%%h1'), (b'Cachestatus', b'on'), (b'Server-Timing', b'cdn-cache; desc=MISS, edge; dur=254, origin; dur=144'), (b'origin-trial', b'AkOekvxwprBLSP7I2nhyRn5yZGt9lTJN6UIYziFKVYg5OhlzmlNDciWbBWkEQ5TYPz+aqsuIUT2pPEjPUD5dFAsAAABneyJvcmlnaW4iOiJodHRwczovL2FpcmJuYi5jb206NDQzIiwiZmVhdHVyZSI6IlByaW9yaXR5SGludHNBUEkiLCJleHBpcnkiOjE2NDc5OTM1OTksImlzU3ViZG9tYWluIjp0cnVlfQ=='), (b'x-browser-type', b'unknown'), (b'x-erf-bev-bev-is-generated', b'1'), (b'x-erf-bev-bev', b'1774121095_EAMmRjOThjYjI3Mj'), (b'x-airbnb-everest-device-id', b'1774121095.EAZjUzYjczMDU1YmY5Zj.jIyQoz2jtxpVbqaBHARMDmLnBvmVE5t1XnaaCzB0ExU')])
+2026-03-22 02:24:55 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292667868790646090.ics?t=90c9126d7fb4411bbed9eff5d3c766e4 "HTTP/1.1 200 OK"
+2026-03-22 02:24:55 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2026-03-22 02:24:55 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-03-22 02:24:55 | DEBUG | httpcore.http11 | response_closed.started
+2026-03-22 02:24:55 | DEBUG | httpcore.http11 | response_closed.complete
+2026-03-22 02:24:55 | DEBUG | httpcore.connection | close.started
+2026-03-22 02:24:55 | DEBUG | httpcore.connection | close.complete
+2026-03-22 02:24:55 | INFO | src.fetcher | Fetched iCal successfully for property=prop_05
+2026-03-22 02:24:57 | INFO | src.fetcher | Fetching iCal for property=prop_06 (Property 06)
+2026-03-22 02:24:57 | DEBUG | httpcore.connection | connect_tcp.started host='www.airbnb.com' port=443 local_address=None timeout=30 socket_options=None
+2026-03-22 02:24:57 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68C3E90>
+2026-03-22 02:24:57 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x000001F0A685E840> server_hostname='www.airbnb.com' timeout=30
+2026-03-22 02:24:57 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68C3E10>
+2026-03-22 02:24:57 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2026-03-22 02:24:57 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-03-22 02:24:57 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2026-03-22 02:24:57 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-03-22 02:24:57 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2026-03-22 02:24:58 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx'), (b'Content-Type', b'text/calendar;charset=utf-8'), (b'x-instrumentation', b'airbnb'), (b'x-server-lifecycle-phase', b'running'), (b'status', b'200 OK'), (b'x-kraken-loop-name', b'hanaro-treehouse'), (b'content-disposition', b'inline; filename="listing-1298350451641201758.ics"'), (b'x-app-git-sha', b'sha=7428ee8235e7c'), (b'x-envoy-upstream-service-time', b'147'), (b'x-instrumentation', b'airbnb'), (b'x-k8s-app-name', b'hanaro-treehouse-production'), (b'x-k8s-namespace', b'hanaro-treehouse-production'), (b'x-k8s-pod-name', b'hanaro-treehouse-production-8579f7df5-z52rk'), (b'x-server-api-method', b'CalendarExportResource#getExportedCalendarIcal'), (b'x-server-canonical-path', b'/calendar/{ical:(?i:ical)}/{listingId}.ics'), (b'x-server-lifecycle-phase', b'running'), (b'x-server-service-name', b'Hanaro'), (b'x-airbnb-internal-trace-id', b'NyCUdIu-WajGOBKZAGrNgg=='), (b'Content-Encoding', b'gzip'), (b'Server-Timing', b'ingress;dur=147, upstream;dur=147'), (b'Strict-Transport-Security', b'max-age=10886400; includeSubdomains'), (b'X-Server-Name', b'www.airbnb.com'), (b'Content-Length', b'302'), (b'Expires', b'Sat, 21 Mar 2026 19:24:57 GMT'), (b'Cache-Control', b'max-age=0, no-cache, no-store'), (b'Pragma', b'no-cache'), (b'Date', b'Sat, 21 Mar 2026 19:24:57 GMT'), (b'Connection', b'keep-alive'), (b'Vary', b'Accept-Encoding'), (b'Set-Cookie', b'bev=1774121097_EAN2Y1OGE1Mjk2MW; Path=/; Domain=.airbnb.com; Expires=Mon, 20-Mar-2028 19:24:57 GMT; Max-Age=63072000; Secure'), (b'Set-Cookie', b'everest_cookie=1774121097.EANjQyYzkzYzY0N2I5OT.JAiqq0TWiBlEaih2s9HkRpnczLtJESGQR0rcK0SSwao; expires=Tue, 20-Mar-2029 19:24:57 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'bev=1774121097_EAN2Y1OGE1Mjk2MW; expires=Mon, 20-Mar-2028 19:24:57 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'country=TH; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'cdn_exp_abd8871b54fcbadab=treatment; expires=Wed, 20-May-2026 19:24:57 GMT; path=/; domain=.airbnb.com'), (b'Alt-Svc', b'h3=":443"; ma=93600'), (b'Akamai-Request-BC', b'[a=49.231.96.197,b=313466474,c=g,n=TH_90_HATYAI,o=131445],[c=c,n=JP_13_TOKYO,o=20940],[c=c,n=US_VA_ASHBURN,o=20940],[a=237,c=o]'), (b'x-airbnb-sureride', b'c1a1o.0.c560e731.1774121097.12af1e6a%%i1c1o%%t1d1o.NyCUdIu-WajGOBKZAGrNgg==%%h1'), (b'Cachestatus', b'on'), (b'Server-Timing', b'cdn-cache; desc=MISS, edge; dur=252, origin; dur=154'), (b'origin-trial', b'AkOekvxwprBLSP7I2nhyRn5yZGt9lTJN6UIYziFKVYg5OhlzmlNDciWbBWkEQ5TYPz+aqsuIUT2pPEjPUD5dFAsAAABneyJvcmlnaW4iOiJodHRwczovL2FpcmJuYi5jb206NDQzIiwiZmVhdHVyZSI6IlByaW9yaXR5SGludHNBUEkiLCJleHBpcnkiOjE2NDc5OTM1OTksImlzU3ViZG9tYWluIjp0cnVlfQ=='), (b'x-browser-type', b'unknown'), (b'x-erf-bev-bev-is-generated', b'1'), (b'x-erf-bev-bev', b'1774121097_EAN2Y1OGE1Mjk2MW'), (b'x-airbnb-everest-device-id', b'1774121097.EANjQyYzkzYzY0N2I5OT.JAiqq0TWiBlEaih2s9HkRpnczLtJESGQR0rcK0SSwao')])
+2026-03-22 02:24:58 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298350451641201758.ics?t=95dd1dc4ed404c918e0bccd6c2e7b8b2 "HTTP/1.1 200 OK"
+2026-03-22 02:24:58 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2026-03-22 02:24:58 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-03-22 02:24:58 | DEBUG | httpcore.http11 | response_closed.started
+2026-03-22 02:24:58 | DEBUG | httpcore.http11 | response_closed.complete
+2026-03-22 02:24:58 | DEBUG | httpcore.connection | close.started
+2026-03-22 02:24:58 | DEBUG | httpcore.connection | close.complete
+2026-03-22 02:24:58 | INFO | src.fetcher | Fetched iCal successfully for property=prop_06
+2026-03-22 02:25:00 | INFO | src.fetcher | Fetching iCal for property=prop_07 (Property 07)
+2026-03-22 02:25:00 | DEBUG | httpcore.connection | connect_tcp.started host='www.airbnb.com' port=443 local_address=None timeout=30 socket_options=None
+2026-03-22 02:25:00 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A6227310>
+2026-03-22 02:25:00 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x000001F0A685E690> server_hostname='www.airbnb.com' timeout=30
+2026-03-22 02:25:00 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68C0A10>
+2026-03-22 02:25:00 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2026-03-22 02:25:00 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-03-22 02:25:00 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2026-03-22 02:25:00 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-03-22 02:25:00 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2026-03-22 02:25:00 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx'), (b'Content-Type', b'text/calendar;charset=utf-8'), (b'x-instrumentation', b'airbnb'), (b'x-server-lifecycle-phase', b'running'), (b'status', b'200 OK'), (b'x-kraken-loop-name', b'hanaro-treehouse'), (b'content-disposition', b'inline; filename="listing-1572209567626235879.ics"'), (b'x-app-git-sha', b'sha=7428ee8235e7c'), (b'x-envoy-upstream-service-time', b'127'), (b'x-instrumentation', b'airbnb'), (b'x-k8s-app-name', b'hanaro-treehouse-production'), (b'x-k8s-namespace', b'hanaro-treehouse-production'), (b'x-k8s-pod-name', b'hanaro-treehouse-production-7d47cb6b75-vlpkh'), (b'x-server-api-method', b'CalendarExportResource#getExportedCalendarIcal'), (b'x-server-canonical-path', b'/calendar/{ical:(?i:ical)}/{listingId}.ics'), (b'x-server-lifecycle-phase', b'running'), (b'x-server-service-name', b'Hanaro'), (b'x-airbnb-internal-trace-id', b'Vx6lrvq98tNiu6Kj4J8Enw=='), (b'Content-Encoding', b'gzip'), (b'Server-Timing', b'ingress;dur=127, upstream;dur=127'), (b'Strict-Transport-Security', b'max-age=10886400; includeSubdomains'), (b'X-Server-Name', b'www.airbnb.com'), (b'Content-Length', b'124'), (b'Expires', b'Sat, 21 Mar 2026 19:25:00 GMT'), (b'Cache-Control', b'max-age=0, no-cache, no-store'), (b'Pragma', b'no-cache'), (b'Date', b'Sat, 21 Mar 2026 19:25:00 GMT'), (b'Connection', b'keep-alive'), (b'Vary', b'Accept-Encoding'), (b'Set-Cookie', b'bev=1774121100_EAMWE0Njk1NTA0NG; Path=/; Domain=.airbnb.com; Expires=Mon, 20-Mar-2028 19:25:00 GMT; Max-Age=63072000; Secure'), (b'Set-Cookie', b'everest_cookie=1774121100.EAMmNhYzJkMTI3MWJiYz.BSolgzmVL7kt1slexd7ex4CZv3PRITVZ7WS6QlHO8M0; expires=Tue, 20-Mar-2029 19:25:00 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'bev=1774121100_EAMWE0Njk1NTA0NG; expires=Mon, 20-Mar-2028 19:25:00 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'country=TH; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'cdn_exp_abd8871b54fcbadab=control; expires=Wed, 20-May-2026 19:25:00 GMT; path=/; domain=.airbnb.com'), (b'Alt-Svc', b'h3=":443"; ma=93600'), (b'Akamai-Request-BC', b'[a=49.231.96.221,b=469600511,c=g,n=TH_90_HATYAI,o=131445],[c=c,n=US_VA_ASHBURN,o=20940],[a=247,c=o]'), (b'x-airbnb-sureride', b'c1a1o.0.dd60e731.1774121100.1bfd88ff%%i1c1o%%t1d1o.Vx6lrvq98tNiu6Kj4J8Enw==%%h1'), (b'Cachestatus', b'on'), (b'Server-Timing', b'cdn-cache; desc=MISS, edge; dur=282, origin; dur=166'), (b'origin-trial', b'AkOekvxwprBLSP7I2nhyRn5yZGt9lTJN6UIYziFKVYg5OhlzmlNDciWbBWkEQ5TYPz+aqsuIUT2pPEjPUD5dFAsAAABneyJvcmlnaW4iOiJodHRwczovL2FpcmJuYi5jb206NDQzIiwiZmVhdHVyZSI6IlByaW9yaXR5SGludHNBUEkiLCJleHBpcnkiOjE2NDc5OTM1OTksImlzU3ViZG9tYWluIjp0cnVlfQ=='), (b'x-browser-type', b'unknown'), (b'x-erf-bev-bev-is-generated', b'1'), (b'x-erf-bev-bev', b'1774121100_EAMWE0Njk1NTA0NG'), (b'x-airbnb-everest-device-id', b'1774121100.EAMmNhYzJkMTI3MWJiYz.BSolgzmVL7kt1slexd7ex4CZv3PRITVZ7WS6QlHO8M0')])
+2026-03-22 02:25:00 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1572209567626235879.ics?t=07d9856e7cf540119d00acab3a92b78f "HTTP/1.1 200 OK"
+2026-03-22 02:25:00 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2026-03-22 02:25:00 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-03-22 02:25:00 | DEBUG | httpcore.http11 | response_closed.started
+2026-03-22 02:25:00 | DEBUG | httpcore.http11 | response_closed.complete
+2026-03-22 02:25:00 | DEBUG | httpcore.connection | close.started
+2026-03-22 02:25:00 | DEBUG | httpcore.connection | close.complete
+2026-03-22 02:25:00 | INFO | src.fetcher | Fetched iCal successfully for property=prop_07
+2026-03-22 02:25:02 | INFO | src.fetcher | Fetching iCal for property=prop_08 (Property 08)
+2026-03-22 02:25:02 | DEBUG | httpcore.connection | connect_tcp.started host='www.airbnb.com' port=443 local_address=None timeout=30 socket_options=None
+2026-03-22 02:25:02 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68ABC10>
+2026-03-22 02:25:02 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x000001F0A685E2A0> server_hostname='www.airbnb.com' timeout=30
+2026-03-22 02:25:02 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68AABD0>
+2026-03-22 02:25:02 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2026-03-22 02:25:02 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-03-22 02:25:02 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2026-03-22 02:25:02 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-03-22 02:25:02 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2026-03-22 02:25:03 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx'), (b'Content-Type', b'text/calendar;charset=utf-8'), (b'x-instrumentation', b'airbnb'), (b'x-server-lifecycle-phase', b'running'), (b'status', b'200 OK'), (b'x-kraken-loop-name', b'hanaro-treehouse'), (b'content-disposition', b'inline; filename="listing-1581955295247196376.ics"'), (b'x-app-git-sha', b'sha=7428ee8235e7c'), (b'x-envoy-upstream-service-time', b'177'), (b'x-instrumentation', b'airbnb'), (b'x-k8s-app-name', b'hanaro-treehouse-production'), (b'x-k8s-namespace', b'hanaro-treehouse-production'), (b'x-k8s-pod-name', b'hanaro-treehouse-production-7d47cb6b75-8rj25'), (b'x-server-api-method', b'CalendarExportResource#getExportedCalendarIcal'), (b'x-server-canonical-path', b'/calendar/{ical:(?i:ical)}/{listingId}.ics'), (b'x-server-lifecycle-phase', b'running'), (b'x-server-service-name', b'Hanaro'), (b'x-airbnb-internal-trace-id', b'P2aJ-4gTC5eCLUC7vDjcSQ=='), (b'Content-Encoding', b'gzip'), (b'Server-Timing', b'ingress;dur=177, upstream;dur=177'), (b'Strict-Transport-Security', b'max-age=10886400; includeSubdomains'), (b'X-Server-Name', b'www.airbnb.com'), (b'Content-Length', b'338'), (b'Expires', b'Sat, 21 Mar 2026 19:25:03 GMT'), (b'Cache-Control', b'max-age=0, no-cache, no-store'), (b'Pragma', b'no-cache'), (b'Date', b'Sat, 21 Mar 2026 19:25:03 GMT'), (b'Connection', b'keep-alive'), (b'Vary', b'Accept-Encoding'), (b'Set-Cookie', b'bev=1774121102_EAOTg1NzRhMmMxMD; Path=/; Domain=.airbnb.com; Expires=Mon, 20-Mar-2028 19:25:02 GMT; Max-Age=63072000; Secure'), (b'Set-Cookie', b'everest_cookie=1774121102.EAMzFlZWY3ZDEzZTEwOW.4sOYvTQMVfHDWYLIoXcoW-_ZrUEUYvjfH77NM-SlvGg; expires=Tue, 20-Mar-2029 19:25:03 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'bev=1774121102_EAOTg1NzRhMmMxMD; expires=Mon, 20-Mar-2028 19:25:03 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'country=TH; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'cdn_exp_abd8871b54fcbadab=control; expires=Wed, 20-May-2026 19:25:03 GMT; path=/; domain=.airbnb.com'), (b'Alt-Svc', b'h3=":443"; ma=93600'), (b'Akamai-Request-BC', b'[a=49.231.96.221,b=469601612,c=g,n=TH_90_HATYAI,o=131445],[c=c,n=US_VA_ASHBURN,o=20940],[a=247,c=o]'), (b'x-airbnb-sureride', b'c1a1o.0.dd60e731.1774121102.1bfd8d4c%%i1c1o%%t1d1o.P2aJ-4gTC5eCLUC7vDjcSQ==%%h1'), (b'Cachestatus', b'on'), (b'Server-Timing', b'cdn-cache; desc=MISS, edge; dur=289, origin; dur=206'), (b'origin-trial', b'AkOekvxwprBLSP7I2nhyRn5yZGt9lTJN6UIYziFKVYg5OhlzmlNDciWbBWkEQ5TYPz+aqsuIUT2pPEjPUD5dFAsAAABneyJvcmlnaW4iOiJodHRwczovL2FpcmJuYi5jb206NDQzIiwiZmVhdHVyZSI6IlByaW9yaXR5SGludHNBUEkiLCJleHBpcnkiOjE2NDc5OTM1OTksImlzU3ViZG9tYWluIjp0cnVlfQ=='), (b'x-browser-type', b'unknown'), (b'x-erf-bev-bev-is-generated', b'1'), (b'x-erf-bev-bev', b'1774121102_EAOTg1NzRhMmMxMD'), (b'x-airbnb-everest-device-id', b'1774121102.EAMzFlZWY3ZDEzZTEwOW.4sOYvTQMVfHDWYLIoXcoW-_ZrUEUYvjfH77NM-SlvGg')])
+2026-03-22 02:25:03 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581955295247196376.ics?t=d77f130290ae41b499e7ab481f516f6e "HTTP/1.1 200 OK"
+2026-03-22 02:25:03 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2026-03-22 02:25:03 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-03-22 02:25:03 | DEBUG | httpcore.http11 | response_closed.started
+2026-03-22 02:25:03 | DEBUG | httpcore.http11 | response_closed.complete
+2026-03-22 02:25:03 | DEBUG | httpcore.connection | close.started
+2026-03-22 02:25:03 | DEBUG | httpcore.connection | close.complete
+2026-03-22 02:25:03 | INFO | src.fetcher | Fetched iCal successfully for property=prop_08
+2026-03-22 02:25:05 | INFO | src.fetcher | Fetching iCal for property=prop_09 (Property 09)
+2026-03-22 02:25:05 | DEBUG | httpcore.connection | connect_tcp.started host='www.airbnb.com' port=443 local_address=None timeout=30 socket_options=None
+2026-03-22 02:25:05 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68A8C90>
+2026-03-22 02:25:05 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x000001F0A685DBE0> server_hostname='www.airbnb.com' timeout=30
+2026-03-22 02:25:05 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68A9ED0>
+2026-03-22 02:25:05 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2026-03-22 02:25:05 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-03-22 02:25:05 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2026-03-22 02:25:05 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-03-22 02:25:05 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2026-03-22 02:25:05 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx'), (b'Content-Type', b'text/calendar;charset=utf-8'), (b'x-instrumentation', b'airbnb'), (b'x-server-lifecycle-phase', b'running'), (b'status', b'200 OK'), (b'x-kraken-loop-name', b'hanaro-treehouse'), (b'content-disposition', b'inline; filename="listing-1581947449551593237.ics"'), (b'x-app-git-sha', b'sha=7428ee8235e7c'), (b'x-envoy-upstream-service-time', b'132'), (b'x-instrumentation', b'airbnb'), (b'x-k8s-app-name', b'hanaro-treehouse-production'), (b'x-k8s-namespace', b'hanaro-treehouse-production'), (b'x-k8s-pod-name', b'hanaro-treehouse-production-8579f7df5-cbzdq'), (b'x-server-api-method', b'CalendarExportResource#getExportedCalendarIcal'), (b'x-server-canonical-path', b'/calendar/{ical:(?i:ical)}/{listingId}.ics'), (b'x-server-lifecycle-phase', b'running'), (b'x-server-service-name', b'Hanaro'), (b'x-airbnb-internal-trace-id', b'vEA9kqg1A2M0s9hqzcS5-Q=='), (b'Content-Encoding', b'gzip'), (b'Server-Timing', b'ingress;dur=132, upstream;dur=132'), (b'Strict-Transport-Security', b'max-age=10886400; includeSubdomains'), (b'X-Server-Name', b'www.airbnb.com'), (b'Content-Length', b'124'), (b'Expires', b'Sat, 21 Mar 2026 19:25:05 GMT'), (b'Cache-Control', b'max-age=0, no-cache, no-store'), (b'Pragma', b'no-cache'), (b'Date', b'Sat, 21 Mar 2026 19:25:05 GMT'), (b'Connection', b'keep-alive'), (b'Vary', b'Accept-Encoding'), (b'Set-Cookie', b'bev=1774121105_EAZDc2NTQ4ZTE1MW; Path=/; Domain=.airbnb.com; Expires=Mon, 20-Mar-2028 19:25:05 GMT; Max-Age=63072000; Secure'), (b'Set-Cookie', b'everest_cookie=1774121105.EAYmUxZGE4YzAzOTc5Yj.ff_0crVvGnXMfvIjvlZDh4mq3887nnztyiU_56aHh7U; expires=Tue, 20-Mar-2029 19:25:05 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'bev=1774121105_EAZDc2NTQ4ZTE1MW; expires=Mon, 20-Mar-2028 19:25:05 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'country=TH; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'cdn_exp_abd8871b54fcbadab=treatment; expires=Wed, 20-May-2026 19:25:05 GMT; path=/; domain=.airbnb.com'), (b'Alt-Svc', b'h3=":443"; ma=93600'), (b'Akamai-Request-BC', b'[a=49.231.96.197,b=313467898,c=g,n=TH_90_HATYAI,o=131445],[c=c,n=JP_13_TOKYO,o=20940],[c=c,n=US_VA_ASHBURN,o=20940],[a=237,c=o]'), (b'x-airbnb-sureride', b'c1a1o.0.c560e731.1774121105.12af23fa%%i1c1o%%t1d1o.vEA9kqg1A2M0s9hqzcS5-Q==%%h1'), (b'Cachestatus', b'on'), (b'Server-Timing', b'cdn-cache; desc=MISS, edge; dur=257, origin; dur=138'), (b'origin-trial', b'AkOekvxwprBLSP7I2nhyRn5yZGt9lTJN6UIYziFKVYg5OhlzmlNDciWbBWkEQ5TYPz+aqsuIUT2pPEjPUD5dFAsAAABneyJvcmlnaW4iOiJodHRwczovL2FpcmJuYi5jb206NDQzIiwiZmVhdHVyZSI6IlByaW9yaXR5SGludHNBUEkiLCJleHBpcnkiOjE2NDc5OTM1OTksImlzU3ViZG9tYWluIjp0cnVlfQ=='), (b'x-browser-type', b'unknown'), (b'x-erf-bev-bev-is-generated', b'1'), (b'x-erf-bev-bev', b'1774121105_EAZDc2NTQ4ZTE1MW'), (b'x-airbnb-everest-device-id', b'1774121105.EAYmUxZGE4YzAzOTc5Yj.ff_0crVvGnXMfvIjvlZDh4mq3887nnztyiU_56aHh7U')])
+2026-03-22 02:25:05 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581947449551593237.ics?t=52cf6fbbd7f34e83b286a344aa4ee9a8 "HTTP/1.1 200 OK"
+2026-03-22 02:25:05 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2026-03-22 02:25:05 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-03-22 02:25:05 | DEBUG | httpcore.http11 | response_closed.started
+2026-03-22 02:25:05 | DEBUG | httpcore.http11 | response_closed.complete
+2026-03-22 02:25:05 | DEBUG | httpcore.connection | close.started
+2026-03-22 02:25:05 | DEBUG | httpcore.connection | close.complete
+2026-03-22 02:25:05 | INFO | src.fetcher | Fetched iCal successfully for property=prop_09
+2026-03-22 02:25:07 | INFO | src.fetcher | Fetching iCal for property=prop_10 (Property 10)
+2026-03-22 02:25:07 | DEBUG | httpcore.connection | connect_tcp.started host='www.airbnb.com' port=443 local_address=None timeout=30 socket_options=None
+2026-03-22 02:25:07 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68A1C90>
+2026-03-22 02:25:07 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x000001F0A685D910> server_hostname='www.airbnb.com' timeout=30
+2026-03-22 02:25:07 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68D1490>
+2026-03-22 02:25:07 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2026-03-22 02:25:07 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-03-22 02:25:07 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2026-03-22 02:25:07 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-03-22 02:25:07 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2026-03-22 02:25:08 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx'), (b'Content-Type', b'text/calendar;charset=utf-8'), (b'x-instrumentation', b'airbnb'), (b'x-server-lifecycle-phase', b'running'), (b'status', b'200 OK'), (b'x-kraken-loop-name', b'hanaro-treehouse'), (b'content-disposition', b'inline; filename="listing-1581810809115787451.ics"'), (b'x-app-git-sha', b'sha=7428ee8235e7c'), (b'x-envoy-upstream-service-time', b'237'), (b'x-instrumentation', b'airbnb'), (b'x-k8s-app-name', b'hanaro-treehouse-production'), (b'x-k8s-namespace', b'hanaro-treehouse-production'), (b'x-k8s-pod-name', b'hanaro-treehouse-production-8579f7df5-k8675'), (b'x-server-api-method', b'CalendarExportResource#getExportedCalendarIcal'), (b'x-server-canonical-path', b'/calendar/{ical:(?i:ical)}/{listingId}.ics'), (b'x-server-lifecycle-phase', b'running'), (b'x-server-service-name', b'Hanaro'), (b'x-airbnb-internal-trace-id', b'urMyDxBtBDi-AnX3UZ81fA=='), (b'Content-Encoding', b'gzip'), (b'Server-Timing', b'ingress;dur=237, upstream;dur=237'), (b'Strict-Transport-Security', b'max-age=10886400; includeSubdomains'), (b'X-Server-Name', b'www.airbnb.com'), (b'Content-Length', b'338'), (b'Expires', b'Sat, 21 Mar 2026 19:25:08 GMT'), (b'Cache-Control', b'max-age=0, no-cache, no-store'), (b'Pragma', b'no-cache'), (b'Date', b'Sat, 21 Mar 2026 19:25:08 GMT'), (b'Connection', b'keep-alive'), (b'Vary', b'Accept-Encoding'), (b'Set-Cookie', b'bev=1774121107_EAYTMyZTcwZjkyZW; Path=/; Domain=.airbnb.com; Expires=Mon, 20-Mar-2028 19:25:08 GMT; Max-Age=63072000; Secure'), (b'Set-Cookie', b'everest_cookie=1774121107.EAYTQxMjNlYThjOWIxYj.Z76_L1pDGw6g1x-nObIztzNk9D9oP1zE6o8QufDmhRM; expires=Tue, 20-Mar-2029 19:25:08 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'bev=1774121107_EAYTMyZTcwZjkyZW; expires=Mon, 20-Mar-2028 19:25:08 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'country=TH; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'cdn_exp_abd8871b54fcbadab=treatment; expires=Wed, 20-May-2026 19:25:08 GMT; path=/; domain=.airbnb.com'), (b'Alt-Svc', b'h3=":443"; ma=93600'), (b'Akamai-Request-BC', b'[a=49.231.96.197,b=313468476,c=g,n=TH_90_HATYAI,o=131445],[c=c,n=US_VA_ASHBURN,o=20940],[a=237,c=o]'), (b'x-airbnb-sureride', b'c1a1o.0.c560e731.1774121107.12af263c%%i1c1o%%t1d1o.urMyDxBtBDi-AnX3UZ81fA==%%h1'), (b'Cachestatus', b'on'), (b'Server-Timing', b'cdn-cache; desc=MISS, edge; dur=358, origin; dur=277'), (b'origin-trial', b'AkOekvxwprBLSP7I2nhyRn5yZGt9lTJN6UIYziFKVYg5OhlzmlNDciWbBWkEQ5TYPz+aqsuIUT2pPEjPUD5dFAsAAABneyJvcmlnaW4iOiJodHRwczovL2FpcmJuYi5jb206NDQzIiwiZmVhdHVyZSI6IlByaW9yaXR5SGludHNBUEkiLCJleHBpcnkiOjE2NDc5OTM1OTksImlzU3ViZG9tYWluIjp0cnVlfQ=='), (b'x-browser-type', b'unknown'), (b'x-erf-bev-bev-is-generated', b'1'), (b'x-erf-bev-bev', b'1774121107_EAYTMyZTcwZjkyZW'), (b'x-airbnb-everest-device-id', b'1774121107.EAYTQxMjNlYThjOWIxYj.Z76_L1pDGw6g1x-nObIztzNk9D9oP1zE6o8QufDmhRM')])
+2026-03-22 02:25:08 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581810809115787451.ics?t=0b866cf127014723ace8b0df7941100d "HTTP/1.1 200 OK"
+2026-03-22 02:25:08 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2026-03-22 02:25:08 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-03-22 02:25:08 | DEBUG | httpcore.http11 | response_closed.started
+2026-03-22 02:25:08 | DEBUG | httpcore.http11 | response_closed.complete
+2026-03-22 02:25:08 | DEBUG | httpcore.connection | close.started
+2026-03-22 02:25:08 | DEBUG | httpcore.connection | close.complete
+2026-03-22 02:25:08 | INFO | src.fetcher | Fetched iCal successfully for property=prop_10
+2026-03-22 02:25:10 | INFO | src.fetcher | Fetching iCal for property=prop_11 (Property 11)
+2026-03-22 02:25:10 | DEBUG | httpcore.connection | connect_tcp.started host='www.airbnb.com' port=443 local_address=None timeout=30 socket_options=None
+2026-03-22 02:25:10 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68D2FD0>
+2026-03-22 02:25:10 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x000001F0A685EDE0> server_hostname='www.airbnb.com' timeout=30
+2026-03-22 02:25:10 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68D3490>
+2026-03-22 02:25:10 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2026-03-22 02:25:10 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-03-22 02:25:10 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2026-03-22 02:25:10 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-03-22 02:25:10 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2026-03-22 02:25:11 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx'), (b'Content-Type', b'text/calendar;charset=utf-8'), (b'x-instrumentation', b'airbnb'), (b'x-server-lifecycle-phase', b'running'), (b'status', b'200 OK'), (b'x-kraken-loop-name', b'hanaro-treehouse'), (b'content-disposition', b'inline; filename="listing-1292667868790646090.ics"'), (b'x-app-git-sha', b'sha=7428ee8235e7c'), (b'x-envoy-upstream-service-time', b'147'), (b'x-instrumentation', b'airbnb'), (b'x-k8s-app-name', b'hanaro-treehouse-production'), (b'x-k8s-namespace', b'hanaro-treehouse-production'), (b'x-k8s-pod-name', b'hanaro-treehouse-production-7d47cb6b75-n8bg6'), (b'x-server-api-method', b'CalendarExportResource#getExportedCalendarIcal'), (b'x-server-canonical-path', b'/calendar/{ical:(?i:ical)}/{listingId}.ics'), (b'x-server-lifecycle-phase', b'running'), (b'x-server-service-name', b'Hanaro'), (b'x-airbnb-internal-trace-id', b'7ijcw-cXge1hm7GsypfFvQ=='), (b'Content-Encoding', b'gzip'), (b'Server-Timing', b'ingress;dur=147, upstream;dur=147'), (b'Strict-Transport-Security', b'max-age=10886400; includeSubdomains'), (b'X-Server-Name', b'www.airbnb.com'), (b'Content-Length', b'302'), (b'Expires', b'Sat, 21 Mar 2026 19:25:11 GMT'), (b'Cache-Control', b'max-age=0, no-cache, no-store'), (b'Pragma', b'no-cache'), (b'Date', b'Sat, 21 Mar 2026 19:25:11 GMT'), (b'Connection', b'keep-alive'), (b'Vary', b'Accept-Encoding'), (b'Set-Cookie', b'bev=1774121110_EAZjE5YmRmYmI1Zm; Path=/; Domain=.airbnb.com; Expires=Mon, 20-Mar-2028 19:25:10 GMT; Max-Age=63072000; Secure'), (b'Set-Cookie', b'everest_cookie=1774121110.EAMmIyY2Q0ODJhYWY4Mm.0eSiFbevfajkQCpUusf68Qq5ZbaYW5oSgaNgY-H1Eyk; expires=Tue, 20-Mar-2029 19:25:11 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'bev=1774121110_EAZjE5YmRmYmI1Zm; expires=Mon, 20-Mar-2028 19:25:11 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'country=TH; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'cdn_exp_abd8871b54fcbadab=treatment; expires=Wed, 20-May-2026 19:25:11 GMT; path=/; domain=.airbnb.com'), (b'Alt-Svc', b'h3=":443"; ma=93600'), (b'Akamai-Request-BC', b'[a=49.231.96.221,b=469603535,c=g,n=TH_90_HATYAI,o=131445],[c=c,n=JP_13_TOKYO,o=20940],[c=c,n=US_VA_ASHBURN,o=20940],[a=247,c=o]'), (b'x-airbnb-sureride', b'c1a1o.0.dd60e731.1774121110.1bfd94cf%%i1c1o%%t1d1o.7ijcw-cXge1hm7GsypfFvQ==%%h1'), (b'Cachestatus', b'on'), (b'Server-Timing', b'cdn-cache; desc=MISS, edge; dur=295, origin; dur=158'), (b'origin-trial', b'AkOekvxwprBLSP7I2nhyRn5yZGt9lTJN6UIYziFKVYg5OhlzmlNDciWbBWkEQ5TYPz+aqsuIUT2pPEjPUD5dFAsAAABneyJvcmlnaW4iOiJodHRwczovL2FpcmJuYi5jb206NDQzIiwiZmVhdHVyZSI6IlByaW9yaXR5SGludHNBUEkiLCJleHBpcnkiOjE2NDc5OTM1OTksImlzU3ViZG9tYWluIjp0cnVlfQ=='), (b'x-browser-type', b'unknown'), (b'x-erf-bev-bev-is-generated', b'1'), (b'x-erf-bev-bev', b'1774121110_EAZjE5YmRmYmI1Zm'), (b'x-airbnb-everest-device-id', b'1774121110.EAMmIyY2Q0ODJhYWY4Mm.0eSiFbevfajkQCpUusf68Qq5ZbaYW5oSgaNgY-H1Eyk')])
+2026-03-22 02:25:11 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292667868790646090.ics?t=90c9126d7fb4411bbed9eff5d3c766e4 "HTTP/1.1 200 OK"
+2026-03-22 02:25:11 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2026-03-22 02:25:11 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-03-22 02:25:11 | DEBUG | httpcore.http11 | response_closed.started
+2026-03-22 02:25:11 | DEBUG | httpcore.http11 | response_closed.complete
+2026-03-22 02:25:11 | DEBUG | httpcore.connection | close.started
+2026-03-22 02:25:11 | DEBUG | httpcore.connection | close.complete
+2026-03-22 02:25:11 | INFO | src.fetcher | Fetched iCal successfully for property=prop_11
+2026-03-22 02:25:13 | INFO | src.fetcher | Fetching iCal for property=prop_12 (Property 12)
+2026-03-22 02:25:13 | DEBUG | httpcore.connection | connect_tcp.started host='www.airbnb.com' port=443 local_address=None timeout=30 socket_options=None
+2026-03-22 02:25:13 | DEBUG | httpcore.connection | connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68D8110>
+2026-03-22 02:25:13 | DEBUG | httpcore.connection | start_tls.started ssl_context=<ssl.SSLContext object at 0x000001F0A685F0B0> server_hostname='www.airbnb.com' timeout=30
+2026-03-22 02:25:13 | DEBUG | httpcore.connection | start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001F0A68D80D0>
+2026-03-22 02:25:13 | DEBUG | httpcore.http11 | send_request_headers.started request=<Request [b'GET']>
+2026-03-22 02:25:13 | DEBUG | httpcore.http11 | send_request_headers.complete
+2026-03-22 02:25:13 | DEBUG | httpcore.http11 | send_request_body.started request=<Request [b'GET']>
+2026-03-22 02:25:13 | DEBUG | httpcore.http11 | send_request_body.complete
+2026-03-22 02:25:13 | DEBUG | httpcore.http11 | receive_response_headers.started request=<Request [b'GET']>
+2026-03-22 02:25:13 | DEBUG | httpcore.http11 | receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Server', b'nginx'), (b'Content-Type', b'text/calendar;charset=utf-8'), (b'x-instrumentation', b'airbnb'), (b'x-server-lifecycle-phase', b'running'), (b'status', b'200 OK'), (b'x-kraken-loop-name', b'hanaro-treehouse'), (b'content-disposition', b'inline; filename="listing-1573104728411079591.ics"'), (b'x-app-git-sha', b'sha=7428ee8235e7c'), (b'x-envoy-upstream-service-time', b'131'), (b'x-instrumentation', b'airbnb'), (b'x-k8s-app-name', b'hanaro-treehouse-production'), (b'x-k8s-namespace', b'hanaro-treehouse-production'), (b'x-k8s-pod-name', b'hanaro-treehouse-production-8579f7df5-kphkw'), (b'x-server-api-method', b'CalendarExportResource#getExportedCalendarIcal'), (b'x-server-canonical-path', b'/calendar/{ical:(?i:ical)}/{listingId}.ics'), (b'x-server-lifecycle-phase', b'running'), (b'x-server-service-name', b'Hanaro'), (b'x-airbnb-internal-trace-id', b'ruGgRova_dKm6n_xfW6d5Q=='), (b'Content-Encoding', b'gzip'), (b'Server-Timing', b'ingress;dur=131, upstream;dur=131'), (b'Strict-Transport-Security', b'max-age=10886400; includeSubdomains'), (b'X-Server-Name', b'www.airbnb.com'), (b'Content-Length', b'124'), (b'Expires', b'Sat, 21 Mar 2026 19:25:13 GMT'), (b'Cache-Control', b'max-age=0, no-cache, no-store'), (b'Pragma', b'no-cache'), (b'Date', b'Sat, 21 Mar 2026 19:25:13 GMT'), (b'Connection', b'keep-alive'), (b'Vary', b'Accept-Encoding'), (b'Set-Cookie', b'bev=1774121113_EAOGQ4OGZiMWY4NG; Path=/; Domain=.airbnb.com; Expires=Mon, 20-Mar-2028 19:25:13 GMT; Max-Age=63072000; Secure'), (b'Set-Cookie', b'everest_cookie=1774121113.EAZDM0NTRlMDg2ODhiNz.nqZQbTDw3bf6Au8nO5pgcxaSDT39Coj2v4M1xk6_UsI; expires=Tue, 20-Mar-2029 19:25:13 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'bev=1774121113_EAOGQ4OGZiMWY4NG; expires=Mon, 20-Mar-2028 19:25:13 GMT; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'country=TH; path=/; domain=.airbnb.com; secure'), (b'Set-Cookie', b'cdn_exp_abd8871b54fcbadab=treatment; expires=Wed, 20-May-2026 19:25:13 GMT; path=/; domain=.airbnb.com'), (b'Alt-Svc', b'h3=":443"; ma=93600'), (b'Akamai-Request-BC', b'[a=49.231.96.197,b=313469418,c=g,n=TH_90_HATYAI,o=131445],[c=c,n=JP_13_TOKYO,o=20940],[c=c,n=US_VA_ASHBURN,o=20940],[a=237,c=o]'), (b'x-airbnb-sureride', b'c1a1o.0.c560e731.1774121113.12af29ea%%i1c1o%%t1d1o.ruGgRova_dKm6n_xfW6d5Q==%%h1'), (b'Cachestatus', b'on'), (b'Server-Timing', b'cdn-cache; desc=MISS, edge; dur=264, origin; dur=139'), (b'origin-trial', b'AkOekvxwprBLSP7I2nhyRn5yZGt9lTJN6UIYziFKVYg5OhlzmlNDciWbBWkEQ5TYPz+aqsuIUT2pPEjPUD5dFAsAAABneyJvcmlnaW4iOiJodHRwczovL2FpcmJuYi5jb206NDQzIiwiZmVhdHVyZSI6IlByaW9yaXR5SGludHNBUEkiLCJleHBpcnkiOjE2NDc5OTM1OTksImlzU3ViZG9tYWluIjp0cnVlfQ=='), (b'x-browser-type', b'unknown'), (b'x-erf-bev-bev-is-generated', b'1'), (b'x-erf-bev-bev', b'1774121113_EAOGQ4OGZiMWY4NG'), (b'x-airbnb-everest-device-id', b'1774121113.EAZDM0NTRlMDg2ODhiNz.nqZQbTDw3bf6Au8nO5pgcxaSDT39Coj2v4M1xk6_UsI')])
+2026-03-22 02:25:13 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1573104728411079591.ics?t=23a9b5c1ad784d9f85c26e9865a8910a "HTTP/1.1 200 OK"
+2026-03-22 02:25:13 | DEBUG | httpcore.http11 | receive_response_body.started request=<Request [b'GET']>
+2026-03-22 02:25:13 | DEBUG | httpcore.http11 | receive_response_body.complete
+2026-03-22 02:25:13 | DEBUG | httpcore.http11 | response_closed.started
+2026-03-22 02:25:13 | DEBUG | httpcore.http11 | response_closed.complete
+2026-03-22 02:25:13 | DEBUG | httpcore.connection | close.started
+2026-03-22 02:25:13 | DEBUG | httpcore.connection | close.complete
+2026-03-22 02:25:13 | INFO | src.fetcher | Fetched iCal successfully for property=prop_12
+2026-03-22 02:25:13 | INFO | __main__ | Occupancy update finished. Exported 12 properties to ./data/occupancy.json
+2026-03-22 02:33:04 | WARNING | src.fetcher | Network error fetching iCal (attempt 3/3): https://www.airbnb.com/calendar/ical/LISTING_ID_05.ics?s=SECRET_TOKEN_05 (Server disconnected without sending a response.)
+2026-03-22 02:33:04 | WARNING | src.fetcher | Failed to fetch property=prop_05: Failed to fetch iCal after 3 attempts: https://www.airbnb.com/calendar/ical/LISTING_ID_05.ics?s=SECRET_TOKEN_05
+2026-03-22 02:33:04 | INFO | src.scheduler | Received signal 2, shutting down scheduler...
+2026-03-22 02:33:04 | INFO | src.scheduler | Received signal 2, shutting down scheduler...
+2026-03-22 02:33:05 | INFO | src.scheduler | Received signal 2, shutting down scheduler...
+2026-03-22 02:33:05 | INFO | src.scheduler | Received signal 2, shutting down scheduler...
+2026-03-22 02:33:06 | INFO | src.fetcher | Fetching iCal for property=prop_06 (Property 06)
+2026-03-22 02:33:06 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/LISTING_ID_06.ics?s=SECRET_TOKEN_06 "HTTP/1.1 301 Moved Permanently"
+2026-03-22 02:34:45 | INFO | __main__ | Starting occupancy update cycle for 12 properties
+2026-03-22 02:34:45 | INFO | src.fetcher | Fetching iCal for property=prop_01 (Property 01)
+2026-03-22 02:34:46 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292658416910564762.ics?t=8cb9df85e12c41abacb58703f4aff81c "HTTP/1.1 200 OK"
+2026-03-22 02:34:46 | INFO | src.fetcher | Fetched iCal successfully for property=prop_01
+2026-03-22 02:34:48 | INFO | src.fetcher | Fetching iCal for property=prop_02 (Property 02)
+2026-03-22 02:34:48 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292664847387258979.ics?t=2e3baf6abd6441798de655393efe508d "HTTP/1.1 200 OK"
+2026-03-22 02:34:48 | INFO | src.fetcher | Fetched iCal successfully for property=prop_02
+2026-03-22 02:34:50 | INFO | src.fetcher | Fetching iCal for property=prop_03 (Property 03)
+2026-03-22 02:34:51 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298286373838602814.ics?t=5729dfe2a30c4156be4bb22b8814ad98 "HTTP/1.1 200 OK"
+2026-03-22 02:34:51 | INFO | src.fetcher | Fetched iCal successfully for property=prop_03
+2026-03-22 02:34:53 | INFO | src.fetcher | Fetching iCal for property=prop_04 (Property 04)
+2026-03-22 02:34:53 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1291302241861413464.ics?t=c508242628ca486e851da66567cc0f87 "HTTP/1.1 200 OK"
+2026-03-22 02:34:53 | INFO | src.fetcher | Fetched iCal successfully for property=prop_04
+2026-03-22 02:34:55 | INFO | src.fetcher | Fetching iCal for property=prop_05 (Property 05)
+2026-03-22 02:34:56 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292667868790646090.ics?t=90c9126d7fb4411bbed9eff5d3c766e4 "HTTP/1.1 200 OK"
+2026-03-22 02:34:56 | INFO | src.fetcher | Fetched iCal successfully for property=prop_05
+2026-03-22 02:34:58 | INFO | src.fetcher | Fetching iCal for property=prop_06 (Property 06)
+2026-03-22 02:34:58 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298350451641201758.ics?t=95dd1dc4ed404c918e0bccd6c2e7b8b2 "HTTP/1.1 200 OK"
+2026-03-22 02:34:58 | INFO | src.fetcher | Fetched iCal successfully for property=prop_06
+2026-03-22 02:35:00 | INFO | src.fetcher | Fetching iCal for property=prop_07 (Property 07)
+2026-03-22 02:35:01 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1572209567626235879.ics?t=07d9856e7cf540119d00acab3a92b78f "HTTP/1.1 200 OK"
+2026-03-22 02:35:01 | INFO | src.fetcher | Fetched iCal successfully for property=prop_07
+2026-03-22 02:35:03 | INFO | src.fetcher | Fetching iCal for property=prop_08 (Property 08)
+2026-03-22 02:35:04 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581955295247196376.ics?t=d77f130290ae41b499e7ab481f516f6e "HTTP/1.1 200 OK"
+2026-03-22 02:35:04 | INFO | src.fetcher | Fetched iCal successfully for property=prop_08
+2026-03-22 02:35:06 | INFO | src.fetcher | Fetching iCal for property=prop_09 (Property 09)
+2026-03-22 02:35:06 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581947449551593237.ics?t=52cf6fbbd7f34e83b286a344aa4ee9a8 "HTTP/1.1 200 OK"
+2026-03-22 02:35:06 | INFO | src.fetcher | Fetched iCal successfully for property=prop_09
+2026-03-22 02:35:08 | INFO | src.fetcher | Fetching iCal for property=prop_10 (Property 10)
+2026-03-22 02:35:09 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581810809115787451.ics?t=0b866cf127014723ace8b0df7941100d "HTTP/1.1 200 OK"
+2026-03-22 02:35:09 | INFO | src.fetcher | Fetched iCal successfully for property=prop_10
+2026-03-22 02:35:11 | INFO | src.fetcher | Fetching iCal for property=prop_11 (Property 11)
+2026-03-22 02:35:11 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292667868790646090.ics?t=90c9126d7fb4411bbed9eff5d3c766e4 "HTTP/1.1 200 OK"
+2026-03-22 02:35:11 | INFO | src.fetcher | Fetched iCal successfully for property=prop_11
+2026-03-22 02:35:13 | INFO | src.fetcher | Fetching iCal for property=prop_12 (Property 12)
+2026-03-22 02:35:14 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1573104728411079591.ics?t=23a9b5c1ad784d9f85c26e9865a8910a "HTTP/1.1 200 OK"
+2026-03-22 02:35:14 | INFO | src.fetcher | Fetched iCal successfully for property=prop_12
+2026-03-22 02:35:14 | INFO | __main__ | Occupancy update finished. Exported 12 properties to ./data/occupancy.json
+2026-03-22 02:37:16 | INFO | __main__ | Starting occupancy update cycle for 12 properties
+2026-03-22 02:37:16 | INFO | src.fetcher | Fetching iCal for property=prop_01 (Property 01)
+2026-03-22 02:37:16 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292658416910564762.ics?t=8cb9df85e12c41abacb58703f4aff81c "HTTP/1.1 200 OK"
+2026-03-22 02:37:16 | INFO | src.fetcher | Fetched iCal successfully for property=prop_01
+2026-03-22 02:37:18 | INFO | src.fetcher | Fetching iCal for property=prop_02 (Property 02)
+2026-03-22 02:37:19 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292664847387258979.ics?t=2e3baf6abd6441798de655393efe508d "HTTP/1.1 200 OK"
+2026-03-22 02:37:19 | INFO | src.fetcher | Fetched iCal successfully for property=prop_02
+2026-03-22 02:37:21 | INFO | src.fetcher | Fetching iCal for property=prop_03 (Property 03)
+2026-03-22 02:37:22 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298286373838602814.ics?t=5729dfe2a30c4156be4bb22b8814ad98 "HTTP/1.1 200 OK"
+2026-03-22 02:37:22 | INFO | src.fetcher | Fetched iCal successfully for property=prop_03
+2026-03-22 02:37:24 | INFO | src.fetcher | Fetching iCal for property=prop_04 (Property 04)
+2026-03-22 02:37:24 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1291302241861413464.ics?t=c508242628ca486e851da66567cc0f87 "HTTP/1.1 200 OK"
+2026-03-22 02:37:24 | INFO | src.fetcher | Fetched iCal successfully for property=prop_04
+2026-03-22 02:37:26 | INFO | src.fetcher | Fetching iCal for property=prop_05 (Property 05)
+2026-03-22 02:37:27 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292667868790646090.ics?t=90c9126d7fb4411bbed9eff5d3c766e4 "HTTP/1.1 200 OK"
+2026-03-22 02:37:27 | INFO | src.fetcher | Fetched iCal successfully for property=prop_05
+2026-03-22 02:37:29 | INFO | src.fetcher | Fetching iCal for property=prop_06 (Property 06)
+2026-03-22 02:37:29 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298350451641201758.ics?t=95dd1dc4ed404c918e0bccd6c2e7b8b2 "HTTP/1.1 200 OK"
+2026-03-22 02:37:29 | INFO | src.fetcher | Fetched iCal successfully for property=prop_06
+2026-03-22 02:37:31 | INFO | src.fetcher | Fetching iCal for property=prop_07 (Property 07)
+2026-03-22 02:37:32 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1572209567626235879.ics?t=07d9856e7cf540119d00acab3a92b78f "HTTP/1.1 200 OK"
+2026-03-22 02:37:32 | INFO | src.fetcher | Fetched iCal successfully for property=prop_07
+2026-03-22 02:37:34 | INFO | src.fetcher | Fetching iCal for property=prop_08 (Property 08)
+2026-03-22 02:37:35 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581955295247196376.ics?t=d77f130290ae41b499e7ab481f516f6e "HTTP/1.1 200 OK"
+2026-03-22 02:37:35 | INFO | src.fetcher | Fetched iCal successfully for property=prop_08
+2026-03-22 02:37:37 | INFO | src.fetcher | Fetching iCal for property=prop_09 (Property 09)
+2026-03-22 02:37:37 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581947449551593237.ics?t=52cf6fbbd7f34e83b286a344aa4ee9a8 "HTTP/1.1 200 OK"
+2026-03-22 02:37:37 | INFO | src.fetcher | Fetched iCal successfully for property=prop_09
+2026-03-22 02:37:39 | INFO | src.fetcher | Fetching iCal for property=prop_10 (Property 10)
+2026-03-22 02:37:40 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581810809115787451.ics?t=0b866cf127014723ace8b0df7941100d "HTTP/1.1 200 OK"
+2026-03-22 02:37:40 | INFO | src.fetcher | Fetched iCal successfully for property=prop_10
+2026-03-22 02:37:42 | INFO | src.fetcher | Fetching iCal for property=prop_11 (Property 11)
+2026-03-22 02:37:42 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292667868790646090.ics?t=90c9126d7fb4411bbed9eff5d3c766e4 "HTTP/1.1 200 OK"
+2026-03-22 02:37:42 | INFO | src.fetcher | Fetched iCal successfully for property=prop_11
+2026-03-22 02:37:44 | INFO | src.fetcher | Fetching iCal for property=prop_12 (Property 12)
+2026-03-22 02:37:45 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1573104728411079591.ics?t=23a9b5c1ad784d9f85c26e9865a8910a "HTTP/1.1 200 OK"
+2026-03-22 02:37:45 | INFO | src.fetcher | Fetched iCal successfully for property=prop_12
+2026-03-22 02:37:45 | INFO | __main__ | Occupancy update finished. Exported 12 properties to ./data/occupancy.json
+2026-03-22 04:40:12 | INFO | __main__ | Starting occupancy update cycle for 12 properties
+2026-03-22 04:40:12 | INFO | src.fetcher | Fetching iCal for property=prop_01 (Property 01)
+2026-03-22 04:40:13 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292658416910564762.ics?t=8cb9df85e12c41abacb58703f4aff81c "HTTP/1.1 200 OK"
+2026-03-22 04:40:13 | INFO | src.fetcher | Fetched iCal successfully for property=prop_01
+2026-03-22 04:40:15 | INFO | src.fetcher | Fetching iCal for property=prop_02 (Property 02)
+2026-03-22 04:40:16 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292664847387258979.ics?t=2e3baf6abd6441798de655393efe508d "HTTP/1.1 200 OK"
+2026-03-22 04:40:16 | INFO | src.fetcher | Fetched iCal successfully for property=prop_02
+2026-03-22 04:40:18 | INFO | src.fetcher | Fetching iCal for property=prop_03 (Property 03)
+2026-03-22 04:40:18 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298286373838602814.ics?t=5729dfe2a30c4156be4bb22b8814ad98 "HTTP/1.1 200 OK"
+2026-03-22 04:40:18 | INFO | src.fetcher | Fetched iCal successfully for property=prop_03
+2026-03-22 04:40:20 | INFO | src.fetcher | Fetching iCal for property=prop_04 (Property 04)
+2026-03-22 04:40:24 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1291302241861413464.ics?t=c508242628ca486e851da66567cc0f87 "HTTP/1.1 200 OK"
+2026-03-22 04:40:24 | INFO | src.fetcher | Fetched iCal successfully for property=prop_04
+2026-03-22 04:40:26 | INFO | src.fetcher | Fetching iCal for property=prop_05 (Property 05)
+2026-03-22 04:40:27 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292667868790646090.ics?t=90c9126d7fb4411bbed9eff5d3c766e4 "HTTP/1.1 200 OK"
+2026-03-22 04:40:27 | INFO | src.fetcher | Fetched iCal successfully for property=prop_05
+2026-03-22 04:40:29 | INFO | src.fetcher | Fetching iCal for property=prop_06 (Property 06)
+2026-03-22 04:40:29 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298350451641201758.ics?t=95dd1dc4ed404c918e0bccd6c2e7b8b2 "HTTP/1.1 200 OK"
+2026-03-22 04:40:29 | INFO | src.fetcher | Fetched iCal successfully for property=prop_06
+2026-03-22 04:40:31 | INFO | src.fetcher | Fetching iCal for property=prop_07 (Property 07)
+2026-03-22 04:40:32 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1572209567626235879.ics?t=07d9856e7cf540119d00acab3a92b78f "HTTP/1.1 200 OK"
+2026-03-22 04:40:32 | INFO | src.fetcher | Fetched iCal successfully for property=prop_07
+2026-03-22 04:40:34 | INFO | src.fetcher | Fetching iCal for property=prop_08 (Property 08)
+2026-03-22 04:40:35 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581955295247196376.ics?t=d77f130290ae41b499e7ab481f516f6e "HTTP/1.1 200 OK"
+2026-03-22 04:40:35 | INFO | src.fetcher | Fetched iCal successfully for property=prop_08
+2026-03-22 04:40:37 | INFO | src.fetcher | Fetching iCal for property=prop_09 (Property 09)
+2026-03-22 04:40:37 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581947449551593237.ics?t=52cf6fbbd7f34e83b286a344aa4ee9a8 "HTTP/1.1 200 OK"
+2026-03-22 04:40:37 | INFO | src.fetcher | Fetched iCal successfully for property=prop_09
+2026-03-22 04:40:39 | INFO | src.fetcher | Fetching iCal for property=prop_10 (Property 10)
+2026-03-22 04:40:40 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581810809115787451.ics?t=0b866cf127014723ace8b0df7941100d "HTTP/1.1 200 OK"
+2026-03-22 04:40:40 | INFO | src.fetcher | Fetched iCal successfully for property=prop_10
+2026-03-22 04:40:42 | INFO | src.fetcher | Fetching iCal for property=prop_11 (Property 11)
+2026-03-22 04:40:42 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581815830064787563.ics?t=665ab1d5fa7845ce9d9e75bebd96d159 "HTTP/1.1 200 OK"
+2026-03-22 04:40:42 | INFO | src.fetcher | Fetched iCal successfully for property=prop_11
+2026-03-22 04:40:44 | INFO | src.fetcher | Fetching iCal for property=prop_12 (Property 12)
+2026-03-22 04:40:45 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1573104728411079591.ics?t=23a9b5c1ad784d9f85c26e9865a8910a "HTTP/1.1 200 OK"
+2026-03-22 04:40:45 | INFO | src.fetcher | Fetched iCal successfully for property=prop_12
+2026-03-22 04:40:45 | INFO | __main__ | Occupancy update finished. Exported 12 properties to ./data/occupancy.json
+2026-03-22 09:05:15 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-03-22 09:05:15 | INFO | src.scheduler | Running immediate startup sync...
+2026-03-22 09:05:15 | INFO | __main__ | Starting occupancy update cycle for 12 properties
+2026-03-22 09:05:15 | INFO | src.fetcher | Fetching iCal for property=prop_01 (Property 01)
+2026-03-22 09:05:16 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292658416910564762.ics?t=8cb9df85e12c41abacb58703f4aff81c "HTTP/1.1 200 OK"
+2026-03-22 09:05:16 | INFO | src.fetcher | Fetched iCal successfully for property=prop_01
+2026-03-22 09:05:18 | INFO | src.fetcher | Fetching iCal for property=prop_02 (Property 02)
+2026-03-22 09:05:19 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292664847387258979.ics?t=2e3baf6abd6441798de655393efe508d "HTTP/1.1 200 OK"
+2026-03-22 09:05:19 | INFO | src.fetcher | Fetched iCal successfully for property=prop_02
+2026-03-22 09:05:21 | INFO | src.fetcher | Fetching iCal for property=prop_03 (Property 03)
+2026-03-22 09:05:21 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298286373838602814.ics?t=5729dfe2a30c4156be4bb22b8814ad98 "HTTP/1.1 200 OK"
+2026-03-22 09:05:21 | INFO | src.fetcher | Fetched iCal successfully for property=prop_03
+2026-03-22 09:05:23 | INFO | src.fetcher | Fetching iCal for property=prop_04 (Property 04)
+2026-03-22 09:05:24 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1291302241861413464.ics?t=c508242628ca486e851da66567cc0f87 "HTTP/1.1 200 OK"
+2026-03-22 09:05:24 | INFO | src.fetcher | Fetched iCal successfully for property=prop_04
+2026-03-22 09:05:26 | INFO | src.fetcher | Fetching iCal for property=prop_05 (Property 05)
+2026-03-22 09:05:27 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292667868790646090.ics?t=90c9126d7fb4411bbed9eff5d3c766e4 "HTTP/1.1 200 OK"
+2026-03-22 09:05:27 | INFO | src.fetcher | Fetched iCal successfully for property=prop_05
+2026-03-22 09:05:29 | INFO | src.fetcher | Fetching iCal for property=prop_06 (Property 06)
+2026-03-22 09:05:29 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298350451641201758.ics?t=95dd1dc4ed404c918e0bccd6c2e7b8b2 "HTTP/1.1 200 OK"
+2026-03-22 09:05:29 | INFO | src.fetcher | Fetched iCal successfully for property=prop_06
+2026-03-22 09:05:31 | INFO | src.fetcher | Fetching iCal for property=prop_07 (Property 07)
+2026-03-22 09:05:32 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1572209567626235879.ics?t=07d9856e7cf540119d00acab3a92b78f "HTTP/1.1 200 OK"
+2026-03-22 09:05:32 | INFO | src.fetcher | Fetched iCal successfully for property=prop_07
+2026-03-22 09:05:34 | INFO | src.fetcher | Fetching iCal for property=prop_08 (Property 08)
+2026-03-22 09:05:35 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581955295247196376.ics?t=d77f130290ae41b499e7ab481f516f6e "HTTP/1.1 200 OK"
+2026-03-22 09:05:35 | INFO | src.fetcher | Fetched iCal successfully for property=prop_08
+2026-03-22 09:05:37 | INFO | src.fetcher | Fetching iCal for property=prop_09 (Property 09)
+2026-03-22 09:05:38 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581947449551593237.ics?t=52cf6fbbd7f34e83b286a344aa4ee9a8 "HTTP/1.1 200 OK"
+2026-03-22 09:05:38 | INFO | src.fetcher | Fetched iCal successfully for property=prop_09
+2026-03-22 09:05:40 | INFO | src.fetcher | Fetching iCal for property=prop_10 (Property 10)
+2026-03-22 09:05:40 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581810809115787451.ics?t=0b866cf127014723ace8b0df7941100d "HTTP/1.1 200 OK"
+2026-03-22 09:05:40 | INFO | src.fetcher | Fetched iCal successfully for property=prop_10
+2026-03-22 09:05:42 | INFO | src.fetcher | Fetching iCal for property=prop_11 (Property 11)
+2026-03-22 09:05:43 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581815830064787563.ics?t=665ab1d5fa7845ce9d9e75bebd96d159 "HTTP/1.1 200 OK"
+2026-03-22 09:05:43 | INFO | src.fetcher | Fetched iCal successfully for property=prop_11
+2026-03-22 09:05:45 | INFO | src.fetcher | Fetching iCal for property=prop_12 (Property 12)
+2026-03-22 09:05:46 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1573104728411079591.ics?t=23a9b5c1ad784d9f85c26e9865a8910a "HTTP/1.1 200 OK"
+2026-03-22 09:05:46 | INFO | src.fetcher | Fetched iCal successfully for property=prop_12
+2026-03-22 09:05:46 | INFO | __main__ | Occupancy update finished. Exported 12 properties to ./data/occupancy.json
+2026-03-22 09:05:46 | INFO | __main__ | Calendar HTML exported to ./data/occupancy_calendar.html
+2026-03-22 09:05:46 | INFO | src.scheduler | Starting scheduler with cron: 0 2 * * *
+2026-03-22 09:05:46 | INFO | apscheduler.scheduler | Added job "main.<locals>.<lambda>" to job store "default"
+2026-03-22 09:05:46 | INFO | apscheduler.scheduler | Scheduler started
+2026-03-22 10:55:55 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-03-22 10:55:55 | INFO | src.scheduler | Running immediate startup sync...
+2026-03-22 10:55:55 | INFO | __main__ | Starting occupancy update cycle for 12 properties
+2026-03-22 10:55:55 | INFO | src.fetcher | Fetching iCal for property=prop_01 (Property 01)
+2026-03-22 10:55:56 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292658416910564762.ics?t=8cb9df85e12c41abacb58703f4aff81c "HTTP/1.1 200 OK"
+2026-03-22 10:55:56 | INFO | src.fetcher | Fetched iCal successfully for property=prop_01
+2026-03-22 10:55:58 | INFO | src.fetcher | Fetching iCal for property=prop_02 (Property 02)
+2026-03-22 10:55:58 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292664847387258979.ics?t=2e3baf6abd6441798de655393efe508d "HTTP/1.1 200 OK"
+2026-03-22 10:55:58 | INFO | src.fetcher | Fetched iCal successfully for property=prop_02
+2026-03-22 10:56:00 | INFO | src.fetcher | Fetching iCal for property=prop_03 (Property 03)
+2026-03-22 10:56:01 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298286373838602814.ics?t=5729dfe2a30c4156be4bb22b8814ad98 "HTTP/1.1 200 OK"
+2026-03-22 10:56:01 | INFO | src.fetcher | Fetched iCal successfully for property=prop_03
+2026-03-22 10:56:03 | INFO | src.fetcher | Fetching iCal for property=prop_04 (Property 04)
+2026-03-22 10:56:04 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1291302241861413464.ics?t=c508242628ca486e851da66567cc0f87 "HTTP/1.1 200 OK"
+2026-03-22 10:56:04 | INFO | src.fetcher | Fetched iCal successfully for property=prop_04
+2026-03-22 10:56:06 | INFO | src.fetcher | Fetching iCal for property=prop_05 (Property 05)
+2026-03-22 10:56:06 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292667868790646090.ics?t=90c9126d7fb4411bbed9eff5d3c766e4 "HTTP/1.1 200 OK"
+2026-03-22 10:56:06 | INFO | src.fetcher | Fetched iCal successfully for property=prop_05
+2026-03-22 10:56:08 | INFO | src.fetcher | Fetching iCal for property=prop_06 (Property 06)
+2026-03-22 10:56:09 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298350451641201758.ics?t=95dd1dc4ed404c918e0bccd6c2e7b8b2 "HTTP/1.1 200 OK"
+2026-03-22 10:56:09 | INFO | src.fetcher | Fetched iCal successfully for property=prop_06
+2026-03-22 10:56:11 | INFO | src.fetcher | Fetching iCal for property=prop_07 (Property 07)
+2026-03-22 10:56:11 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1572209567626235879.ics?t=07d9856e7cf540119d00acab3a92b78f "HTTP/1.1 200 OK"
+2026-03-22 10:56:11 | INFO | src.fetcher | Fetched iCal successfully for property=prop_07
+2026-03-22 10:56:13 | INFO | src.fetcher | Fetching iCal for property=prop_08 (Property 08)
+2026-03-22 10:56:14 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581955295247196376.ics?t=d77f130290ae41b499e7ab481f516f6e "HTTP/1.1 200 OK"
+2026-03-22 10:56:14 | INFO | src.fetcher | Fetched iCal successfully for property=prop_08
+2026-03-22 10:56:16 | INFO | src.fetcher | Fetching iCal for property=prop_09 (Property 09)
+2026-03-22 10:56:16 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581947449551593237.ics?t=52cf6fbbd7f34e83b286a344aa4ee9a8 "HTTP/1.1 200 OK"
+2026-03-22 10:56:16 | INFO | src.fetcher | Fetched iCal successfully for property=prop_09
+2026-03-22 10:56:18 | INFO | src.fetcher | Fetching iCal for property=prop_10 (Property 10)
+2026-03-22 10:56:19 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581810809115787451.ics?t=0b866cf127014723ace8b0df7941100d "HTTP/1.1 200 OK"
+2026-03-22 10:56:19 | INFO | src.fetcher | Fetched iCal successfully for property=prop_10
+2026-03-22 10:57:57 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-03-22 10:57:57 | INFO | src.scheduler | Running immediate startup sync...
+2026-03-22 10:57:57 | INFO | __main__ | Starting occupancy update cycle for 12 properties
+2026-03-22 10:57:57 | INFO | src.fetcher | Fetching iCal for property=prop_01 (Property 01)
+2026-03-22 10:57:57 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292658416910564762.ics?t=8cb9df85e12c41abacb58703f4aff81c "HTTP/1.1 200 OK"
+2026-03-22 10:57:57 | INFO | src.fetcher | Fetched iCal successfully for property=prop_01
+2026-03-22 10:57:59 | INFO | src.fetcher | Fetching iCal for property=prop_02 (Property 02)
+2026-03-22 10:58:00 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292664847387258979.ics?t=2e3baf6abd6441798de655393efe508d "HTTP/1.1 200 OK"
+2026-03-22 10:58:00 | INFO | src.fetcher | Fetched iCal successfully for property=prop_02
+2026-03-22 10:58:02 | INFO | src.fetcher | Fetching iCal for property=prop_03 (Property 03)
+2026-03-22 10:58:03 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298286373838602814.ics?t=5729dfe2a30c4156be4bb22b8814ad98 "HTTP/1.1 200 OK"
+2026-03-22 10:58:03 | INFO | src.fetcher | Fetched iCal successfully for property=prop_03
+2026-03-22 10:58:05 | INFO | src.fetcher | Fetching iCal for property=prop_04 (Property 04)
+2026-03-22 10:58:05 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1291302241861413464.ics?t=c508242628ca486e851da66567cc0f87 "HTTP/1.1 200 OK"
+2026-03-22 10:58:05 | INFO | src.fetcher | Fetched iCal successfully for property=prop_04
+2026-03-22 10:58:07 | INFO | src.fetcher | Fetching iCal for property=prop_05 (Property 05)
+2026-03-22 10:58:08 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292667868790646090.ics?t=90c9126d7fb4411bbed9eff5d3c766e4 "HTTP/1.1 200 OK"
+2026-03-22 10:58:08 | INFO | src.fetcher | Fetched iCal successfully for property=prop_05
+2026-03-22 10:58:10 | INFO | src.fetcher | Fetching iCal for property=prop_06 (Property 06)
+2026-03-22 10:58:10 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298350451641201758.ics?t=95dd1dc4ed404c918e0bccd6c2e7b8b2 "HTTP/1.1 200 OK"
+2026-03-22 10:58:10 | INFO | src.fetcher | Fetched iCal successfully for property=prop_06
+2026-03-22 10:58:12 | INFO | src.fetcher | Fetching iCal for property=prop_07 (Property 07)
+2026-03-22 10:58:13 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1572209567626235879.ics?t=07d9856e7cf540119d00acab3a92b78f "HTTP/1.1 200 OK"
+2026-03-22 10:58:13 | INFO | src.fetcher | Fetched iCal successfully for property=prop_07
+2026-03-22 10:58:15 | INFO | src.fetcher | Fetching iCal for property=prop_08 (Property 08)
+2026-03-22 10:58:15 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581955295247196376.ics?t=d77f130290ae41b499e7ab481f516f6e "HTTP/1.1 200 OK"
+2026-03-22 10:58:15 | INFO | src.fetcher | Fetched iCal successfully for property=prop_08
+2026-03-22 10:58:17 | INFO | src.fetcher | Fetching iCal for property=prop_09 (Property 09)
+2026-03-22 10:58:18 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581947449551593237.ics?t=52cf6fbbd7f34e83b286a344aa4ee9a8 "HTTP/1.1 200 OK"
+2026-03-22 10:58:18 | INFO | src.fetcher | Fetched iCal successfully for property=prop_09
+2026-03-22 10:58:20 | INFO | src.fetcher | Fetching iCal for property=prop_10 (Property 10)
+2026-03-22 10:58:20 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581810809115787451.ics?t=0b866cf127014723ace8b0df7941100d "HTTP/1.1 200 OK"
+2026-03-22 10:58:20 | INFO | src.fetcher | Fetched iCal successfully for property=prop_10
+2026-03-22 10:58:22 | INFO | src.fetcher | Fetching iCal for property=prop_11 (Property 11)
+2026-03-22 10:58:23 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581815830064787563.ics?t=665ab1d5fa7845ce9d9e75bebd96d159 "HTTP/1.1 200 OK"
+2026-03-22 10:58:23 | INFO | src.fetcher | Fetched iCal successfully for property=prop_11
+2026-03-22 10:58:25 | INFO | src.fetcher | Fetching iCal for property=prop_12 (Property 12)
+2026-03-22 10:58:26 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1573104728411079591.ics?t=23a9b5c1ad784d9f85c26e9865a8910a "HTTP/1.1 200 OK"
+2026-03-22 10:58:26 | INFO | src.fetcher | Fetched iCal successfully for property=prop_12
+2026-03-22 10:58:26 | INFO | __main__ | Occupancy update finished. Exported 12 properties to ./data/occupancy.json
+2026-03-22 10:58:26 | INFO | src.html_calendar | Calendar HTML exported to ./data/occupancy_calendar.html
+2026-03-22 10:58:26 | INFO | src.scheduler | Starting scheduler with cron: 0 2 * * *
+2026-03-22 10:58:26 | INFO | apscheduler.scheduler | Added job "main.<locals>.<lambda>" to job store "default"
+2026-03-22 10:58:26 | INFO | apscheduler.scheduler | Scheduler started
+2026-03-22 11:41:42 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-03-22 11:41:42 | INFO | src.scheduler | Running immediate startup sync...
+2026-03-22 11:41:42 | INFO | __main__ | Starting occupancy update cycle for 12 properties
+2026-03-22 11:41:42 | INFO | src.fetcher | Fetching iCal for property=prop_01 (Property 01)
+2026-03-22 11:41:43 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292658416910564762.ics?t=8cb9df85e12c41abacb58703f4aff81c "HTTP/1.1 200 OK"
+2026-03-22 11:41:43 | INFO | src.fetcher | Fetched iCal successfully for property=prop_01
+2026-03-22 11:41:45 | INFO | src.fetcher | Fetching iCal for property=prop_02 (Property 02)
+2026-03-22 11:41:45 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292664847387258979.ics?t=2e3baf6abd6441798de655393efe508d "HTTP/1.1 200 OK"
+2026-03-22 11:41:45 | INFO | src.fetcher | Fetched iCal successfully for property=prop_02
+2026-03-22 11:41:47 | INFO | src.fetcher | Fetching iCal for property=prop_03 (Property 03)
+2026-03-22 11:41:48 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298286373838602814.ics?t=5729dfe2a30c4156be4bb22b8814ad98 "HTTP/1.1 200 OK"
+2026-03-22 11:41:48 | INFO | src.fetcher | Fetched iCal successfully for property=prop_03
+2026-03-22 11:41:50 | INFO | src.fetcher | Fetching iCal for property=prop_04 (Property 04)
+2026-03-22 11:41:50 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1291302241861413464.ics?t=c508242628ca486e851da66567cc0f87 "HTTP/1.1 200 OK"
+2026-03-22 11:41:50 | INFO | src.fetcher | Fetched iCal successfully for property=prop_04
+2026-03-22 11:41:52 | INFO | src.fetcher | Fetching iCal for property=prop_05 (Property 05)
+2026-03-22 11:41:53 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292667868790646090.ics?t=90c9126d7fb4411bbed9eff5d3c766e4 "HTTP/1.1 200 OK"
+2026-03-22 11:41:53 | INFO | src.fetcher | Fetched iCal successfully for property=prop_05
+2026-03-22 11:41:55 | INFO | src.fetcher | Fetching iCal for property=prop_06 (Property 06)
+2026-03-22 11:41:55 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298350451641201758.ics?t=95dd1dc4ed404c918e0bccd6c2e7b8b2 "HTTP/1.1 200 OK"
+2026-03-22 11:41:55 | INFO | src.fetcher | Fetched iCal successfully for property=prop_06
+2026-03-22 11:41:57 | INFO | src.fetcher | Fetching iCal for property=prop_07 (Property 07)
+2026-03-22 11:41:58 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1572209567626235879.ics?t=07d9856e7cf540119d00acab3a92b78f "HTTP/1.1 200 OK"
+2026-03-22 11:41:58 | INFO | src.fetcher | Fetched iCal successfully for property=prop_07
+2026-03-22 11:42:00 | INFO | src.fetcher | Fetching iCal for property=prop_08 (Property 08)
+2026-03-22 11:42:01 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581955295247196376.ics?t=d77f130290ae41b499e7ab481f516f6e "HTTP/1.1 200 OK"
+2026-03-22 11:42:01 | INFO | src.fetcher | Fetched iCal successfully for property=prop_08
+2026-03-22 11:42:03 | INFO | src.fetcher | Fetching iCal for property=prop_09 (Property 09)
+2026-03-22 11:42:03 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581947449551593237.ics?t=52cf6fbbd7f34e83b286a344aa4ee9a8 "HTTP/1.1 200 OK"
+2026-03-22 11:42:03 | INFO | src.fetcher | Fetched iCal successfully for property=prop_09
+2026-03-22 11:42:05 | INFO | src.fetcher | Fetching iCal for property=prop_10 (Property 10)
+2026-03-22 11:42:06 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581810809115787451.ics?t=0b866cf127014723ace8b0df7941100d "HTTP/1.1 200 OK"
+2026-03-22 11:42:06 | INFO | src.fetcher | Fetched iCal successfully for property=prop_10
+2026-03-22 11:42:08 | INFO | src.fetcher | Fetching iCal for property=prop_11 (Property 11)
+2026-03-22 11:42:08 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581815830064787563.ics?t=665ab1d5fa7845ce9d9e75bebd96d159 "HTTP/1.1 200 OK"
+2026-03-22 11:42:08 | INFO | src.fetcher | Fetched iCal successfully for property=prop_11
+2026-03-22 11:42:10 | INFO | src.fetcher | Fetching iCal for property=prop_12 (Property 12)
+2026-03-22 11:42:11 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1573104728411079591.ics?t=23a9b5c1ad784d9f85c26e9865a8910a "HTTP/1.1 200 OK"
+2026-03-22 11:42:11 | INFO | src.fetcher | Fetched iCal successfully for property=prop_12
+2026-03-22 11:42:11 | INFO | __main__ | Occupancy update finished. Exported 12 properties to ./data/occupancy.json
+2026-03-22 11:42:11 | INFO | src.html_calendar | Calendar HTML exported to ./data/occupancy_calendar.html
+2026-03-22 11:42:11 | INFO | src.scheduler | Starting scheduler with cron: 0 2 * * *
+2026-03-22 11:42:11 | INFO | apscheduler.scheduler | Added job "main.<locals>.<lambda>" to job store "default"
+2026-03-22 11:42:11 | INFO | apscheduler.scheduler | Scheduler started

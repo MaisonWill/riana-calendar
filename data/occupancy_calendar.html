@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Календарь доступности</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --side-bg: #111113;
+    --side-surface: #1A1A1D;
+    --side-hover: #222226;
+    --side-active: #2A2A30;
+    --side-text: #909098;
+    --side-text-bright: #E8E8EC;
+    --side-border: #2A2A2E;
+    --side-accent: #D4A84B;
+    --side-accent-dim: rgba(212,168,75,0.1);
+    --bg: #F4F2EE;
+    --surface: #FFFFFF;
+    --text: #1A1A1C;
+    --text-sec: #6E6E76;
+    --text-muted: #AEAEB4;
+    --border: #E2DFD9;
+    --border-light: #EDEBE6;
+    --free-bg: #D5F0D5;
+    --free-bg-hover: #C0E8C0;
+    --free-text: #2D6B2D;
+    --booked-bg: #F5D0D0;
+    --booked-bg-hover: #EEBCBC;
+    --booked-text: #8B3A3A;
+    --today-ring: #4A7ACC;
+    --today-bg: #D8E6F8;
+    --today-text: #2A5090;
+    --past-opacity: 0.4;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --sidebar-w: 280px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); display: flex; overflow: hidden; }
+  .sidebar { width: var(--sidebar-w); min-width: var(--sidebar-w); height: 100vh; background: var(--side-bg); display: flex; flex-direction: column; position: relative; z-index: 10; flex-shrink: 0; }
+  .sidebar::after { content: ''; position: absolute; top: 0; right: 0; width: 1px; height: 100%; background: linear-gradient(180deg, transparent 5%, rgba(212,168,75,0.12) 30%, rgba(212,168,75,0.12) 70%, transparent 95%); }
+  .side-header { padding: 24px 20px 18px; border-bottom: 1px solid var(--side-border); flex-shrink: 0; }
+  .side-brand { display: flex; align-items: center; gap: 12px; }
+  .side-logo { width: 34px; height: 34px; background: linear-gradient(135deg, var(--side-accent), #B8922E); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .side-logo svg { width: 17px; height: 17px; color: #111; }
+  .side-title { font-size: 15px; font-weight: 600; color: var(--side-text-bright); letter-spacing: -0.2px; line-height: 1.25; }
+  .side-subtitle { font-size: 11px; color: var(--side-text); margin-top: 8px; opacity: 0.6; }
+  .side-label { padding: 16px 20px 8px; font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.8px; color: var(--side-text); opacity: 0.4; flex-shrink: 0; }
+  .side-list { flex: 1; overflow-y: auto; padding: 0 8px 16px; scrollbar-width: thin; scrollbar-color: var(--side-border) transparent; }
+  .side-list::-webkit-scrollbar { width: 3px; }
+  .side-list::-webkit-scrollbar-track { background: transparent; }
+  .side-list::-webkit-scrollbar-thumb { background: var(--side-border); border-radius: 2px; }
+  .prop-btn { width: 100%; padding: 10px 14px; border: none; background: transparent; border-radius: 8px; cursor: pointer; text-align: left; font-family: inherit; transition: all 0.15s var(--ease); margin-bottom: 1px; position: relative; display: flex; align-items: center; gap: 10px; }
+  .prop-btn:hover { background: var(--side-hover); }
+  .prop-btn.active { background: var(--side-active); }
+  .prop-btn.active::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 20px; background: var(--side-accent); border-radius: 0 3px 3px 0; }
+  .prop-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; transition: background 0.15s var(--ease); }
+  .prop-btn.active .prop-dot { background: var(--side-accent); }
+  .prop-btn:not(.active) .prop-dot { background: var(--side-border); }
+  .prop-btn:hover:not(.active) .prop-dot { background: var(--side-text); }
+  .prop-name { font-size: 13px; font-weight: 400; color: var(--side-text); letter-spacing: -0.01em; line-height: 1.3; transition: color 0.15s var(--ease); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .prop-btn:hover .prop-name { color: var(--side-text-bright); }
+  .prop-btn.active .prop-name { color: var(--side-text-bright); font-weight: 550; }
+  .prop-row { display: flex; align-items: stretch; gap: 6px; margin-bottom: 4px; }
+  .prop-row .prop-btn { flex: 1; margin-bottom: 0; min-width: 0; }
+  .gdrive-btn {
+    flex-shrink: 0; width: 38px; min-width: 38px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--side-surface); border: 1px solid var(--side-border);
+    border-radius: 8px; color: var(--side-accent); text-decoration: none;
+    transition: background 0.15s var(--ease), transform 0.1s var(--ease);
+  }
+  .gdrive-btn:hover { background: var(--side-hover); transform: scale(1.04); }
+  .gdrive-btn svg { width: 18px; height: 18px; display: block; }
+  .mini-badges { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; font-size: 11px; font-weight: 500; opacity: 0.9; margin-left: 2px; vertical-align: middle; }
+  .mini-badges .badge-item { display: inline-flex; align-items: center; gap: 3px; color: var(--side-text); }
+  .prop-btn.active .mini-badges .badge-item { color: var(--side-text-bright); }
+  .side-footer { padding: 14px 20px; border-top: 1px solid var(--side-border); flex-shrink: 0; }
+  .side-gen { font-size: 10px; color: var(--side-text); opacity: 0.35; font-family: 'JetBrains Mono', monospace; }
+  .main { flex: 1; height: 100vh; overflow-y: auto; position: relative; }
+  .main::-webkit-scrollbar { width: 8px; }
+  .main::-webkit-scrollbar-track { background: transparent; }
+  .main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  .topbar { position: sticky; top: 0; z-index: 50; background: var(--bg); padding: 20px 32px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; transition: box-shadow 0.3s var(--ease); flex-wrap: wrap; }
+  .topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+  .topbar-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
+  .prop-title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.4px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; max-width: 100%; }
+  .prop-title .pt-name { font-weight: 700; }
+  .prop-title .pt-badges { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-size: 17px; font-weight: 600; color: var(--text-sec); }
+  .prop-title .badge-item { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+  .prop-title .badge-item .bi { font-size: 1.1em; line-height: 1; opacity: 0.95; }
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--text-sec); flex-shrink: 0; }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-swatch { width: 16px; height: 16px; border-radius: 4px; }
+  .legend-swatch.s-free { background: var(--free-bg); border: 1px solid #B8E0B8; }
+  .legend-swatch.s-booked { background: var(--booked-bg); border: 1px solid #E8B8B8; }
+  .legend-swatch.s-today { background: var(--today-bg); border: 1px solid #B8CEE8; }
+  .mobile-bar { display: none; }
+  .mob-select { width: 100%; padding: 12px 40px 12px 14px; background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 14px; font-weight: 500; color: var(--text); font-family: inherit; appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%236E6E76' stroke-width='2' stroke-linecap='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='4 6 8 10 12 6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; cursor: pointer; }
+  .mob-select:focus { outline: none; border-color: var(--today-ring); box-shadow: 0 0 0 3px rgba(74,122,204,0.1); }
+  .month-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 4px 32px 48px; }
+  .month-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border-light); padding: 16px 14px 12px; transition: box-shadow 0.2s var(--ease), transform 0.2s var(--ease); opacity: 0; transform: translateY(8px); animation: cardIn 0.4s var(--ease) forwards; }
+  .month-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.05); transform: translateY(-1px); }
+  .month-card:nth-child(1){animation-delay:.02s}.month-card:nth-child(2){animation-delay:.05s}.month-card:nth-child(3){animation-delay:.08s}.month-card:nth-child(4){animation-delay:.11s}.month-card:nth-child(5){animation-delay:.14s}.month-card:nth-child(6){animation-delay:.17s}.month-card:nth-child(7){animation-delay:.20s}.month-card:nth-child(8){animation-delay:.23s}.month-card:nth-child(9){animation-delay:.26s}.month-card:nth-child(10){animation-delay:.29s}.month-card:nth-child(11){animation-delay:.32s}.month-card:nth-child(12){animation-delay:.35s}
+  .mc-header { display: flex; align-items: baseline; gap: 6px; margin-bottom: 10px; padding: 0 2px; }
+  .mc-month { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -0.2px; }
+  .mc-year { font-size: 12px; font-weight: 400; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+  .mc-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 4px; }
+  .mc-wd { text-align: center; font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); padding: 2px 0 4px; }
+  .mc-wd.wd-end { color: #C4B898; }
+  .mc-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+  .mc-empty { aspect-ratio: 1; }
+  .mc-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 5px; font-size: 12px; font-weight: 500; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; cursor: default; transition: all 0.12s var(--ease); position: relative; }
+  .mc-day.free { background: var(--free-bg); color: var(--free-text); }
+  .mc-day.free:hover { background: var(--free-bg-hover); transform: scale(1.12); z-index: 2; box-shadow: 0 2px 8px rgba(45,107,45,0.15); }
+  .mc-day.booked { background: var(--booked-bg); color: var(--booked-text); }
+  .mc-day.booked:hover { background: var(--booked-bg-hover); }
+  .mc-day.today { background: var(--today-bg); color: var(--today-text); font-weight: 700; box-shadow: 0 0 0 2px rgba(74,122,204,0.2); }
+  .mc-day.past { opacity: var(--past-opacity); }
+  .mc-day.past.free { background: #E8F0E8; }
+  .mc-day.past.booked { background: #F0E0E0; }
+  @keyframes cardIn { to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 1200px) { .month-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 900px) { .month-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 4px 20px 48px; } .topbar { padding: 16px 20px 12px; } .prop-title { font-size: 18px; } }
+  @media (max-width: 680px) { body { flex-direction: column; overflow: auto; } html, body { overflow: auto; height: auto; } .sidebar { display: none; } .mobile-bar { display: block; padding: 16px 16px 0; background: var(--bg); position: sticky; top: 0; z-index: 60; } .main { height: auto; overflow: visible; } .topbar { padding: 12px 16px 10px; flex-direction: column; align-items: flex-start; } .prop-title { font-size: 17px; } .legend { gap: 12px; } .legend-item { font-size: 11px; } .month-grid { grid-template-columns: 1fr; gap: 12px; padding: 4px 16px 40px; } .month-card { padding: 18px 16px 14px; } .mc-day { font-size: 13px; } .mc-month { font-size: 16px; } }
+  .main::before { content: ''; position: fixed; top: 0; left: var(--sidebar-w); right: 0; bottom: 0; pointer-events: none; z-index: 999; opacity: 0.01; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 256px; }
+  @media (max-width: 680px) { .main::before { left: 0; } }
+  ::selection { background: var(--today-bg); color: var(--today-text); }
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="side-header">
+    <div class="side-brand">
+      <div class="side-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div class="side-title">Календарь<br>доступности</div>
+    </div>
+    <div class="side-subtitle">12 объектов · Год вперёд</div>
+  </div>
+  <div class="side-label">Объекты</div>
+  <div class="side-list" id="sideList"></div>
+  <div class="side-footer"><div class="side-gen" id="sideGen"></div></div>
+</aside>
+<main class="main" id="mainArea">
+  <div class="mobile-bar"><select class="mob-select" id="mobSelect" onchange="selectProp(this.value)"></select></div>
+  <div class="topbar" id="topbar">
+    <div class="topbar-left"><div class="prop-title" id="propTitle"></div></div>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-swatch s-free"></span> Свободно</span>
+      <span class="legend-item"><span class="legend-swatch s-booked"></span> Занято</span>
+      <span class="legend-item"><span class="legend-swatch s-today"></span> Сегодня</span>
+    </div>
+  </div>
+  <div class="month-grid" id="monthGrid"></div>
+</main>
+<script>
+const CALENDAR_DATA = {"properties":[{"id":"prop_01","name":"UNIT 1","display_name":"UNIT 1","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_02","name":"UNIT 2","display_name":"UNIT 2","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_03","name":"UNIT 3","display_name":"UNIT 3","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_04","name":"UNIT 4","display_name":"UNIT 4","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_05","name":"UNIT 5","display_name":"UNIT 5","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_06","name":"UNIT 6","display_name":"UNIT 6","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_07","name":"UNIT 1.1","display_name":"UNIT 1.1","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_08","name":"UNIT 1.2","display_name":"UNIT 1.2","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_09","name":"UNIT 1.3","display_name":"UNIT 1.3","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_10","name":"UNIT 1.4","display_name":"UNIT 1.4","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"},{"id":"prop_11","name":"UNIT 1.5","display_name":"UNIT 1.5","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"},{"id":"prop_12","name":"UNIT 1.6","display_name":"UNIT 1.6","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"}],"bookings":{"prop_01":[{"start":"2026-03-22","end":"2026-03-27"},{"start":"2026-03-28","end":"2026-04-16"},{"start":"2026-07-23","end":"2026-08-23"}],"prop_02":[{"start":"2026-03-22","end":"2026-04-17"}],"prop_03":[],"prop_04":[{"start":"2026-03-22","end":"2026-04-09"},{"start":"2026-06-08","end":"2026-07-07"}],"prop_05":[],"prop_06":[],"prop_07":[],"prop_08":[{"start":"2026-03-22","end":"2026-06-04"}],"prop_09":[],"prop_10":[{"start":"2026-07-11","end":"2026-07-24"}],"prop_11":[{"start":"2026-03-22","end":"2026-03-26"},{"start":"2026-04-14","end":"2026-06-13"}],"prop_12":[]},"generated_at":"2026-03-22T11:42:11.353929"};
+
+const MO = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+const WD = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+const ICON_GDRIVE = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>';
+let sel = CALENDAR_DATA.properties[0].id;
+const today = new Date(); today.setHours(0,0,0,0);
+const todayKey = tk(today);
+const bSets = {};
+CALENDAR_DATA.properties.forEach(p => {
+  const s = new Set();
+  (CALENDAR_DATA.bookings[p.id]||[]).forEach(b => {
+    const d0 = new Date(b.start+'T00:00:00'), d1 = new Date(b.end+'T00:00:00');
+    for (let d = new Date(d0); d <= d1; d.setDate(d.getDate()+1)) s.add(tk(d));
+  });
+  bSets[p.id] = s;
+});
+function tk(d) { return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function dow(d) { const v=d.getDay(); return v===0?6:v-1; }
+function esc(s) {
+  if (s == null || s === undefined) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(s) { return esc(s).replace(/'/g, '&#39;'); }
+function formatBadges(p, mini) {
+  var h = '';
+  if (p.bedrooms != null && p.bedrooms !== '') h += '<span class="badge-item" title="Спальни"><span class="bi">🛏</span>'+esc(String(p.bedrooms))+'</span>';
+  if (p.bathrooms != null && p.bathrooms !== '') h += '<span class="badge-item" title="Ванные"><span class="bi">🛁</span>'+esc(String(p.bathrooms))+'</span>';
+  if (!h) return '';
+  return mini ? '<span class="mini-badges">'+h+'</span>' : '<span class="pt-badges">'+h+'</span>';
+}
+function titleHtml(p) {
+  var name = esc(p.display_name || p.name || '');
+  return '<span class="pt-name">'+name+'</span>'+formatBadges(p, false);
+}
+function renderPropRow(p) {
+  var g = (p.photos_url || '').trim();
+  var gBtn = g ? '<a class="gdrive-btn" href="'+escAttr(g)+'" target="_blank" rel="noopener noreferrer" title="Фото в Google Диске" aria-label="Фото объекта">'+ICON_GDRIVE+'</a>' : '';
+  var inner = '<span class="prop-dot"></span><span class="prop-name">'+esc(p.display_name||p.name)+formatBadges(p, true)+'</span>';
+  var safeId = String(p.id).replace(/\\/g,'\\\\').replace(/'/g, "\\'");
+  return '<div class="prop-row"><button type="button" class="prop-btn'+(p.id===sel?' active':'')+'" data-id="'+escAttr(p.id)+'" onclick="selectProp(\''+safeId+'\')">'+inner+'</button>'+gBtn+'</div>';
+}
+function buildMonths() {
+  const ms = [];
+  for (let i = 0; i < 12; i++) {
+    const y = today.getFullYear() + Math.floor((today.getMonth()+i)/12);
+    const m = (today.getMonth()+i) % 12;
+    const first = new Date(y,m,1);
+    const last = new Date(y,m+1,0).getDate();
+    const sd = dow(first);
+    const weeks = [];
+    let w = new Array(sd).fill(null);
+    for (let d=1; d<=last; d++) { w.push(new Date(y,m,d)); if (w.length===7) { weeks.push(w); w=[]; } }
+    if (w.length) { while(w.length<7) w.push(null); weeks.push(w); }
+    ms.push({year:y, month:m, weeks});
+  }
+  return ms;
+}
+const months = buildMonths();
+function renderSidebar() {
+  document.getElementById('sideList').innerHTML = CALENDAR_DATA.properties.map(renderPropRow).join('');
+}
+function renderMobSelect() {
+  document.getElementById('mobSelect').innerHTML = CALENDAR_DATA.properties.map(function(p) {
+    return '<option value="'+escAttr(p.id)+'"'+(p.id===sel?' selected':'')+'>'+esc(p.display_name||p.name)+'</option>';
+  }).join('');
+}
+function renderGrid() {
+  const grid = document.getElementById('monthGrid');
+  const booked = bSets[sel] || new Set();
+  var cur = CALENDAR_DATA.properties.find(function(x){ return x.id===sel; }) || {};
+  document.getElementById('propTitle').innerHTML = titleHtml(cur);
+  let h = '';
+  months.forEach(m => {
+    h += '<div class="month-card"><div class="mc-header"><span class="mc-month">'+MO[m.month]+'</span><span class="mc-year">'+m.year+'</span></div>';
+    h += '<div class="mc-weekdays">'; WD.forEach((w,i) => h += '<div class="mc-wd'+(i>=5?' wd-end':'')+'">'+w+'</div>'); h += '</div>';
+    h += '<div class="mc-days">';
+    m.weeks.forEach(week => {
+      week.forEach((day,di) => {
+        if (!day) { h += '<div class="mc-empty"></div>'; return; }
+        const key = tk(day), isT = key===todayKey, isB = booked.has(key), isP = day<today&&!isT;
+        let c = 'mc-day';
+        if (isT) c += ' today';
+        else if (isB) { c += ' booked'; if (isP) c += ' past'; }
+        else { c += ' free'; if (isP) c += ' past'; }
+        h += '<div class="'+c+'">'+day.getDate()+'</div>';
+      });
+    });
+    h += '</div></div>';
+  });
+  grid.innerHTML = h;
+  document.getElementById('mainArea').scrollTop = 0;
+}
+function selectProp(id) {
+  sel = id;
+  document.querySelectorAll('.prop-btn').forEach(b => b.classList.toggle('active', b.dataset.id===id));
+  document.getElementById('mobSelect').value = id;
+  renderGrid();
+}
+const mainEl = document.getElementById('mainArea');
+const topbar = document.getElementById('topbar');
+mainEl.addEventListener('scroll', () => { topbar.classList.toggle('scrolled', mainEl.scrollTop>10); }, {passive:true});
+window.addEventListener('scroll', () => { topbar.classList.toggle('scrolled', window.scrollY>10); }, {passive:true});
+renderSidebar(); renderMobSelect(); renderGrid();
+document.getElementById('sideGen').textContent = 'Обновлено ' + new Date(CALENDAR_DATA.generated_at).toLocaleString('ru-RU');
+</script>
+</body>
+</html>

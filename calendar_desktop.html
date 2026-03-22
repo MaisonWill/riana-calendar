@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Календарь доступности</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Sidebar */
+    --side-bg: #161618;
+    --side-surface: #1E1E21;
+    --side-surface-hover: #26262A;
+    --side-surface-active: #2A2A30;
+    --side-text: #A8A8B0;
+    --side-text-bright: #ECECF0;
+    --side-border: #2A2A30;
+    --side-accent: #C9A96E;
+    --side-accent-dim: rgba(201,169,110,0.12);
+
+    /* Calendar */
+    --cal-bg: #F5F3EF;
+    --cal-surface: #FFFFFF;
+    --cal-text: #1A1A1C;
+    --cal-text-sec: #7A7A82;
+    --cal-text-muted: #BCBCC0;
+    --cal-text-weekend: #6E6E76;
+    --cal-border: #E5E2DC;
+    --cal-booked-bg: #ECEAE6;
+    --cal-booked-text: #C0BDB8;
+    --cal-today-bg: #DAE4F0;
+    --cal-today-text: #2E5090;
+    --cal-today-ring: rgba(46,80,144,0.15);
+    --cal-free-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    --cal-free-hover-shadow: 0 4px 12px rgba(0,0,0,0.07);
+
+    /* Shared */
+    --radius: 10px;
+    --radius-sm: 7px;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out: cubic-bezier(0.0, 0, 0.2, 1);
+
+    /* Layout */
+    --sidebar-w: 300px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Outfit', -apple-system, 'Segoe UI', sans-serif;
+    background: var(--cal-bg);
+    color: var(--cal-text);
+    display: flex;
+  }
+
+  /* ════════════════════════════════════
+     SIDEBAR
+     ════════════════════════════════════ */
+  .sidebar {
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
+    height: 100vh;
+    background: var(--side-bg);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+  }
+
+  .sidebar::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, rgba(201,169,110,0.15) 30%, rgba(201,169,110,0.15) 70%, transparent);
+  }
+
+  .side-header {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid var(--side-border);
+    flex-shrink: 0;
+  }
+
+  .side-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+
+  .side-logo {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--side-accent) 0%, #A88A50 100%);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .side-logo svg {
+    width: 18px;
+    height: 18px;
+    color: var(--side-bg);
+  }
+
+  .side-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--side-text-bright);
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+  }
+
+  .side-subtitle {
+    font-size: 12px;
+    color: var(--side-text);
+    margin-top: 4px;
+    letter-spacing: 0.01em;
+    opacity: 0.7;
+  }
+
+  .side-label {
+    padding: 18px 24px 10px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--side-text);
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  .side-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 12px 20px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--side-border) transparent;
+  }
+
+  .side-list::-webkit-scrollbar { width: 4px; }
+  .side-list::-webkit-scrollbar-track { background: transparent; }
+  .side-list::-webkit-scrollbar-thumb { background: var(--side-border); border-radius: 2px; }
+
+  .prop-item {
+    width: 100%;
+    padding: 12px 14px;
+    border: none;
+    background: transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: all 0.18s var(--ease);
+    margin-bottom: 2px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .prop-item:hover {
+    background: var(--side-surface-hover);
+  }
+
+  .prop-item.active {
+    background: var(--side-surface-active);
+  }
+
+  .prop-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 24px;
+    background: var(--side-accent);
+    border-radius: 0 3px 3px 0;
+  }
+
+  .prop-name {
+    font-size: 13.5px;
+    font-weight: 450;
+    color: var(--side-text);
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    transition: color 0.18s var(--ease);
+  }
+
+  .prop-item:hover .prop-name,
+  .prop-item.active .prop-name {
+    color: var(--side-text-bright);
+  }
+
+  .prop-item.active .prop-name {
+    font-weight: 550;
+  }
+
+  /* Mini availability bar */
+  .prop-avail {
+    display: flex;
+    gap: 1.5px;
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .prop-avail-seg {
+    flex: 1;
+    border-radius: 1px;
+    transition: opacity 0.2s var(--ease);
+  }
+
+  .prop-avail-seg.free { background: #3D6B3D; opacity: 0.7; }
+  .prop-avail-seg.booked { background: #6B3D3D; opacity: 0.5; }
+  .prop-avail-seg.past { background: var(--side-border); opacity: 0.3; }
+
+  .prop-item:hover .prop-avail-seg,
+  .prop-item.active .prop-avail-seg { opacity: 1; }
+
+  .side-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--side-border);
+    flex-shrink: 0;
+  }
+
+  .side-gen {
+    font-size: 10.5px;
+    color: var(--side-text);
+    opacity: 0.4;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+
+  /* ════════════════════════════════════
+     MAIN CALENDAR AREA
+     ════════════════════════════════════ */
+  .main {
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    position: relative;
+  }
+
+  .main::-webkit-scrollbar { width: 8px; }
+  .main::-webkit-scrollbar-track { background: transparent; }
+  .main::-webkit-scrollbar-thumb { background: var(--cal-border); border-radius: 4px; }
+  .main::-webkit-scrollbar-thumb:hover { background: var(--cal-text-muted); }
+
+  /* Top bar inside main */
+  .cal-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--cal-bg);
+    padding: 24px 40px 0;
+    transition: box-shadow 0.3s var(--ease);
+  }
+
+  .cal-topbar.scrolled {
+    box-shadow: 0 6px 24px rgba(0,0,0,0.04);
+  }
+
+  .cal-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .cal-prop-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--cal-text);
+    letter-spacing: -0.5px;
+    line-height: 1;
+    opacity: 0;
+    transform: translateY(6px);
+    animation: slideUp 0.35s var(--ease-out) forwards;
+  }
+
+  .cal-legend {
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+    color: var(--cal-text-sec);
+  }
+
+  .cal-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .cal-legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+  }
+
+  .cal-legend-dot.l-free {
+    background: var(--cal-surface);
+    border: 1.5px solid var(--cal-border);
+  }
+
+  .cal-legend-dot.l-booked {
+    background: var(--cal-booked-bg);
+    border: 1.5px solid #DDD9D4;
+  }
+
+  .cal-legend-dot.l-today {
+    background: var(--cal-today-bg);
+    border: 1.5px solid #BFD0E4;
+  }
+
+  .cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    max-width: 520px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--cal-border);
+  }
+
+  .cal-wd {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--cal-text-muted);
+    padding: 6px 0;
+  }
+
+  .cal-wd.wd-end { color: #C9B899; }
+
+  /* Calendar grid */
+  .cal-scroll {
+    padding: 0 40px 80px;
+  }
+
+  .month-block {
+    padding-top: 28px;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: slideUp 0.4s var(--ease-out) forwards;
+  }
+
+  .month-header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 0 0 12px;
+  }
+
+  .month-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cal-text);
+    letter-spacing: -0.3px;
+  }
+
+  .month-year {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--cal-text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+
+  .week-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 5px;
+    max-width: 520px;
+  }
+
+  .day-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    cursor: default;
+    transition: all 0.15s var(--ease);
+    position: relative;
+  }
+
+  .empty-cell {
+    aspect-ratio: 1;
+  }
+
+  .day-num {
+    font-size: 14.5px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.15s var(--ease);
+  }
+
+  /* Free */
+  .day-cell.free {
+    background: var(--cal-surface);
+    box-shadow: var(--cal-free-shadow);
+  }
+
+  .day-cell.free:hover {
+    transform: scale(1.1);
+    box-shadow: var(--cal-free-hover-shadow);
+    z-index: 3;
+  }
+
+  .day-cell.free .day-num { color: var(--cal-text); }
+  .day-cell.free.weekend .day-num { color: var(--cal-text-weekend); }
+
+  /* Booked */
+  .day-cell.booked { background: var(--cal-booked-bg); }
+  .day-cell.booked .day-num { color: var(--cal-booked-text); }
+
+  /* Today */
+  .day-cell.today {
+    background: var(--cal-today-bg);
+    box-shadow: 0 0 0 2px var(--cal-today-ring);
+  }
+
+  .day-cell.today .day-num {
+    color: var(--cal-today-text);
+    font-weight: 700;
+  }
+
+  /* Past */
+  .day-cell.past { opacity: 0.45; }
+  .day-cell.past .day-num {
+    color: var(--cal-text-muted);
+    font-weight: 400;
+  }
+
+  /* Month stagger */
+  .month-block:nth-child(1)  { animation-delay: 0.05s; }
+  .month-block:nth-child(2)  { animation-delay: 0.10s; }
+  .month-block:nth-child(3)  { animation-delay: 0.14s; }
+  .month-block:nth-child(4)  { animation-delay: 0.17s; }
+  .month-block:nth-child(5)  { animation-delay: 0.19s; }
+  .month-block:nth-child(6)  { animation-delay: 0.21s; }
+  .month-block:nth-child(7)  { animation-delay: 0.22s; }
+  .month-block:nth-child(8)  { animation-delay: 0.23s; }
+  .month-block:nth-child(9)  { animation-delay: 0.24s; }
+  .month-block:nth-child(10) { animation-delay: 0.25s; }
+  .month-block:nth-child(11) { animation-delay: 0.26s; }
+  .month-block:nth-child(12) { animation-delay: 0.27s; }
+  .month-block:nth-child(13) { animation-delay: 0.28s; }
+
+  .cal-footer {
+    text-align: center;
+    padding: 40px 0 20px;
+    max-width: 520px;
+  }
+
+  .cal-footer-line {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cal-text-muted);
+    opacity: 0.5;
+    position: relative;
+  }
+
+  .cal-footer-line::before,
+  .cal-footer-line::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 1px;
+    background: var(--cal-border);
+  }
+
+  .cal-footer-line::before { right: calc(100% + 14px); }
+  .cal-footer-line::after  { left:  calc(100% + 14px); }
+
+  /* ════════════════════════════════════
+     TOOLTIP on hover
+     ════════════════════════════════════ */
+  .day-cell.free:hover::after {
+    content: 'Свободно';
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--side-bg);
+    color: #eee;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.02em;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 10;
+  }
+
+  .day-cell.booked:hover::after {
+    content: 'Забронировано';
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--side-bg);
+    color: #eee;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.02em;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 10;
+  }
+
+  .day-cell.today:hover::after {
+    content: 'Сегодня';
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--side-bg);
+    color: #eee;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.02em;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 10;
+  }
+
+  /* ════════════════════════════════════
+     ANIMATIONS
+     ════════════════════════════════════ */
+  @keyframes slideUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  /* Subtle noise overlay on calendar side */
+  .main::before {
+    content: '';
+    position: fixed;
+    top: 0; left: var(--sidebar-w); right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.012;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+  }
+
+  /* ════════════════════════════════════
+     MOBILE FALLBACK (< 768px)
+     ════════════════════════════════════ */
+  .mobile-dropdown {
+    display: none;
+    padding: 0 20px 12px;
+  }
+
+  .mobile-select {
+    width: 100%;
+    padding: 13px 16px;
+    background: var(--cal-surface);
+    border: 1.5px solid var(--cal-border);
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cal-text);
+    font-family: inherit;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%237A7A82' stroke-width='2' stroke-linecap='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='4 6 8 10 12 6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .mobile-select:focus {
+    outline: none;
+    border-color: #7A8A9A;
+    box-shadow: 0 0 0 3px rgba(100,120,150,0.1);
+  }
+
+  @media (max-width: 768px) {
+    body { flex-direction: column; }
+
+    .sidebar { display: none; }
+
+    .mobile-dropdown { display: block; }
+
+    .main { height: auto; overflow: visible; }
+    html, body { overflow: auto; height: auto; }
+
+    .cal-topbar { padding: 20px 20px 0; }
+    .cal-scroll { padding: 0 20px 60px; }
+    .cal-header { flex-direction: column; gap: 10px; }
+    .cal-prop-name { font-size: 20px; }
+    .week-row { max-width: 100%; }
+    .cal-weekdays { max-width: 100%; }
+    .cal-footer { max-width: 100%; }
+
+    .main::before { left: 0; }
+  }
+
+  /* ════════════════════════════════════
+     SELECTION
+     ════════════════════════════════════ */
+  ::selection {
+    background: var(--cal-today-bg);
+    color: var(--cal-today-text);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar">
+  <div class="side-header">
+    <div class="side-brand">
+      <div class="side-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+      </div>
+      <div class="side-title">Календарь<br>доступности</div>
+    </div>
+    <div class="side-subtitle">12 объектов · Занятость на год</div>
+  </div>
+
+  <div class="side-label">Объекты</div>
+
+  <div class="side-list" id="sideList"></div>
+
+  <div class="side-footer">
+    <div class="side-gen" id="sideGen"></div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<main class="main" id="mainArea">
+
+  <div class="cal-topbar" id="calTopbar">
+    <!-- Mobile dropdown (hidden on desktop) -->
+    <div class="mobile-dropdown">
+      <select class="mobile-select" id="mobileSelect" onchange="selectProperty(this.value)"></select>
+    </div>
+
+    <div class="cal-header">
+      <div class="cal-prop-name" id="calPropName"></div>
+      <div class="cal-legend">
+        <span class="cal-legend-item"><span class="cal-legend-dot l-free"></span> Свободно</span>
+        <span class="cal-legend-item"><span class="cal-legend-dot l-booked"></span> Забронировано</span>
+        <span class="cal-legend-item"><span class="cal-legend-dot l-today"></span> Сегодня</span>
+      </div>
+    </div>
+
+    <div class="cal-weekdays">
+      <div class="cal-wd">Пн</div>
+      <div class="cal-wd">Вт</div>
+      <div class="cal-wd">Ср</div>
+      <div class="cal-wd">Чт</div>
+      <div class="cal-wd">Пт</div>
+      <div class="cal-wd wd-end">Сб</div>
+      <div class="cal-wd wd-end">Вс</div>
+    </div>
+  </div>
+
+  <div class="cal-scroll" id="calScroll"></div>
+
+</main>
+
+<script>
+// ══════════════════════════════════════════
+//  DEMO DATA — будет заменено на CALENDAR_DATA
+// ══════════════════════════════════════════
+const CALENDAR_DATA = (function() {
+  const props = [
+    { id: "p1",  name: "Villa Sunset — Chaweng Beach" },
+    { id: "p2",  name: "Ocean View Apt — Lamai" },
+    { id: "p3",  name: "Palm House — Bophut" },
+    { id: "p4",  name: "Hillside Studio — Maenam" },
+    { id: "p5",  name: "Garden Bungalow — Nathon" },
+    { id: "p6",  name: "Beachfront Condo — Chaweng Noi" },
+    { id: "p7",  name: "Jungle Retreat — Lamai Hills" },
+    { id: "p8",  name: "Pool Villa — Bophut" },
+    { id: "p9",  name: "Cozy Flat — Fisherman's Village" },
+    { id: "p10", name: "Sea Breeze Suite — Bangrak" },
+    { id: "p11", name: "Tropical Loft — Lipa Noi" },
+    { id: "p12", name: "Panorama Villa — Chaweng" },
+  ];
+
+  const bookings = {};
+  const today = new Date();
+  props.forEach((p, pi) => {
+    const b = [];
+    for (let i = 0; i < 10; i++) {
+      const off = (pi * 7 + 3) + i * 17 + (pi % 4) * 5;
+      const dur = 2 + (i % 5) + (pi % 3);
+      const s = new Date(today); s.setDate(s.getDate() + off);
+      const e = new Date(s); e.setDate(e.getDate() + dur);
+      b.push({ start: fmt(s), end: fmt(e) });
+    }
+    bookings[p.id] = b;
+  });
+
+  function fmt(d) {
+    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  }
+
+  return { properties: props, bookings, generated_at: new Date().toISOString() };
+})();
+
+// ══════════════════════════════════════════
+//  CORE
+// ══════════════════════════════════════════
+const MONTHS_RU = [
+  'Январь','Февраль','Март','Апрель','Май','Июнь',
+  'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'
+];
+
+let selectedId = CALENDAR_DATA.properties[0].id;
+
+// Precompute booked date sets
+const bookedSets = {};
+CALENDAR_DATA.properties.forEach(p => {
+  const set = new Set();
+  (CALENDAR_DATA.bookings[p.id] || []).forEach(b => {
+    const s = new Date(b.start + 'T00:00:00');
+    const e = new Date(b.end + 'T00:00:00');
+    for (let d = new Date(s); d <= e; d.setDate(d.getDate() + 1)) {
+      set.add(toKey(d));
+    }
+  });
+  bookedSets[p.id] = set;
+});
+
+function toKey(d) {
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+
+function getMondayIdx(date) {
+  const d = date.getDay();
+  return d === 0 ? 6 : d - 1;
+}
+
+// Build 13 months
+const today = new Date(); today.setHours(0,0,0,0);
+const todayKey = toKey(today);
+
+function buildMonths() {
+  const months = [];
+  for (let m = 0; m < 13; m++) {
+    const y = today.getFullYear() + Math.floor((today.getMonth() + m) / 12);
+    const mo = (today.getMonth() + m) % 12;
+    const first = new Date(y, mo, 1);
+    const last = new Date(y, mo + 1, 0).getDate();
+    const startDow = getMondayIdx(first);
+    const weeks = [];
+    let week = new Array(startDow).fill(null);
+    for (let d = 1; d <= last; d++) {
+      week.push(new Date(y, mo, d));
+      if (week.length === 7) { weeks.push(week); week = []; }
+    }
+    if (week.length) {
+      while (week.length < 7) week.push(null);
+      weeks.push(week);
+    }
+    months.push({ year: y, month: mo, weeks });
+  }
+  return months;
+}
+
+const calendarMonths = buildMonths();
+
+// Build mini availability bars (next 30 days split into 20 segments)
+function buildAvailBar(propId) {
+  const set = bookedSets[propId];
+  const segs = 20;
+  const totalDays = 60;
+  const daysPerSeg = totalDays / segs;
+  let html = '<div class="prop-avail">';
+  for (let i = 0; i < segs; i++) {
+    const dayOffset = Math.round(i * daysPerSeg);
+    const d = new Date(today);
+    d.setDate(d.getDate() + dayOffset);
+    const key = toKey(d);
+    const isPast = d < today;
+    let cls = 'prop-avail-seg ';
+    if (isPast) cls += 'past';
+    else if (set.has(key)) cls += 'booked';
+    else cls += 'free';
+    html += '<div class="' + cls + '"></div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+// ══════════════════════════════════════════
+//  RENDER SIDEBAR
+// ══════════════════════════════════════════
+function renderSidebar() {
+  const list = document.getElementById('sideList');
+  let html = '';
+  CALENDAR_DATA.properties.forEach(p => {
+    html += '<button class="prop-item' + (p.id === selectedId ? ' active' : '') +
+            '" data-id="' + p.id + '" onclick="selectProperty(\'' + p.id + '\')">' +
+            '<span class="prop-name">' + p.name + '</span>' +
+            buildAvailBar(p.id) +
+            '</button>';
+  });
+  list.innerHTML = html;
+}
+
+// Render mobile select
+function renderMobileSelect() {
+  const sel = document.getElementById('mobileSelect');
+  let html = '';
+  CALENDAR_DATA.properties.forEach(p => {
+    html += '<option value="' + p.id + '"' + (p.id === selectedId ? ' selected' : '') + '>' +
+            p.name + '</option>';
+  });
+  sel.innerHTML = html;
+}
+
+// ══════════════════════════════════════════
+//  RENDER CALENDAR
+// ══════════════════════════════════════════
+function renderCalendar() {
+  const body = document.getElementById('calScroll');
+  const booked = bookedSets[selectedId] || new Set();
+  const propName = CALENDAR_DATA.properties.find(p => p.id === selectedId)?.name || '';
+
+  // Update header
+  const nameEl = document.getElementById('calPropName');
+  nameEl.style.animation = 'none';
+  nameEl.offsetHeight; // reflow
+  nameEl.style.animation = '';
+  nameEl.textContent = propName;
+
+  let html = '';
+  calendarMonths.forEach(m => {
+    html += '<div class="month-block">';
+    html += '<div class="month-header"><span class="month-name">' +
+            MONTHS_RU[m.month] + '</span><span class="month-year">' + m.year + '</span></div>';
+
+    m.weeks.forEach(week => {
+      html += '<div class="week-row">';
+      week.forEach((day, di) => {
+        if (!day) { html += '<div class="empty-cell"></div>'; return; }
+
+        const key = toKey(day);
+        const isToday = key === todayKey;
+        const isBooked = booked.has(key);
+        const isPast = day < today && !isToday;
+        const isWeekend = di >= 5;
+
+        let cls = 'day-cell';
+        if (isToday) cls += ' today';
+        else if (isBooked) cls += ' booked';
+        else if (isPast) cls += ' past';
+        else { cls += ' free'; if (isWeekend) cls += ' weekend'; }
+
+        html += '<div class="' + cls + '"><span class="day-num">' + day.getDate() + '</span></div>';
+      });
+      html += '</div>';
+    });
+    html += '</div>';
+  });
+
+  html += '<div class="cal-footer"><span class="cal-footer-line">конец календаря</span></div>';
+  body.innerHTML = html;
+
+  // Scroll to top
+  document.getElementById('mainArea').scrollTop = 0;
+}
+
+function selectProperty(id) {
+  selectedId = id;
+
+  // Update sidebar active
+  document.querySelectorAll('.prop-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.id === id);
+  });
+
+  // Update mobile select
+  document.getElementById('mobileSelect').value = id;
+
+  renderCalendar();
+}
+
+// Sticky shadow on scroll
+const mainArea = document.getElementById('mainArea');
+const calTopbar = document.getElementById('calTopbar');
+
+mainArea.addEventListener('scroll', function() {
+  calTopbar.classList.toggle('scrolled', mainArea.scrollTop > 20);
+}, { passive: true });
+
+// Also handle window scroll for mobile
+window.addEventListener('scroll', function() {
+  calTopbar.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+renderSidebar();
+renderMobileSelect();
+renderCalendar();
+
+document.getElementById('sideGen').textContent =
+  'Обновлено ' + new Date(CALENDAR_DATA.generated_at).toLocaleString('ru-RU');
+</script>
+</body>
+</html>

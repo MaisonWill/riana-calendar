@@ -1,0 +1,2 @@
+"""Airbnb occupancy tracker package."""
+

@@ -1,0 +1,84 @@
+# =============================================================================
+# Метаданные объектов для календаря HTML (редактируйте этот файл вручную).
+# Путь: рядом с main.py (корень проекта).
+#
+# property_id — должен совпадать с id в config.yaml
+#
+# display_name   — как показывать название (если пусто — берётся name из config.yaml)
+# bedrooms       — число спален (можно 2.5); оставьте пустым или null — не показываем
+# bathrooms      — число ванных
+# google_drive_photos_url — ссылка на папку Google Drive с фотографиями; пусто = без кнопки
+# =============================================================================
+
+properties:
+  prop_01:
+    display_name: "UNIT 1"
+    bedrooms: 2
+    bathrooms: 3
+    google_drive_photos_url: "https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"
+
+  prop_02:
+    display_name: "UNIT 2"
+    bedrooms: 2
+    bathrooms: 3
+    google_drive_photos_url: "https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"
+
+  prop_03:
+    display_name: "UNIT 3"
+    bedrooms: 2
+    bathrooms: 3
+    google_drive_photos_url: "https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"
+
+  prop_04:
+    display_name: "UNIT 4"
+    bedrooms: 2
+    bathrooms: 3
+    google_drive_photos_url: "https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"
+
+  prop_05:
+    display_name: "UNIT 5"
+    bedrooms: 2
+    bathrooms: 3
+    google_drive_photos_url: "https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"
+
+  prop_06:
+    display_name: "UNIT 6"
+    bedrooms: 2
+    bathrooms: 3
+    google_drive_photos_url: "https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"
+
+  prop_07:
+    display_name: "UNIT 1.1"
+    bedrooms: 3
+    bathrooms: 4
+    google_drive_photos_url: "https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"
+
+  prop_08:
+    display_name: "UNIT 1.2"
+    bedrooms: 3
+    bathrooms: 4
+    google_drive_photos_url: "https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"
+
+  prop_09:
+    display_name: "UNIT 1.3"
+    bedrooms: 3
+    bathrooms: 4
+    google_drive_photos_url: "https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"
+
+  prop_10:
+    display_name: "UNIT 1.4"
+    bedrooms: 2
+    bathrooms: 3
+    google_drive_photos_url: "https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"
+
+  prop_11:
+    display_name: "UNIT 1.5"
+    bedrooms: 2
+    bathrooms: 3
+    google_drive_photos_url: "https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"
+
+  prop_12:
+    display_name: "UNIT 1.6"
+    bedrooms: 2
+    bathrooms: 3
+    google_drive_photos_url: "https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"
