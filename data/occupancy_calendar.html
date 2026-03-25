@@ -31,6 +31,9 @@
     --booked-bg: #F5D0D0;
     --booked-bg-hover: #EEBCBC;
     --booked-text: #8B3A3A;
+    --blocked-bg: #E8DFF0;
+    --blocked-bg-hover: #DACBE8;
+    --blocked-text: #5B4478;
     --today-ring: #4A7ACC;
     --today-bg: #D8E6F8;
     --today-text: #2A5090;
@@ -100,6 +103,7 @@
   .legend-swatch { width: 16px; height: 16px; border-radius: 4px; }
   .legend-swatch.s-free { background: var(--free-bg); border: 1px solid #B8E0B8; }
   .legend-swatch.s-booked { background: var(--booked-bg); border: 1px solid #E8B8B8; }
+  .legend-swatch.s-blocked { background: var(--blocked-bg); border: 1px solid #C8B8D8; }
   .legend-swatch.s-today { background: var(--today-bg); border: 1px solid #B8CEE8; }
   .mobile-bar { display: none; }
   .mob-select { width: 100%; padding: 12px 40px 12px 14px; background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 14px; font-weight: 500; color: var(--text); font-family: inherit; appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%236E6E76' stroke-width='2' stroke-linecap='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='4 6 8 10 12 6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; cursor: pointer; }
@@ -121,10 +125,13 @@
   .mc-day.free:hover { background: var(--free-bg-hover); transform: scale(1.12); z-index: 2; box-shadow: 0 2px 8px rgba(45,107,45,0.15); }
   .mc-day.booked { background: var(--booked-bg); color: var(--booked-text); }
   .mc-day.booked:hover { background: var(--booked-bg-hover); }
+  .mc-day.blocked { background: var(--blocked-bg); color: var(--blocked-text); }
+  .mc-day.blocked:hover { background: var(--blocked-bg-hover); }
   .mc-day.today { background: var(--today-bg); color: var(--today-text); font-weight: 700; box-shadow: 0 0 0 2px rgba(74,122,204,0.2); }
   .mc-day.past { opacity: var(--past-opacity); }
   .mc-day.past.free { background: #E8F0E8; }
   .mc-day.past.booked { background: #F0E0E0; }
+  .mc-day.past.blocked { background: #E8E0F0; }
   @keyframes cardIn { to { opacity: 1; transform: translateY(0); } }
   @media (max-width: 1200px) { .month-grid { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 900px) { .month-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 4px 20px 48px; } .topbar { padding: 16px 20px 12px; } .prop-title { font-size: 18px; } }
@@ -156,13 +163,14 @@
     <div class="legend">
       <span class="legend-item"><span class="legend-swatch s-free"></span> Свободно</span>
       <span class="legend-item"><span class="legend-swatch s-booked"></span> Занято</span>
+      <span class="legend-item"><span class="legend-swatch s-blocked"></span> Закрыто</span>
       <span class="legend-item"><span class="legend-swatch s-today"></span> Сегодня</span>
     </div>
   </div>
   <div class="month-grid" id="monthGrid"></div>
 </main>
 <script>
-const CALENDAR_DATA = {"properties":[{"id":"prop_01","name":"UNIT 1","display_name":"UNIT 1","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_02","name":"UNIT 2","display_name":"UNIT 2","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_03","name":"UNIT 3","display_name":"UNIT 3","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_04","name":"UNIT 4","display_name":"UNIT 4","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_05","name":"UNIT 5","display_name":"UNIT 5","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_06","name":"UNIT 6","display_name":"UNIT 6","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_07","name":"UNIT 1.1","display_name":"UNIT 1.1","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_08","name":"UNIT 1.2","display_name":"UNIT 1.2","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_09","name":"UNIT 1.3","display_name":"UNIT 1.3","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_10","name":"UNIT 1.4","display_name":"UNIT 1.4","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"},{"id":"prop_11","name":"UNIT 1.5","display_name":"UNIT 1.5","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"},{"id":"prop_12","name":"UNIT 1.6","display_name":"UNIT 1.6","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"}],"bookings":{"prop_01":[{"start":"2026-03-25","end":"2026-03-27"},{"start":"2026-03-28","end":"2026-04-16"},{"start":"2026-07-23","end":"2026-08-23"}],"prop_02":[{"start":"2026-03-25","end":"2026-04-17"}],"prop_03":[],"prop_04":[{"start":"2026-03-25","end":"2026-04-09"},{"start":"2026-06-08","end":"2026-07-07"}],"prop_05":[],"prop_06":[],"prop_07":[],"prop_08":[{"start":"2026-03-25","end":"2026-06-04"}],"prop_09":[],"prop_10":[{"start":"2026-07-11","end":"2026-07-24"}],"prop_11":[{"start":"2026-03-25","end":"2026-03-26"},{"start":"2026-04-14","end":"2026-06-13"}],"prop_12":[]},"generated_at":"2026-03-25T14:12:41.492184"};
+const CALENDAR_DATA = {"properties":[{"id":"prop_01","name":"UNIT 1","display_name":"UNIT 1","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_02","name":"UNIT 2","display_name":"UNIT 2","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_03","name":"UNIT 3","display_name":"UNIT 3","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_04","name":"UNIT 4","display_name":"UNIT 4","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_05","name":"UNIT 5","display_name":"UNIT 5","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_06","name":"UNIT 6","display_name":"UNIT 6","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_07","name":"UNIT 1.1","display_name":"UNIT 1.1","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_08","name":"UNIT 1.2","display_name":"UNIT 1.2","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_09","name":"UNIT 1.3","display_name":"UNIT 1.3","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_10","name":"UNIT 1.4","display_name":"UNIT 1.4","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"},{"id":"prop_11","name":"UNIT 1.5","display_name":"UNIT 1.5","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"},{"id":"prop_12","name":"UNIT 1.6","display_name":"UNIT 1.6","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"}],"bookings":{"prop_01":[{"start":"2026-03-25","end":"2026-03-27"},{"start":"2026-03-28","end":"2026-04-16"},{"start":"2026-07-23","end":"2026-08-23"}],"prop_02":[{"start":"2026-03-25","end":"2026-04-17"}],"prop_03":[],"prop_04":[{"start":"2026-03-25","end":"2026-04-09"},{"start":"2026-06-08","end":"2026-07-07"}],"prop_05":[],"prop_06":[],"prop_07":[],"prop_08":[{"start":"2026-03-25","end":"2026-06-04"}],"prop_09":[],"prop_10":[{"start":"2026-07-11","end":"2026-07-24"}],"prop_11":[{"start":"2026-03-25","end":"2026-03-26"},{"start":"2026-04-14","end":"2026-06-13"}],"prop_12":[]},"blocked":{"prop_01":[],"prop_02":[{"start":"2027-02-10","end":"2027-03-25"}],"prop_03":[{"start":"2026-03-25","end":"2026-03-25"},{"start":"2027-02-10","end":"2027-03-25"}],"prop_04":[{"start":"2027-03-25","end":"2027-03-25"}],"prop_05":[{"start":"2026-03-25","end":"2026-04-03"},{"start":"2027-02-10","end":"2027-03-25"}],"prop_06":[{"start":"2026-03-25","end":"2026-04-15"},{"start":"2027-02-10","end":"2027-03-25"}],"prop_07":[{"start":"2027-03-25","end":"2027-03-25"}],"prop_08":[{"start":"2027-03-25","end":"2027-03-25"}],"prop_09":[{"start":"2027-03-25","end":"2027-03-25"}],"prop_10":[{"start":"2027-03-25","end":"2027-03-25"}],"prop_11":[{"start":"2027-03-25","end":"2027-03-25"}],"prop_12":[{"start":"2027-03-25","end":"2027-03-25"}]},"generated_at":"2026-03-25T15:29:32.944984"};
 
 const MO = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
 const WD = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
@@ -171,6 +179,7 @@ let sel = CALENDAR_DATA.properties[0].id;
 const today = new Date(); today.setHours(0,0,0,0);
 const todayKey = tk(today);
 const bSets = {};
+const blSets = {};
 CALENDAR_DATA.properties.forEach(p => {
   const s = new Set();
   (CALENDAR_DATA.bookings[p.id]||[]).forEach(b => {
@@ -178,6 +187,12 @@ CALENDAR_DATA.properties.forEach(p => {
     for (let d = new Date(d0); d <= d1; d.setDate(d.getDate()+1)) s.add(tk(d));
   });
   bSets[p.id] = s;
+  const bl = new Set();
+  ((CALENDAR_DATA.blocked||{})[p.id]||[]).forEach(b => {
+    const d0 = new Date(b.start+'T00:00:00'), d1 = new Date(b.end+'T00:00:00');
+    for (let d = new Date(d0); d <= d1; d.setDate(d.getDate()+1)) bl.add(tk(d));
+  });
+  blSets[p.id] = bl;
 });
 function tk(d) { return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
 function dow(d) { const v=d.getDay(); return v===0?6:v-1; }
@@ -232,6 +247,7 @@ function renderMobSelect() {
 function renderGrid() {
   const grid = document.getElementById('monthGrid');
   const booked = bSets[sel] || new Set();
+  const blocked = blSets[sel] || new Set();
   var cur = CALENDAR_DATA.properties.find(function(x){ return x.id===sel; }) || {};
   document.getElementById('propTitle').innerHTML = titleHtml(cur);
   let h = '';
@@ -242,10 +258,11 @@ function renderGrid() {
     m.weeks.forEach(week => {
       week.forEach((day,di) => {
         if (!day) { h += '<div class="mc-empty"></div>'; return; }
-        const key = tk(day), isT = key===todayKey, isB = booked.has(key), isP = day<today&&!isT;
+        const key = tk(day), isT = key===todayKey, isB = booked.has(key), isBl = blocked.has(key), isP = day<today&&!isT;
         let c = 'mc-day';
         if (isT) c += ' today';
         else if (isB) { c += ' booked'; if (isP) c += ' past'; }
+        else if (isBl) { c += ' blocked'; if (isP) c += ' past'; }
         else { c += ' free'; if (isP) c += ' past'; }
         h += '<div class="'+c+'">'+day.getDate()+'</div>';
       });
