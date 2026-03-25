@@ -3,287 +3,686 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Календарь доступности</title>
+<title>Riana Calendar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --side-bg: #111113;
-    --side-surface: #1A1A1D;
-    --side-hover: #222226;
-    --side-active: #2A2A30;
-    --side-text: #909098;
-    --side-text-bright: #E8E8EC;
-    --side-border: #2A2A2E;
+    --side-bg: #0E0E10;
+    --side-surface: #18181C;
+    --side-hover: #222228;
+    --side-active: #2C2C34;
+    --side-text: #808088;
+    --side-text-bright: #EEEEF2;
+    --side-border: #28282E;
     --side-accent: #D4A84B;
-    --side-accent-dim: rgba(212,168,75,0.1);
-    --bg: #F4F2EE;
+    --side-accent-dim: rgba(212,168,75,0.12);
+    --bg: #F5F3EF;
     --surface: #FFFFFF;
-    --text: #1A1A1C;
-    --text-sec: #6E6E76;
-    --text-muted: #AEAEB4;
-    --border: #E2DFD9;
-    --border-light: #EDEBE6;
-    --free-bg: #D5F0D5;
-    --free-bg-hover: #C0E8C0;
-    --free-text: #2D6B2D;
-    --booked-bg: #F5D0D0;
-    --booked-bg-hover: #EEBCBC;
-    --booked-text: #8B3A3A;
-    --blocked-bg: #E8DFF0;
-    --blocked-bg-hover: #DACBE8;
-    --blocked-text: #5B4478;
+    --text: #18181C;
+    --text-sec: #6E6E78;
+    --text-muted: #AEAEB8;
+    --border: #E4E1DB;
+    --border-light: #EDEAE4;
+
+    --free-bg: #EAF7EA;
+    --free-text: #276B27;
+    --free-border: rgba(39,107,39,0.18);
+
+    --booked-bg: #DC3545;
+    --booked-text: #FFFFFF;
+    --booked-cap-bg: #C62C3A;
+    --booked-mid-bg: #E04F5C;
+
+    --blocked-bg: #6C757D;
+    --blocked-text: #FFFFFF;
+    --blocked-mid-bg: #868E96;
+
     --today-ring: #4A7ACC;
-    --today-bg: #D8E6F8;
-    --today-text: #2A5090;
-    --past-opacity: 0.4;
-    --radius: 10px;
-    --radius-sm: 6px;
+    --today-bg: #D6E8FF;
+    --today-text: #1E4F9C;
+
+    --past-opacity: 0.35;
+    --radius: 12px;
+    --radius-sm: 7px;
     --ease: cubic-bezier(0.4, 0, 0.2, 1);
-    --sidebar-w: 280px;
+    --sidebar-w: 290px;
+    --topbar-h: 70px;
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { height: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-  body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); display: flex; overflow: hidden; }
-  .sidebar { width: var(--sidebar-w); min-width: var(--sidebar-w); height: 100vh; background: var(--side-bg); display: flex; flex-direction: column; position: relative; z-index: 10; flex-shrink: 0; }
-  .sidebar::after { content: ''; position: absolute; top: 0; right: 0; width: 1px; height: 100%; background: linear-gradient(180deg, transparent 5%, rgba(212,168,75,0.12) 30%, rgba(212,168,75,0.12) 70%, transparent 95%); }
-  .side-header { padding: 24px 20px 18px; border-bottom: 1px solid var(--side-border); flex-shrink: 0; }
-  .side-brand { display: flex; align-items: center; gap: 12px; }
-  .side-logo { width: 34px; height: 34px; background: linear-gradient(135deg, var(--side-accent), #B8922E); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .side-logo svg { width: 17px; height: 17px; color: #111; }
-  .side-title { font-size: 15px; font-weight: 600; color: var(--side-text-bright); letter-spacing: -0.2px; line-height: 1.25; }
-  .side-subtitle { font-size: 11px; color: var(--side-text); margin-top: 8px; opacity: 0.6; }
-  .side-label { padding: 16px 20px 8px; font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.8px; color: var(--side-text); opacity: 0.4; flex-shrink: 0; }
-  .side-list { flex: 1; overflow-y: auto; padding: 0 8px 16px; scrollbar-width: thin; scrollbar-color: var(--side-border) transparent; }
-  .side-list::-webkit-scrollbar { width: 3px; }
-  .side-list::-webkit-scrollbar-track { background: transparent; }
-  .side-list::-webkit-scrollbar-thumb { background: var(--side-border); border-radius: 2px; }
-  .prop-btn { width: 100%; padding: 10px 14px; border: none; background: transparent; border-radius: 8px; cursor: pointer; text-align: left; font-family: inherit; transition: all 0.15s var(--ease); margin-bottom: 1px; position: relative; display: flex; align-items: center; gap: 10px; }
-  .prop-btn:hover { background: var(--side-hover); }
-  .prop-btn.active { background: var(--side-active); }
-  .prop-btn.active::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 20px; background: var(--side-accent); border-radius: 0 3px 3px 0; }
-  .prop-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; transition: background 0.15s var(--ease); }
-  .prop-btn.active .prop-dot { background: var(--side-accent); }
-  .prop-btn:not(.active) .prop-dot { background: var(--side-border); }
-  .prop-btn:hover:not(.active) .prop-dot { background: var(--side-text); }
-  .prop-name { font-size: 13px; font-weight: 400; color: var(--side-text); letter-spacing: -0.01em; line-height: 1.3; transition: color 0.15s var(--ease); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .prop-btn:hover .prop-name { color: var(--side-text-bright); }
-  .prop-btn.active .prop-name { color: var(--side-text-bright); font-weight: 550; }
-  .prop-row { display: flex; align-items: stretch; gap: 6px; margin-bottom: 4px; }
-  .prop-row .prop-btn { flex: 1; margin-bottom: 0; min-width: 0; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { height:100%; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+  body { font-family:'Outfit',sans-serif; background:var(--bg); color:var(--text); display:flex; overflow:hidden; }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar {
+    width:var(--sidebar-w); min-width:var(--sidebar-w); height:100vh;
+    background:var(--side-bg); display:flex; flex-direction:column;
+    position:relative; z-index:10; flex-shrink:0;
+  }
+  .sidebar::after {
+    content:''; position:absolute; top:0; right:0; width:1px; height:100%;
+    background:linear-gradient(180deg,transparent 5%,rgba(212,168,75,0.15) 30%,rgba(212,168,75,0.15) 70%,transparent 95%);
+  }
+  .side-header { padding:22px 20px 16px; border-bottom:1px solid var(--side-border); flex-shrink:0; }
+  .side-brand { display:flex; align-items:center; gap:12px; }
+  .side-logo {
+    width:36px; height:36px;
+    background:linear-gradient(135deg,var(--side-accent),#A87C2A);
+    border-radius:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .side-logo svg { width:18px; height:18px; color:#111; }
+  .side-title { font-size:14px; font-weight:700; color:var(--side-text-bright); letter-spacing:-0.2px; line-height:1.3; }
+  .side-subtitle { font-size:11px; color:var(--side-text); margin-top:3px; opacity:0.55; }
+
+  /* View toggle */
+  .view-toggle {
+    display:flex; gap:6px; padding:12px 12px 10px;
+    border-bottom:1px solid var(--side-border); flex-shrink:0;
+  }
+  .vt-btn {
+    flex:1; padding:7px 6px; border:1px solid var(--side-border);
+    background:transparent; border-radius:7px; cursor:pointer;
+    font-family:inherit; font-size:11px; font-weight:600;
+    color:var(--side-text); transition:all 0.15s var(--ease);
+    display:flex; align-items:center; justify-content:center; gap:5px;
+  }
+  .vt-btn:hover { background:var(--side-hover); color:var(--side-text-bright); }
+  .vt-btn.active { background:var(--side-accent-dim); border-color:rgba(212,168,75,0.35); color:var(--side-accent); }
+
+  .side-label { padding:14px 20px 7px; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--side-text); opacity:0.4; flex-shrink:0; }
+  .side-list { flex:1; overflow-y:auto; padding:0 8px 16px; scrollbar-width:thin; scrollbar-color:var(--side-border) transparent; }
+  .side-list::-webkit-scrollbar { width:3px; }
+  .side-list::-webkit-scrollbar-track { background:transparent; }
+  .side-list::-webkit-scrollbar-thumb { background:var(--side-border); border-radius:2px; }
+
+  /* Property row — simple: dot + name + badges + gdrive */
+  .prop-row { display:flex; align-items:stretch; gap:5px; margin-bottom:3px; }
+  .prop-btn {
+    flex:1; padding:9px 12px; border:none; background:transparent;
+    border-radius:8px; cursor:pointer; text-align:left; font-family:inherit;
+    transition:all 0.14s var(--ease); position:relative;
+    display:flex; align-items:center; gap:10px; min-width:0;
+  }
+  .prop-btn:hover { background:var(--side-hover); }
+  .prop-btn.active { background:var(--side-active); }
+  .prop-btn.active::before {
+    content:''; position:absolute; left:0; top:50%; transform:translateY(-50%);
+    width:3px; height:22px; background:var(--side-accent); border-radius:0 3px 3px 0;
+  }
+  .prop-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; transition:background 0.14s var(--ease); }
+  .prop-btn.active .prop-dot { background:var(--side-accent); }
+  .prop-btn:not(.active) .prop-dot { background:var(--side-border); }
+  .prop-btn:hover:not(.active) .prop-dot { background:var(--side-text); }
+  .prop-name {
+    font-size:13px; font-weight:400; color:var(--side-text);
+    letter-spacing:-0.01em; line-height:1.3; transition:color 0.14s var(--ease);
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .prop-btn:hover .prop-name { color:var(--side-text-bright); }
+  .prop-btn.active .prop-name { color:var(--side-text-bright); font-weight:550; }
+  .mini-badges { display:inline-flex; flex-wrap:wrap; align-items:center; gap:6px 8px; font-size:11px; font-weight:500; opacity:0.9; margin-left:2px; vertical-align:middle; }
+  .mini-badges .badge-item { display:inline-flex; align-items:center; gap:3px; color:var(--side-text); }
+  .prop-btn.active .mini-badges .badge-item { color:var(--side-text-bright); }
+
   .gdrive-btn {
-    flex-shrink: 0; width: 38px; min-width: 38px;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--side-surface); border: 1px solid var(--side-border);
-    border-radius: 8px; color: var(--side-accent); text-decoration: none;
-    transition: background 0.15s var(--ease), transform 0.1s var(--ease);
+    flex-shrink:0; width:36px; min-width:36px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--side-surface); border:1px solid var(--side-border);
+    border-radius:8px; color:var(--side-accent); text-decoration:none;
+    transition:background 0.14s var(--ease),transform 0.1s var(--ease);
   }
-  .gdrive-btn:hover { background: var(--side-hover); transform: scale(1.04); }
-  .gdrive-btn svg { width: 18px; height: 18px; display: block; }
-  .mini-badges { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; font-size: 11px; font-weight: 500; opacity: 0.9; margin-left: 2px; vertical-align: middle; }
-  .mini-badges .badge-item { display: inline-flex; align-items: center; gap: 3px; color: var(--side-text); }
-  .prop-btn.active .mini-badges .badge-item { color: var(--side-text-bright); }
-  .side-footer { padding: 14px 20px; border-top: 1px solid var(--side-border); flex-shrink: 0; }
-  .side-gen { font-size: 10px; color: var(--side-text); opacity: 0.35; font-family: 'JetBrains Mono', monospace; }
-  .main { flex: 1; height: 100vh; overflow-y: auto; position: relative; }
-  .main::-webkit-scrollbar { width: 8px; }
-  .main::-webkit-scrollbar-track { background: transparent; }
-  .main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-  .topbar { position: sticky; top: 0; z-index: 50; background: var(--bg); padding: 20px 32px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; transition: box-shadow 0.3s var(--ease); flex-wrap: wrap; }
-  .topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
-  .topbar-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
-  .prop-title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.4px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; max-width: 100%; }
-  .prop-title .pt-name { font-weight: 700; }
-  .prop-title .pt-badges { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-size: 17px; font-weight: 600; color: var(--text-sec); }
-  .prop-title .badge-item { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
-  .prop-title .badge-item .bi { font-size: 1.1em; line-height: 1; opacity: 0.95; }
-  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--text-sec); flex-shrink: 0; }
-  .legend-item { display: flex; align-items: center; gap: 6px; }
-  .legend-swatch { width: 16px; height: 16px; border-radius: 4px; }
-  .legend-swatch.s-free { background: var(--free-bg); border: 1px solid #B8E0B8; }
-  .legend-swatch.s-booked { background: var(--booked-bg); border: 1px solid #E8B8B8; }
-  .legend-swatch.s-blocked { background: var(--blocked-bg); border: 1px solid #C8B8D8; }
-  .legend-swatch.s-today { background: var(--today-bg); border: 1px solid #B8CEE8; }
-  .mobile-bar { display: none; }
-  .mob-select { width: 100%; padding: 12px 40px 12px 14px; background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 14px; font-weight: 500; color: var(--text); font-family: inherit; appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%236E6E76' stroke-width='2' stroke-linecap='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='4 6 8 10 12 6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; cursor: pointer; }
-  .mob-select:focus { outline: none; border-color: var(--today-ring); box-shadow: 0 0 0 3px rgba(74,122,204,0.1); }
-  .month-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 4px 32px 48px; }
-  .month-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border-light); padding: 16px 14px 12px; transition: box-shadow 0.2s var(--ease), transform 0.2s var(--ease); opacity: 0; transform: translateY(8px); animation: cardIn 0.4s var(--ease) forwards; }
-  .month-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.05); transform: translateY(-1px); }
-  .month-card:nth-child(1){animation-delay:.02s}.month-card:nth-child(2){animation-delay:.05s}.month-card:nth-child(3){animation-delay:.08s}.month-card:nth-child(4){animation-delay:.11s}.month-card:nth-child(5){animation-delay:.14s}.month-card:nth-child(6){animation-delay:.17s}.month-card:nth-child(7){animation-delay:.20s}.month-card:nth-child(8){animation-delay:.23s}.month-card:nth-child(9){animation-delay:.26s}.month-card:nth-child(10){animation-delay:.29s}.month-card:nth-child(11){animation-delay:.32s}.month-card:nth-child(12){animation-delay:.35s}
-  .mc-header { display: flex; align-items: baseline; gap: 6px; margin-bottom: 10px; padding: 0 2px; }
-  .mc-month { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -0.2px; }
-  .mc-year { font-size: 12px; font-weight: 400; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
-  .mc-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 4px; }
-  .mc-wd { text-align: center; font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); padding: 2px 0 4px; }
-  .mc-wd.wd-end { color: #C4B898; }
-  .mc-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
-  .mc-empty { aspect-ratio: 1; }
-  .mc-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 5px; font-size: 12px; font-weight: 500; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; cursor: default; transition: all 0.12s var(--ease); position: relative; }
-  .mc-day.free { background: var(--free-bg); color: var(--free-text); }
-  .mc-day.free:hover { background: var(--free-bg-hover); transform: scale(1.12); z-index: 2; box-shadow: 0 2px 8px rgba(45,107,45,0.15); }
-  .mc-day.booked { background: var(--booked-bg); color: var(--booked-text); }
-  .mc-day.booked:hover { background: var(--booked-bg-hover); }
-  .mc-day.blocked { background: var(--blocked-bg); color: var(--blocked-text); }
-  .mc-day.blocked:hover { background: var(--blocked-bg-hover); }
-  .mc-day.today { background: var(--today-bg); color: var(--today-text); font-weight: 700; box-shadow: 0 0 0 2px rgba(74,122,204,0.2); }
-  .mc-day.past { opacity: var(--past-opacity); }
-  .mc-day.past.free { background: #E8F0E8; }
-  .mc-day.past.booked { background: #F0E0E0; }
-  .mc-day.past.blocked { background: #E8E0F0; }
-  @keyframes cardIn { to { opacity: 1; transform: translateY(0); } }
-  @media (max-width: 1200px) { .month-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 900px) { .month-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 4px 20px 48px; } .topbar { padding: 16px 20px 12px; } .prop-title { font-size: 18px; } }
-  @media (max-width: 680px) { body { flex-direction: column; overflow: auto; } html, body { overflow: auto; height: auto; } .sidebar { display: none; } .mobile-bar { display: block; padding: 16px 16px 0; background: var(--bg); position: sticky; top: 0; z-index: 60; } .main { height: auto; overflow: visible; } .topbar { padding: 12px 16px 10px; flex-direction: column; align-items: flex-start; } .prop-title { font-size: 17px; } .legend { gap: 12px; } .legend-item { font-size: 11px; } .month-grid { grid-template-columns: 1fr; gap: 12px; padding: 4px 16px 40px; } .month-card { padding: 18px 16px 14px; } .mc-day { font-size: 13px; } .mc-month { font-size: 16px; } }
-  .main::before { content: ''; position: fixed; top: 0; left: var(--sidebar-w); right: 0; bottom: 0; pointer-events: none; z-index: 999; opacity: 0.01; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 256px; }
-  @media (max-width: 680px) { .main::before { left: 0; } }
-  ::selection { background: var(--today-bg); color: var(--today-text); }
+  .gdrive-btn:hover { background:var(--side-hover); transform:scale(1.05); }
+  .gdrive-btn svg { width:17px; height:17px; display:block; }
+
+  /* Keyboard hint */
+  .kb-hint { font-size:10px; color:var(--side-text); opacity:0.35; display:flex; align-items:center; gap:6px; padding:0 20px 10px; flex-shrink:0; }
+  .kb-key { background:var(--side-surface); border:1px solid var(--side-border); border-radius:4px; padding:1px 5px; font-family:'JetBrains Mono',monospace; font-size:10px; }
+
+  .side-footer { padding:12px 20px; border-top:1px solid var(--side-border); flex-shrink:0; }
+  .side-gen { font-size:10px; color:var(--side-text); opacity:0.35; font-family:'JetBrains Mono',monospace; }
+
+  /* ─── MAIN ─── */
+  .main { flex:1; height:100vh; overflow-y:auto; position:relative; }
+  .main::-webkit-scrollbar { width:7px; }
+  .main::-webkit-scrollbar-track { background:transparent; }
+  .main::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
+
+  /* Topbar — glass */
+  .topbar {
+    position:sticky; top:0; z-index:50;
+    background:rgba(245,243,239,0.9);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    padding:16px 32px; display:flex; align-items:center;
+    justify-content:space-between; gap:16px; flex-wrap:wrap;
+    border-bottom:1px solid transparent;
+    transition:border-color 0.3s var(--ease),box-shadow 0.3s var(--ease);
+    min-height:var(--topbar-h);
+  }
+  .topbar.scrolled { border-color:var(--border); box-shadow:0 4px 24px rgba(0,0,0,0.04); }
+  .topbar-left { display:flex; align-items:center; gap:14px; min-width:0; }
+  .prop-title {
+    font-size:21px; font-weight:800; color:var(--text); letter-spacing:-0.5px;
+    display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; max-width:100%;
+  }
+  .prop-title .pt-name { font-weight:800; }
+  .prop-title .pt-badges { display:inline-flex; flex-wrap:wrap; align-items:center; gap:10px 14px; font-size:15px; font-weight:500; color:var(--text-sec); }
+  .prop-title .badge-item { display:inline-flex; align-items:center; gap:4px; white-space:nowrap; }
+  .prop-title .badge-item .bi { font-size:1.1em; line-height:1; opacity:0.95; }
+
+  /* Topbar month stats */
+  .month-stats { display:flex; gap:20px; flex-shrink:0; }
+  .ms-item { display:flex; align-items:center; gap:7px; font-size:12px; color:var(--text-sec); }
+  .ms-dot { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
+  .ms-dot.free { background:var(--free-bg); border:1px solid var(--free-border); }
+  .ms-dot.booked { background:var(--booked-bg); }
+  .ms-dot.blocked { background:var(--blocked-bg); }
+  .ms-val { font-weight:700; color:var(--text); }
+  .ms-label { font-size:11px; color:var(--text-muted); margin-right:6px; }
+
+  .mobile-bar { display:none; }
+  .mob-select { width:100%; padding:11px 38px 11px 14px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); font-size:14px; font-weight:500; color:var(--text); font-family:inherit; appearance:none; background-image:url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%236E6E76' stroke-width='2' stroke-linecap='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='4 6 8 10 12 6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; cursor:pointer; }
+  .mob-select:focus { outline:none; border-color:var(--today-ring); box-shadow:0 0 0 3px rgba(74,122,204,0.1); }
+
+  /* ─── MONTH GRID (single view) ─── */
+  .month-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; padding:20px 32px 60px; }
+  @keyframes cardIn { to { opacity:1; transform:translateY(0); } }
+  .month-card {
+    background:var(--surface); border-radius:var(--radius);
+    border:1px solid var(--border-light); padding:16px 14px 12px;
+    transition:box-shadow 0.2s var(--ease),transform 0.2s var(--ease);
+    opacity:0; transform:translateY(8px); animation:cardIn 0.35s var(--ease) forwards;
+  }
+  .month-card:hover { box-shadow:0 8px 28px rgba(0,0,0,0.06); transform:translateY(-2px); }
+  .month-card:nth-child(1){animation-delay:.02s}.month-card:nth-child(2){animation-delay:.05s}
+  .month-card:nth-child(3){animation-delay:.08s}.month-card:nth-child(4){animation-delay:.11s}
+  .month-card:nth-child(5){animation-delay:.14s}.month-card:nth-child(6){animation-delay:.17s}
+  .month-card:nth-child(7){animation-delay:.20s}.month-card:nth-child(8){animation-delay:.23s}
+  .month-card:nth-child(9){animation-delay:.26s}.month-card:nth-child(10){animation-delay:.29s}
+  .month-card:nth-child(11){animation-delay:.32s}.month-card:nth-child(12){animation-delay:.35s}
+  .mc-header { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:10px; }
+  .mc-month-name { font-size:14px; font-weight:700; color:var(--text); letter-spacing:-0.2px; }
+  .mc-year { font-size:11px; color:var(--text-muted); font-family:'JetBrains Mono',monospace; }
+
+  /* Monthly occupancy bar */
+  .mc-occ { display:flex; align-items:center; gap:6px; margin-bottom:10px; }
+  .mc-occ-bar { flex:1; height:4px; background:var(--border-light); border-radius:2px; overflow:hidden; }
+  .mc-occ-fill { height:100%; border-radius:2px; transition:width 0.5s var(--ease); }
+  .mc-occ-fill.low { background:#43A047; }
+  .mc-occ-fill.mid { background:#FB8C00; }
+  .mc-occ-fill.high { background:#E53935; }
+  .mc-occ-pct { font-size:10px; font-family:'JetBrains Mono',monospace; color:var(--text-muted); font-weight:500; }
+
+  .mc-weekdays { display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:4px; }
+  .mc-wd { text-align:center; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); padding:2px 0 5px; }
+  .mc-wd.wd-end { color:#C4B89A; }
+
+  .mc-days { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
+  .mc-empty { aspect-ratio:1; }
+
+  /* ─── DAY CELLS: pill / range ─── */
+  .mc-day {
+    aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+    font-size:11.5px; font-weight:500; font-variant-numeric:tabular-nums;
+    cursor:default; transition:all 0.1s var(--ease); position:relative;
+    border-radius:5px;
+  }
+
+  .mc-day.free { background:var(--free-bg); color:var(--free-text); }
+  .mc-day.free:hover { filter:brightness(0.94); transform:scale(1.12); z-index:2; }
+
+  .mc-day.booked { background:var(--booked-mid-bg); color:var(--booked-text); border-radius:4px; }
+  .mc-day.booked.range-start { background:var(--booked-cap-bg); border-radius:6px 3px 3px 6px; }
+  .mc-day.booked.range-end   { background:var(--booked-cap-bg); border-radius:3px 6px 6px 3px; }
+  .mc-day.booked.range-solo  { background:var(--booked-cap-bg); border-radius:6px; }
+  .mc-day.booked:hover { filter:brightness(1.12); z-index:2; }
+
+  .mc-day.blocked { background:var(--blocked-mid-bg); color:var(--blocked-text); border-radius:4px; }
+  .mc-day.blocked.range-start { background:var(--blocked-bg); border-radius:6px 3px 3px 6px; }
+  .mc-day.blocked.range-end   { background:var(--blocked-bg); border-radius:3px 6px 6px 3px; }
+  .mc-day.blocked.range-solo  { background:var(--blocked-bg); border-radius:6px; }
+
+  .mc-day.today {
+    background:var(--today-bg); color:var(--today-text); font-weight:800;
+    box-shadow:0 0 0 2px rgba(74,122,204,0.5),0 2px 8px rgba(74,122,204,0.2);
+    border-radius:6px; z-index:3;
+  }
+
+  .mc-day.past { opacity:var(--past-opacity); }
+
+  /* ─── TOOLTIP ─── */
+  .tooltip {
+    position:fixed; z-index:1000; pointer-events:none;
+    background:#18181C; color:#EEEEF2; padding:8px 12px;
+    border-radius:9px; font-size:12px; line-height:1.5;
+    box-shadow:0 8px 24px rgba(0,0,0,0.3);
+    opacity:0; transition:opacity 0.15s var(--ease);
+    max-width:200px; white-space:nowrap;
+    border:1px solid rgba(255,255,255,0.07);
+  }
+  .tooltip.visible { opacity:1; }
+  .tt-date { font-weight:700; color:var(--side-accent); margin-bottom:2px; }
+  .tt-nights { color:#AAA; font-size:11px; }
+
+  /* ─── OVERVIEW MODE ─── */
+  .overview-grid { padding:20px 32px 60px; display:flex; flex-direction:column; gap:12px; }
+  @keyframes rowIn { to { opacity:1; transform:translateX(0); } }
+  .ov-row {
+    background:var(--surface); border-radius:var(--radius); border:1px solid var(--border-light);
+    padding:12px 16px; display:flex; align-items:center; gap:14px;
+    transition:box-shadow 0.2s,transform 0.2s;
+    opacity:0; transform:translateX(-6px); animation:rowIn 0.3s var(--ease) forwards;
+  }
+  .ov-row:nth-child(1){animation-delay:.03s}.ov-row:nth-child(2){animation-delay:.06s}
+  .ov-row:nth-child(3){animation-delay:.09s}.ov-row:nth-child(4){animation-delay:.12s}
+  .ov-row:nth-child(5){animation-delay:.15s}.ov-row:nth-child(6){animation-delay:.18s}
+  .ov-row:nth-child(7){animation-delay:.21s}.ov-row:nth-child(8){animation-delay:.24s}
+  .ov-row:nth-child(9){animation-delay:.27s}.ov-row:nth-child(10){animation-delay:.30s}
+  .ov-row:nth-child(11){animation-delay:.33s}.ov-row:nth-child(12){animation-delay:.36s}
+  .ov-row:hover { box-shadow:0 4px 16px rgba(0,0,0,0.06); transform:translateY(-1px); cursor:pointer; }
+  .ov-name { width:100px; font-size:13px; font-weight:700; color:var(--text); flex-shrink:0; }
+  .ov-badges { font-size:11px; color:var(--text-sec); width:72px; flex-shrink:0; display:flex; flex-direction:column; gap:2px; }
+  .ov-months { flex:1; display:grid; grid-template-columns:repeat(12,1fr); gap:3px; align-items:center; }
+  .ov-month { position:relative; height:28px; border-radius:5px; overflow:hidden; background:var(--free-bg); }
+  .ov-month-seg { position:absolute; top:0; height:100%; }
+  .ov-month-seg.booked { background:var(--booked-bg); opacity:0.85; }
+  .ov-month-seg.blocked { background:var(--blocked-bg); opacity:0.7; }
+  .ov-mlabel { position:absolute; bottom:2px; left:0; right:0; text-align:center; font-size:8px; color:rgba(0,0,0,0.3); font-weight:600; pointer-events:none; }
+  .ov-occ { width:44px; text-align:right; font-size:12px; font-weight:700; font-family:'JetBrains Mono',monospace; flex-shrink:0; }
+
+  /* Noise overlay */
+  .main::before { content:''; position:fixed; top:0; left:var(--sidebar-w); right:0; bottom:0; pointer-events:none; z-index:999; opacity:0.01; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size:256px; }
+
+  /* Mobile */
+  @media (max-width:1200px) { .month-grid { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:900px)  { .month-grid { grid-template-columns:repeat(2,1fr); gap:12px; padding:12px 20px 48px; } .topbar { padding:14px 20px; } .prop-title { font-size:18px; } .month-stats { gap:12px; } }
+  @media (max-width:680px)  {
+    body { flex-direction:column; overflow:auto; } html,body { overflow:auto; height:auto; }
+    .sidebar { display:none; } .mobile-bar { display:block; padding:14px 14px 0; background:var(--bg); position:sticky; top:0; z-index:60; }
+    .main { height:auto; overflow:visible; } .topbar { padding:10px 14px; flex-direction:column; align-items:flex-start; }
+    .month-grid { grid-template-columns:1fr; gap:10px; padding:8px 14px 40px; }
+    .overview-grid { padding:8px 14px 40px; }
+    .main::before { left:0; }
+  }
+  ::selection { background:var(--today-bg); color:var(--today-text); }
 </style>
 </head>
 <body>
+
+<!-- Tooltip -->
+<div class="tooltip" id="tooltip"><div class="tt-date" id="ttDate"></div><div class="tt-nights" id="ttNights"></div></div>
+
+<!-- Sidebar -->
 <aside class="sidebar">
   <div class="side-header">
     <div class="side-brand">
       <div class="side-logo">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       </div>
-      <div class="side-title">Календарь<br>доступности</div>
+      <div>
+        <div class="side-title">Riana Calendar</div>
+        <div class="side-subtitle">12 объектов · Год вперёд</div>
+      </div>
     </div>
-    <div class="side-subtitle">12 объектов · Год вперёд</div>
   </div>
+
+  <div class="view-toggle">
+    <button class="vt-btn active" id="btnSingle" onclick="setView('single')">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="1" width="14" height="14" rx="2"/><line x1="1" y1="6" x2="15" y2="6"/><line x1="6" y1="6" x2="6" y2="15"/></svg>
+      Объект
+    </button>
+    <button class="vt-btn" id="btnOverview" onclick="setView('overview')">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="4" x2="15" y2="4"/><line x1="1" y1="8" x2="15" y2="8"/><line x1="1" y1="12" x2="15" y2="12"/></svg>
+      Обзор
+    </button>
+  </div>
+
   <div class="side-label">Объекты</div>
   <div class="side-list" id="sideList"></div>
+  <div class="kb-hint"><span class="kb-key">←</span><span class="kb-key">→</span> переключить объект</div>
   <div class="side-footer"><div class="side-gen" id="sideGen"></div></div>
 </aside>
+
+<!-- Main -->
 <main class="main" id="mainArea">
   <div class="mobile-bar"><select class="mob-select" id="mobSelect" onchange="selectProp(this.value)"></select></div>
   <div class="topbar" id="topbar">
     <div class="topbar-left"><div class="prop-title" id="propTitle"></div></div>
-    <div class="legend">
-      <span class="legend-item"><span class="legend-swatch s-free"></span> Свободно</span>
-      <span class="legend-item"><span class="legend-swatch s-booked"></span> Занято</span>
-      <span class="legend-item"><span class="legend-swatch s-blocked"></span> Закрыто</span>
-      <span class="legend-item"><span class="legend-swatch s-today"></span> Сегодня</span>
-    </div>
+    <div class="month-stats" id="monthStats"></div>
   </div>
-  <div class="month-grid" id="monthGrid"></div>
+  <div id="contentArea"></div>
 </main>
+
 <script>
-const CALENDAR_DATA = {"properties":[{"id":"prop_01","name":"UNIT 1","display_name":"UNIT 1","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_02","name":"UNIT 2","display_name":"UNIT 2","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_03","name":"UNIT 3","display_name":"UNIT 3","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_04","name":"UNIT 4","display_name":"UNIT 4","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_05","name":"UNIT 5","display_name":"UNIT 5","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_06","name":"UNIT 6","display_name":"UNIT 6","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_07","name":"UNIT 1.1","display_name":"UNIT 1.1","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_08","name":"UNIT 1.2","display_name":"UNIT 1.2","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_09","name":"UNIT 1.3","display_name":"UNIT 1.3","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_10","name":"UNIT 1.4","display_name":"UNIT 1.4","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"},{"id":"prop_11","name":"UNIT 1.5","display_name":"UNIT 1.5","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"},{"id":"prop_12","name":"UNIT 1.6","display_name":"UNIT 1.6","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"}],"bookings":{"prop_01":[{"start":"2026-03-25","end":"2026-03-27"},{"start":"2026-03-28","end":"2026-04-16"},{"start":"2026-07-23","end":"2026-08-23"}],"prop_02":[{"start":"2026-03-25","end":"2026-04-17"}],"prop_03":[],"prop_04":[{"start":"2026-03-25","end":"2026-04-09"},{"start":"2026-06-08","end":"2026-07-07"}],"prop_05":[],"prop_06":[],"prop_07":[],"prop_08":[{"start":"2026-03-25","end":"2026-06-04"}],"prop_09":[],"prop_10":[{"start":"2026-07-11","end":"2026-07-24"}],"prop_11":[{"start":"2026-03-25","end":"2026-03-26"},{"start":"2026-04-14","end":"2026-06-13"}],"prop_12":[]},"blocked":{"prop_01":[],"prop_02":[{"start":"2027-02-10","end":"2027-03-25"}],"prop_03":[{"start":"2026-03-26","end":"2026-03-26"},{"start":"2027-02-10","end":"2027-03-25"}],"prop_04":[],"prop_05":[{"start":"2026-03-25","end":"2026-04-03"},{"start":"2027-02-10","end":"2027-03-25"}],"prop_06":[{"start":"2026-03-25","end":"2026-04-15"},{"start":"2027-02-10","end":"2027-03-25"}],"prop_07":[],"prop_08":[],"prop_09":[],"prop_10":[],"prop_11":[],"prop_12":[]},"generated_at":"2026-03-25T17:08:40.163347"};
+const CALENDAR_DATA = {"properties":[{"id":"prop_01","name":"UNIT 1","display_name":"UNIT 1","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_02","name":"UNIT 2","display_name":"UNIT 2","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_03","name":"UNIT 3","display_name":"UNIT 3","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_04","name":"UNIT 4","display_name":"UNIT 4","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_05","name":"UNIT 5","display_name":"UNIT 5","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_06","name":"UNIT 6","display_name":"UNIT 6","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_07","name":"UNIT 1.1","display_name":"UNIT 1.1","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_08","name":"UNIT 1.2","display_name":"UNIT 1.2","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_09","name":"UNIT 1.3","display_name":"UNIT 1.3","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_10","name":"UNIT 1.4","display_name":"UNIT 1.4","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"},{"id":"prop_11","name":"UNIT 1.5","display_name":"UNIT 1.5","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"},{"id":"prop_12","name":"UNIT 1.6","display_name":"UNIT 1.6","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"}],"bookings":{"prop_01":[{"start":"2026-03-25","end":"2026-03-27","nights":3},{"start":"2026-03-28","end":"2026-04-16","nights":20},{"start":"2026-07-23","end":"2026-08-23","nights":32}],"prop_02":[{"start":"2026-03-25","end":"2026-04-17","nights":24}],"prop_03":[],"prop_04":[{"start":"2026-03-25","end":"2026-04-09","nights":16},{"start":"2026-06-08","end":"2026-07-07","nights":30}],"prop_05":[],"prop_06":[],"prop_07":[],"prop_08":[{"start":"2026-03-25","end":"2026-06-04","nights":72}],"prop_09":[],"prop_10":[{"start":"2026-07-11","end":"2026-07-24","nights":14}],"prop_11":[{"start":"2026-03-25","end":"2026-03-26","nights":2},{"start":"2026-04-14","end":"2026-06-13","nights":61}],"prop_12":[]},"blocked":{"prop_01":[],"prop_02":[{"start":"2027-02-10","end":"2027-03-25","nights":44}],"prop_03":[{"start":"2026-03-26","end":"2026-03-26","nights":1},{"start":"2027-02-10","end":"2027-03-25","nights":44}],"prop_04":[],"prop_05":[{"start":"2026-03-25","end":"2026-04-03","nights":10},{"start":"2027-02-10","end":"2027-03-25","nights":44}],"prop_06":[{"start":"2026-03-25","end":"2026-04-15","nights":22},{"start":"2027-02-10","end":"2027-03-25","nights":44}],"prop_07":[],"prop_08":[],"prop_09":[],"prop_10":[],"prop_11":[],"prop_12":[]},"generated_at":"2026-03-25T18:29:19.652818"};
 
 const MO = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+const MO_SHORT = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
+const MO_PREP = ['Январе','Феврале','Марте','Апреле','Мае','Июне','Июле','Августе','Сентябре','Октябре','Ноябре','Декабре'];
 const WD = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
-const ICON_GDRIVE = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>';
+const ICON_GDRIVE = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 87.3 78" fill="currentColor"><path d="M6.6 66.85l3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3L27.5 50.2H0c0 1.55.4 3.1 1.2 4.5l5.4 12.15z" fill="#0066DA"/><path d="M43.65 25L29.9 1.2C28.55 2 27.4 3.1 26.6 4.5L1.2 45.7C.4 47.1 0 48.65 0 50.2h27.5L43.65 25z" fill="#00AC47"/><path d="M73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5H59.8l5.9 10.9 7.85 12.9z" fill="#EA4335"/><path d="M43.65 25L57.4 1.2C56.05.4 54.5 0 52.95 0H34.35c-1.55 0-3.1.45-4.45 1.2L43.65 25z" fill="#00832D"/><path d="M59.8 50.2H27.5L13.75 76.8c1.35.8 2.9 1.2 4.45 1.2h50.9c1.55 0 3.1-.4 4.45-1.2L59.8 50.2z" fill="#2684FC"/><path d="M73.4 26.35l-12.8-22.1C59.8 2.85 58.65 1.75 57.3.95L43.55 25l16.15 25.2h27.45c0-1.55-.4-3.1-1.2-4.5L73.4 26.35z" fill="#FFBA00"/></svg>';
+
 let sel = CALENDAR_DATA.properties[0].id;
+let currentView = 'single';
 const today = new Date(); today.setHours(0,0,0,0);
 const todayKey = tk(today);
-const bSets = {};
-const blSets = {};
+
+// Build sets for fast lookup; also store ranges for tooltips
+const bSets = {}, blSets = {}, bRanges = {}, blRanges = {};
 CALENDAR_DATA.properties.forEach(p => {
-  const s = new Set();
+  const s = new Set(), bl = new Set();
+  const br = [], blr = [];
   (CALENDAR_DATA.bookings[p.id]||[]).forEach(b => {
-    const d0 = new Date(b.start+'T00:00:00'), d1 = new Date(b.end+'T00:00:00');
-    for (let d = new Date(d0); d <= d1; d.setDate(d.getDate()+1)) s.add(tk(d));
+    const d0=new Date(b.start+'T00:00:00'), d1=new Date(b.end+'T00:00:00');
+    br.push({start:d0, end:d1, nights:b.nights});
+    for(let d=new Date(d0); d<=d1; d.setDate(d.getDate()+1)) s.add(tk(d));
   });
-  bSets[p.id] = s;
-  const bl = new Set();
   ((CALENDAR_DATA.blocked||{})[p.id]||[]).forEach(b => {
-    const d0 = new Date(b.start+'T00:00:00'), d1 = new Date(b.end+'T00:00:00');
-    for (let d = new Date(d0); d <= d1; d.setDate(d.getDate()+1)) bl.add(tk(d));
+    const d0=new Date(b.start+'T00:00:00'), d1=new Date(b.end+'T00:00:00');
+    const nights = b.nights || (Math.round((d1 - d0) / 86400000) + 1);
+    blr.push({start:d0, end:d1, nights:nights});
+    for(let d=new Date(d0); d<=d1; d.setDate(d.getDate()+1)) bl.add(tk(d));
   });
-  blSets[p.id] = bl;
+  bSets[p.id]=s; blSets[p.id]=bl; bRanges[p.id]=br; blRanges[p.id]=blr;
 });
-function tk(d) { return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
-function dow(d) { const v=d.getDay(); return v===0?6:v-1; }
-function esc(s) {
-  if (s == null || s === undefined) return '';
+
+function tk(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function dow(d){ const v=d.getDay(); return v===0?6:v-1; }
+function esc(s){
+  if(s==null||s===undefined) return '';
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-function escAttr(s) { return esc(s).replace(/'/g, '&#39;'); }
-function formatBadges(p, mini) {
-  var h = '';
-  if (p.bedrooms != null && p.bedrooms !== '') h += '<span class="badge-item" title="Спальни"><span class="bi">🛏</span>'+esc(String(p.bedrooms))+'</span>';
-  if (p.bathrooms != null && p.bathrooms !== '') h += '<span class="badge-item" title="Ванные"><span class="bi">🛁</span>'+esc(String(p.bathrooms))+'</span>';
-  if (!h) return '';
-  return mini ? '<span class="mini-badges">'+h+'</span>' : '<span class="pt-badges">'+h+'</span>';
+function escAttr(s){ return esc(s).replace(/'/g,'&#39;'); }
+
+function formatBadges(p, mini){
+  var h='';
+  if(p.bedrooms!=null&&p.bedrooms!=='') h+='<span class="badge-item" title="Спальни"><span class="bi">🛏</span>'+esc(String(p.bedrooms))+'</span>';
+  if(p.bathrooms!=null&&p.bathrooms!=='') h+='<span class="badge-item" title="Ванные"><span class="bi">🛁</span>'+esc(String(p.bathrooms))+'</span>';
+  if(!h) return '';
+  return mini?'<span class="mini-badges">'+h+'</span>':'<span class="pt-badges">'+h+'</span>';
 }
-function titleHtml(p) {
-  var name = esc(p.display_name || p.name || '');
-  return '<span class="pt-name">'+name+'</span>'+formatBadges(p, false);
+
+function titleHtml(p){
+  var name=esc(p.display_name||p.name||'');
+  return '<span class="pt-name">'+name+'</span>'+formatBadges(p,false);
 }
-function renderPropRow(p) {
-  var g = (p.photos_url || '').trim();
-  var gBtn = g ? '<a class="gdrive-btn" href="'+escAttr(g)+'" target="_blank" rel="noopener noreferrer" title="Фото в Google Диске" aria-label="Фото объекта">'+ICON_GDRIVE+'</a>' : '';
-  var inner = '<span class="prop-dot"></span><span class="prop-name">'+esc(p.display_name||p.name)+formatBadges(p, true)+'</span>';
-  var safeId = String(p.id).replace(/\\/g,'\\\\').replace(/'/g, "\\'");
-  return '<div class="prop-row"><button type="button" class="prop-btn'+(p.id===sel?' active':'')+'" data-id="'+escAttr(p.id)+'" onclick="selectProp(\''+safeId+'\')">'+inner+'</button>'+gBtn+'</div>';
+
+// Compute monthly stats
+function monthStats(propId, year, month){
+  const booked=bSets[propId]||new Set(), blocked=blSets[propId]||new Set();
+  const days=new Date(year,month+1,0).getDate();
+  let b=0,bl=0,f=0;
+  for(let d=1;d<=days;d++){
+    const k=year+'-'+String(month+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    if(booked.has(k)) b++;
+    else if(blocked.has(k)) bl++;
+    else f++;
+  }
+  return {booked:b,blocked:bl,free:f,total:days};
 }
-function buildMonths() {
-  const ms = [];
-  for (let i = 0; i < 12; i++) {
-    const y = today.getFullYear() + Math.floor((today.getMonth()+i)/12);
-    const m = (today.getMonth()+i) % 12;
-    const first = new Date(y,m,1);
-    const last = new Date(y,m+1,0).getDate();
-    const sd = dow(first);
-    const weeks = [];
-    let w = new Array(sd).fill(null);
-    for (let d=1; d<=last; d++) { w.push(new Date(y,m,d)); if (w.length===7) { weeks.push(w); w=[]; } }
-    if (w.length) { while(w.length<7) w.push(null); weeks.push(w); }
-    ms.push({year:y, month:m, weeks});
+
+// Compute occupancy % for next 30 days (for overview)
+function occNext30(propId){
+  const booked=bSets[propId]||new Set(), blocked=blSets[propId]||new Set();
+  let taken=0;
+  for(let i=0;i<30;i++){
+    const d=new Date(today); d.setDate(d.getDate()+i);
+    const k=tk(d);
+    if(booked.has(k)||blocked.has(k)) taken++;
+  }
+  return Math.round(taken/30*100);
+}
+
+// Find which booking range a date belongs to (for tooltip)
+function getRangeInfo(propId, dateKey){
+  for(const r of (bRanges[propId]||[])){
+    const k0=tk(r.start), k1=tk(r.end);
+    if(dateKey>=k0 && dateKey<=k1){
+      const nights=r.nights||(Math.round((r.end-r.start)/86400000)+1);
+      return {type:'booked', start:r.start, end:r.end, nights:nights};
+    }
+  }
+  for(const r of (blRanges[propId]||[])){
+    const k0=tk(r.start), k1=tk(r.end);
+    if(dateKey>=k0 && dateKey<=k1){
+      const nights=r.nights||(Math.round((r.end-r.start)/86400000)+1);
+      return {type:'blocked', start:r.start, end:r.end, nights:nights};
+    }
+  }
+  return null;
+}
+
+function formatRuDate(d){
+  const months=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+  return d.getDate()+' '+months[d.getMonth()];
+}
+
+function buildMonths(){
+  const ms=[];
+  for(let i=0;i<12;i++){
+    const y=today.getFullYear()+Math.floor((today.getMonth()+i)/12);
+    const m=(today.getMonth()+i)%12;
+    const first=new Date(y,m,1);
+    const last=new Date(y,m+1,0).getDate();
+    const sd=dow(first);
+    const weeks=[];
+    let w=new Array(sd).fill(null);
+    for(let d=1;d<=last;d++){ w.push(new Date(y,m,d)); if(w.length===7){weeks.push(w);w=[];} }
+    if(w.length){while(w.length<7)w.push(null);weeks.push(w);}
+    ms.push({year:y,month:m,weeks,lastDay:last});
   }
   return ms;
 }
-const months = buildMonths();
-function renderSidebar() {
-  document.getElementById('sideList').innerHTML = CALENDAR_DATA.properties.map(renderPropRow).join('');
+const months=buildMonths();
+
+// ─── Sidebar rendering ───
+function renderPropRow(p){
+  var g=(p.photos_url||'').trim();
+  var gBtn=g?'<a class="gdrive-btn" href="'+escAttr(g)+'" target="_blank" rel="noopener noreferrer" title="Фото в Google Диске" aria-label="Фото объекта">'+ICON_GDRIVE+'</a>':'';
+  var inner='<span class="prop-dot"></span><span class="prop-name">'+esc(p.display_name||p.name)+formatBadges(p,true)+'</span>';
+  var safeId=String(p.id).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+  return '<div class="prop-row"><button type="button" class="prop-btn'+(p.id===sel?' active':'')+'" data-id="'+escAttr(p.id)+'" onclick="selectProp(\''+safeId+'\')">'+inner+'</button>'+gBtn+'</div>';
 }
-function renderMobSelect() {
-  document.getElementById('mobSelect').innerHTML = CALENDAR_DATA.properties.map(function(p) {
+
+function renderSidebar(){
+  document.getElementById('sideList').innerHTML=CALENDAR_DATA.properties.map(renderPropRow).join('');
+}
+
+function renderMobSelect(){
+  document.getElementById('mobSelect').innerHTML=CALENDAR_DATA.properties.map(function(p){
     return '<option value="'+escAttr(p.id)+'"'+(p.id===sel?' selected':'')+'>'+esc(p.display_name||p.name)+'</option>';
   }).join('');
 }
-function renderGrid() {
-  const grid = document.getElementById('monthGrid');
-  const booked = bSets[sel] || new Set();
-  const blocked = blSets[sel] || new Set();
-  var cur = CALENDAR_DATA.properties.find(function(x){ return x.id===sel; }) || {};
-  document.getElementById('propTitle').innerHTML = titleHtml(cur);
-  let h = '';
-  months.forEach(m => {
-    h += '<div class="month-card"><div class="mc-header"><span class="mc-month">'+MO[m.month]+'</span><span class="mc-year">'+m.year+'</span></div>';
-    h += '<div class="mc-weekdays">'; WD.forEach((w,i) => h += '<div class="mc-wd'+(i>=5?' wd-end':'')+'">'+w+'</div>'); h += '</div>';
-    h += '<div class="mc-days">';
-    m.weeks.forEach(week => {
-      week.forEach((day,di) => {
-        if (!day) { h += '<div class="mc-empty"></div>'; return; }
-        const key = tk(day), isT = key===todayKey, isB = booked.has(key), isBl = blocked.has(key), isP = day<today&&!isT;
-        let c = 'mc-day';
-        if (isT) c += ' today';
-        else if (isB) { c += ' booked'; if (isP) c += ' past'; }
-        else if (isBl) { c += ' blocked'; if (isP) c += ' past'; }
-        else { c += ' free'; if (isP) c += ' past'; }
-        h += '<div class="'+c+'">'+day.getDate()+'</div>';
+
+// ─── Topbar stats ───
+function renderTopbarStats(){
+  var cur=CALENDAR_DATA.properties.find(function(x){return x.id===sel;})||{};
+  if(currentView==='overview'){
+    document.getElementById('propTitle').innerHTML='<span class="pt-name">Обзор — все объекты</span>';
+    document.getElementById('monthStats').innerHTML='';
+    return;
+  }
+  document.getElementById('propTitle').innerHTML=titleHtml(cur);
+  var st=monthStats(sel, today.getFullYear(), today.getMonth());
+  var label='В '+MO_PREP[today.getMonth()]+' '+today.getFullYear();
+  document.getElementById('monthStats').innerHTML=
+    '<span class="ms-label">'+esc(label)+'</span>'+
+    '<div class="ms-item"><span class="ms-dot free"></span><span><span class="ms-val">'+st.free+'</span> свободно</span></div>'+
+    '<div class="ms-item"><span class="ms-dot booked"></span><span><span class="ms-val">'+st.booked+'</span> занято</span></div>'+
+    '<div class="ms-item"><span class="ms-dot blocked"></span><span><span class="ms-val">'+st.blocked+'</span> закрыто</span></div>';
+}
+
+// ─── Day class with pill ranges ───
+function renderDayClass(day, booked, blocked){
+  if(!day) return '';
+  const key=tk(day), isT=key===todayKey, isB=booked.has(key), isBl=blocked.has(key), isP=day<today&&!isT;
+  let c='mc-day';
+  if(isT){ c+=' today'; return c; }
+  if(isB){
+    c+=' booked';
+    const prev=new Date(day); prev.setDate(prev.getDate()-1);
+    const next=new Date(day); next.setDate(next.getDate()+1);
+    const hasPrev=booked.has(tk(prev)), hasNext=booked.has(tk(next));
+    if(!hasPrev&&!hasNext) c+=' range-solo';
+    else if(!hasPrev) c+=' range-start';
+    else if(!hasNext) c+=' range-end';
+    if(isP) c+=' past';
+    return c;
+  }
+  if(isBl){
+    c+=' blocked';
+    const prev=new Date(day); prev.setDate(prev.getDate()-1);
+    const next=new Date(day); next.setDate(next.getDate()+1);
+    const hasPrev=blocked.has(tk(prev)), hasNext=blocked.has(tk(next));
+    if(!hasPrev&&!hasNext) c+=' range-solo';
+    else if(!hasPrev) c+=' range-start';
+    else if(!hasNext) c+=' range-end';
+    if(isP) c+=' past';
+    return c;
+  }
+  c+=' free';
+  if(isP) c+=' past';
+  return c;
+}
+
+// ─── Single view ───
+function renderSingleView(){
+  const booked=bSets[sel]||new Set(), blocked=blSets[sel]||new Set();
+  let h='<div class="month-grid">';
+  months.forEach(function(m){
+    const st=monthStats(sel, m.year, m.month);
+    const occPct=st.total>0?Math.round((st.booked+st.blocked)/st.total*100):0;
+    const occClass=occPct>70?'high':occPct>40?'mid':'low';
+    h+='<div class="month-card">';
+    h+='<div class="mc-header"><span class="mc-month-name">'+MO[m.month]+'</span><span class="mc-year">'+m.year+'</span></div>';
+    h+='<div class="mc-occ"><div class="mc-occ-bar"><div class="mc-occ-fill '+occClass+'" style="width:'+occPct+'%"></div></div><span class="mc-occ-pct">'+occPct+'%</span></div>';
+    h+='<div class="mc-weekdays">'+WD.map(function(w,i){return '<div class="mc-wd'+(i>=5?' wd-end':'')+'">'+w+'</div>';}).join('')+'</div>';
+    h+='<div class="mc-days">';
+    m.weeks.forEach(function(week){
+      week.forEach(function(day){
+        if(!day){h+='<div class="mc-empty"></div>';return;}
+        var key=tk(day);
+        var cls=renderDayClass(day,booked,blocked);
+        var isB=booked.has(key), isBl=blocked.has(key);
+        var hasInfo=(isB||isBl)&&day>=today;
+        h+='<div class="'+cls+'"'+(hasInfo?' data-key="'+key+'" data-pid="'+escAttr(sel)+'"':'')+'>'+day.getDate()+'</div>';
       });
     });
-    h += '</div></div>';
+    h+='</div></div>';
   });
-  grid.innerHTML = h;
-  document.getElementById('mainArea').scrollTop = 0;
+  h+='</div>';
+  document.getElementById('contentArea').innerHTML=h;
+  document.getElementById('mainArea').scrollTop=0;
+  attachTooltips();
 }
-function selectProp(id) {
-  sel = id;
-  document.querySelectorAll('.prop-btn').forEach(b => b.classList.toggle('active', b.dataset.id===id));
-  document.getElementById('mobSelect').value = id;
-  renderGrid();
+
+// ─── Overview view ───
+function renderOverviewView(){
+  let h='<div class="overview-grid">';
+  CALENDAR_DATA.properties.forEach(function(p){
+    const booked=bSets[p.id]||new Set(), blocked=blSets[p.id]||new Set();
+    const totalOcc=occNext30(p.id);
+    const occColor=totalOcc>70?'#E53935':totalOcc>40?'#FB8C00':'#43A047';
+    let monthsHtml='';
+    months.forEach(function(m){
+      const days=m.lastDay;
+      let segHtml='';
+      for(let d=1;d<=days;d++){
+        const key=m.year+'-'+String(m.month+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+        const left=((d-1)/days*100).toFixed(1)+'%';
+        const width=(1/days*100).toFixed(1)+'%';
+        if(booked.has(key)) segHtml+='<div class="ov-month-seg booked" style="left:'+left+';width:'+width+'"></div>';
+        else if(blocked.has(key)) segHtml+='<div class="ov-month-seg blocked" style="left:'+left+';width:'+width+'"></div>';
+      }
+      monthsHtml+='<div class="ov-month" title="'+MO[m.month]+' '+m.year+'">'+segHtml+'<span class="ov-mlabel">'+MO_SHORT[m.month]+'</span></div>';
+    });
+    h+='<div class="ov-row" onclick="setViewAndSelect(\'single\',\''+escAttr(p.id)+'\')">';
+    h+='<div class="ov-name">'+esc(p.display_name||p.name)+'</div>';
+    h+='<div class="ov-badges">'+(p.bedrooms?'<span>🛏 '+esc(String(p.bedrooms))+' сп.</span>':'')+'</div>';
+    h+='<div class="ov-months">'+monthsHtml+'</div>';
+    h+='<div class="ov-occ" style="color:'+occColor+'">'+totalOcc+'%</div>';
+    h+='</div>';
+  });
+  h+='</div>';
+  document.getElementById('contentArea').innerHTML=h;
 }
-const mainEl = document.getElementById('mainArea');
-const topbar = document.getElementById('topbar');
-mainEl.addEventListener('scroll', () => { topbar.classList.toggle('scrolled', mainEl.scrollTop>10); }, {passive:true});
-window.addEventListener('scroll', () => { topbar.classList.toggle('scrolled', window.scrollY>10); }, {passive:true});
-renderSidebar(); renderMobSelect(); renderGrid();
-document.getElementById('sideGen').textContent = 'Обновлено ' + new Date(CALENDAR_DATA.generated_at).toLocaleString('ru-RU');
+
+// ─── Tooltip ───
+const tooltip=document.getElementById('tooltip');
+const ttDate=document.getElementById('ttDate');
+const ttNights=document.getElementById('ttNights');
+
+function attachTooltips(){
+  document.querySelectorAll('[data-key]').forEach(function(el){
+    el.addEventListener('mouseenter', function(e){
+      var info=getRangeInfo(this.dataset.pid, this.dataset.key);
+      if(!info){tooltip.classList.remove('visible');return;}
+      var s=formatRuDate(info.start), en=formatRuDate(info.end);
+      ttDate.textContent=s+' — '+en;
+      ttNights.textContent=info.type==='booked'?info.nights+' ночей · бронь':info.nights+' дн. · закрыто';
+      tooltip.classList.add('visible');
+    });
+    el.addEventListener('mousemove', function(e){
+      var x=e.clientX+14, y=e.clientY-50;
+      if(x+200>window.innerWidth) x=e.clientX-214;
+      if(y<8) y=e.clientY+14;
+      tooltip.style.left=x+'px'; tooltip.style.top=y+'px';
+    });
+    el.addEventListener('mouseleave', function(){tooltip.classList.remove('visible');});
+  });
+}
+
+// ─── View control ───
+function setView(v){
+  currentView=v;
+  document.getElementById('btnSingle').classList.toggle('active', v==='single');
+  document.getElementById('btnOverview').classList.toggle('active', v==='overview');
+  renderTopbarStats();
+  document.getElementById('mainArea').scrollTop=0;
+  if(v==='single') renderSingleView();
+  else renderOverviewView();
+}
+
+function setViewAndSelect(v, propId){
+  sel=propId;
+  renderSidebar();
+  document.getElementById('mobSelect').value=propId;
+  setView(v);
+}
+
+function selectProp(id){
+  sel=id;
+  document.querySelectorAll('.prop-btn').forEach(function(b){b.classList.toggle('active',b.dataset.id===id);});
+  document.getElementById('mobSelect').value=id;
+  renderTopbarStats();
+  if(currentView==='single') renderSingleView();
+  document.getElementById('mainArea').scrollTop=0;
+}
+
+// ─── Keyboard navigation ───
+document.addEventListener('keydown', function(e){
+  if(currentView!=='single') return;
+  if(e.key==='ArrowLeft'||e.key==='ArrowRight'){
+    var props=CALENDAR_DATA.properties;
+    var idx=props.findIndex(function(p){return p.id===sel;});
+    if(idx<0) return;
+    var next=e.key==='ArrowRight'?(idx+1)%props.length:(idx-1+props.length)%props.length;
+    selectProp(props[next].id);
+  }
+});
+
+// ─── Scroll shadow for glass topbar ───
+const mainEl=document.getElementById('mainArea');
+const topbar=document.getElementById('topbar');
+mainEl.addEventListener('scroll', function(){topbar.classList.toggle('scrolled',mainEl.scrollTop>10);},{passive:true});
+window.addEventListener('scroll', function(){topbar.classList.toggle('scrolled',window.scrollY>10);},{passive:true});
+
+// ─── Init ───
+renderSidebar();
+renderMobSelect();
+renderTopbarStats();
+renderSingleView();
+document.getElementById('sideGen').textContent='Обновлено '+new Date(CALENDAR_DATA.generated_at).toLocaleString('ru-RU');
 </script>
 </body>
 </html>
