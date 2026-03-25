@@ -29,14 +29,27 @@ def _to_date(value: date | datetime) -> date:
 
 
 def _classify_summary(summary: str) -> tuple[bool, bool]:
-    """Classify event type from SUMMARY value."""
-    normalized = (summary or "").strip().lower()
-    if not normalized:
-        return False, False
+    """Classify event type from SUMMARY value.
 
-    is_blocked = "not available" in normalized
-    is_reservation = normalized == "reserved" or (not is_blocked)
-    return is_reservation, is_blocked
+    Airbnb iCal feeds only contain blocked/reserved dates (never available
+    ones), so every event represents an unavailable period.  We distinguish
+    between genuine guest reservations (``is_reservation=True``) and dates
+    the host blocked manually (``is_blocked=True``).  When the summary is
+    empty or unrecognised we still mark the event as blocked so it shows up
+    as unavailable.
+    """
+    normalized = (summary or "").strip().lower()
+
+    # Genuine reservation
+    if normalized == "reserved":
+        return True, False
+
+    # Manually blocked by host – various Airbnb wordings
+    if "not available" in normalized:
+        return False, True
+
+    # Any other or empty summary – treat as blocked/unavailable to be safe
+    return False, True
 
 
 def parse_ical(ical_content: str) -> list[BookingEvent]:

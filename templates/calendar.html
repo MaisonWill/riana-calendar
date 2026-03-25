@@ -31,6 +31,9 @@
     --booked-bg: #F5D0D0;
     --booked-bg-hover: #EEBCBC;
     --booked-text: #8B3A3A;
+    --blocked-bg: #E8DFF0;
+    --blocked-bg-hover: #DACBE8;
+    --blocked-text: #5B4478;
     --today-ring: #4A7ACC;
     --today-bg: #D8E6F8;
     --today-text: #2A5090;
@@ -100,6 +103,7 @@
   .legend-swatch { width: 16px; height: 16px; border-radius: 4px; }
   .legend-swatch.s-free { background: var(--free-bg); border: 1px solid #B8E0B8; }
   .legend-swatch.s-booked { background: var(--booked-bg); border: 1px solid #E8B8B8; }
+  .legend-swatch.s-blocked { background: var(--blocked-bg); border: 1px solid #C8B8D8; }
   .legend-swatch.s-today { background: var(--today-bg); border: 1px solid #B8CEE8; }
   .mobile-bar { display: none; }
   .mob-select { width: 100%; padding: 12px 40px 12px 14px; background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 14px; font-weight: 500; color: var(--text); font-family: inherit; appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%236E6E76' stroke-width='2' stroke-linecap='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='4 6 8 10 12 6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; cursor: pointer; }
@@ -121,10 +125,13 @@
   .mc-day.free:hover { background: var(--free-bg-hover); transform: scale(1.12); z-index: 2; box-shadow: 0 2px 8px rgba(45,107,45,0.15); }
   .mc-day.booked { background: var(--booked-bg); color: var(--booked-text); }
   .mc-day.booked:hover { background: var(--booked-bg-hover); }
+  .mc-day.blocked { background: var(--blocked-bg); color: var(--blocked-text); }
+  .mc-day.blocked:hover { background: var(--blocked-bg-hover); }
   .mc-day.today { background: var(--today-bg); color: var(--today-text); font-weight: 700; box-shadow: 0 0 0 2px rgba(74,122,204,0.2); }
   .mc-day.past { opacity: var(--past-opacity); }
   .mc-day.past.free { background: #E8F0E8; }
   .mc-day.past.booked { background: #F0E0E0; }
+  .mc-day.past.blocked { background: #E8E0F0; }
   @keyframes cardIn { to { opacity: 1; transform: translateY(0); } }
   @media (max-width: 1200px) { .month-grid { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 900px) { .month-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 4px 20px 48px; } .topbar { padding: 16px 20px 12px; } .prop-title { font-size: 18px; } }
@@ -156,6 +163,7 @@
     <div class="legend">
       <span class="legend-item"><span class="legend-swatch s-free"></span> Свободно</span>
       <span class="legend-item"><span class="legend-swatch s-booked"></span> Занято</span>
+      <span class="legend-item"><span class="legend-swatch s-blocked"></span> Закрыто</span>
       <span class="legend-item"><span class="legend-swatch s-today"></span> Сегодня</span>
     </div>
   </div>
@@ -193,6 +201,7 @@ let sel = CALENDAR_DATA.properties[0].id;
 const today = new Date(); today.setHours(0,0,0,0);
 const todayKey = tk(today);
 const bSets = {};
+const blSets = {};
 CALENDAR_DATA.properties.forEach(p => {
   const s = new Set();
   (CALENDAR_DATA.bookings[p.id]||[]).forEach(b => {
@@ -200,6 +209,12 @@ CALENDAR_DATA.properties.forEach(p => {
     for (let d = new Date(d0); d <= d1; d.setDate(d.getDate()+1)) s.add(tk(d));
   });
   bSets[p.id] = s;
+  const bl = new Set();
+  ((CALENDAR_DATA.blocked||{})[p.id]||[]).forEach(b => {
+    const d0 = new Date(b.start+'T00:00:00'), d1 = new Date(b.end+'T00:00:00');
+    for (let d = new Date(d0); d <= d1; d.setDate(d.getDate()+1)) bl.add(tk(d));
+  });
+  blSets[p.id] = bl;
 });
 function tk(d) { return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
 function dow(d) { const v=d.getDay(); return v===0?6:v-1; }
@@ -254,6 +269,7 @@ function renderMobSelect() {
 function renderGrid() {
   const grid = document.getElementById('monthGrid');
   const booked = bSets[sel] || new Set();
+  const blocked = blSets[sel] || new Set();
   var cur = CALENDAR_DATA.properties.find(function(x){ return x.id===sel; }) || {};
   document.getElementById('propTitle').innerHTML = titleHtml(cur);
   let h = '';
@@ -264,10 +280,11 @@ function renderGrid() {
     m.weeks.forEach(week => {
       week.forEach((day,di) => {
         if (!day) { h += '<div class="mc-empty"></div>'; return; }
-        const key = tk(day), isT = key===todayKey, isB = booked.has(key), isP = day<today&&!isT;
+        const key = tk(day), isT = key===todayKey, isB = booked.has(key), isBl = blocked.has(key), isP = day<today&&!isT;
         let c = 'mc-day';
         if (isT) c += ' today';
         else if (isB) { c += ' booked'; if (isP) c += ' past'; }
+        else if (isBl) { c += ' blocked'; if (isP) c += ' past'; }
         else { c += ' free'; if (isP) c += ' past'; }
         h += '<div class="'+c+'">'+day.getDate()+'</div>';
       });

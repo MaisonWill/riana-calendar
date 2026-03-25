@@ -32,6 +32,8 @@ def _build_calendar_data(
     props_list: list[dict] = []
     bookings_dict: dict[str, list[dict[str, str]]] = {}
 
+    blocked_dict: dict[str, list[dict[str, str]]] = {}
+
     for prop in properties:
         ex = meta.get(prop.id, PropertyExtras())
         label = (ex.display_name or "").strip() or prop.name
@@ -46,27 +48,33 @@ def _build_calendar_data(
             }
         )
         events = all_events.get(prop.id, [])
-        ranges: list[dict[str, str]] = []
+        reservation_ranges: list[dict[str, str]] = []
+        blocked_ranges: list[dict[str, str]] = []
         for ev in events:
-            if not ev.is_reservation:
-                continue
             # Clip to [today, horizon); ev.end_date is exclusive checkout in iCal
             s = max(ev.start_date, today)
             e = min(ev.end_date, horizon)
             if s >= e:
                 continue
-            ranges.append(
-                {
-                    "start": s.isoformat(),
-                    # inclusive last night for the template JS (loops d0..d1 inclusive)
-                    "end": (e - timedelta(days=1)).isoformat(),
-                }
-            )
-        bookings_dict[prop.id] = ranges
+            entry = {
+                "start": s.isoformat(),
+                # inclusive last night for the template JS (loops d0..d1 inclusive)
+                "end": (e - timedelta(days=1)).isoformat(),
+            }
+            if ev.is_reservation:
+                reservation_ranges.append(entry)
+            elif ev.is_blocked:
+                blocked_ranges.append(entry)
+            else:
+                # Safety net: treat any unclassified event as blocked
+                blocked_ranges.append(entry)
+        bookings_dict[prop.id] = reservation_ranges
+        blocked_dict[prop.id] = blocked_ranges
 
     return {
         "properties": props_list,
         "bookings": bookings_dict,
+        "blocked": blocked_dict,
         "generated_at": datetime.now().isoformat(),
     }
 
