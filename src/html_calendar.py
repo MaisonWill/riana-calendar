@@ -56,10 +56,13 @@ def _build_calendar_data(
             e = min(ev.end_date, horizon)
             if s >= e:
                 continue
+            last_night = e - timedelta(days=1)
+            nights = (e - s).days  # number of nights
             entry = {
                 "start": s.isoformat(),
                 # inclusive last night for the template JS (loops d0..d1 inclusive)
-                "end": (e - timedelta(days=1)).isoformat(),
+                "end": last_night.isoformat(),
+                "nights": nights,
             }
             if ev.is_reservation:
                 reservation_ranges.append(entry)
