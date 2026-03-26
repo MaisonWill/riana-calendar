@@ -706,7 +706,10 @@ renderSidebar();
 renderMobSelect();
 renderTopbarStats();
 renderSingleView();
-document.getElementById('sideGen').textContent='Обновлено '+new Date(CALENDAR_DATA.generated_at).toLocaleString('ru-RU');
+const genDate = new Date(CALENDAR_DATA.generated_at);
+const timeStr = genDate.toLocaleString('ru-RU', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
+const tz = genDate.toLocaleTimeString('en-US', {timeZoneName:'short'}).split(' ').pop();
+document.getElementById('sideGen').textContent = 'Обновлено ' + timeStr + ' (' + tz + ')';
 </script>
 </body>
 </html>

@@ -78,7 +78,7 @@ def _build_calendar_data(
         "properties": props_list,
         "bookings": bookings_dict,
         "blocked": blocked_dict,
-        "generated_at": datetime.now().isoformat(),
+        "generated_at": datetime.utcnow().isoformat() + "Z",
     }
 
 
