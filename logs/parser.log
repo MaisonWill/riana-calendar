@@ -8188,3 +8188,47 @@ stdout:
 stderr: Cloning into '/home/runner/work/riana-calendar/riana-calendar/deploy_repo'...
 fatal: unable to access 'https://github.com/<USERNAME>/riana-calendar.git/': The requested URL returned error: 400
 
+2026-03-31 09:54:58 | INFO | __main__ | Starting occupancy update cycle for 12 properties
+2026-03-31 09:54:58 | INFO | src.fetcher | Fetching iCal for property=prop_01 (Property 01)
+2026-03-31 09:54:58 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292658416910564762.ics?t=8cb9df85e12c41abacb58703f4aff81c "HTTP/1.1 200 OK"
+2026-03-31 09:54:58 | INFO | src.fetcher | Fetched iCal successfully for property=prop_01
+2026-03-31 09:55:00 | INFO | src.fetcher | Fetching iCal for property=prop_02 (Property 02)
+2026-03-31 09:55:01 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292664847387258979.ics?t=2e3baf6abd6441798de655393efe508d "HTTP/1.1 200 OK"
+2026-03-31 09:55:01 | INFO | src.fetcher | Fetched iCal successfully for property=prop_02
+2026-03-31 09:55:03 | INFO | src.fetcher | Fetching iCal for property=prop_03 (Property 03)
+2026-03-31 09:55:03 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298286373838602814.ics?t=5729dfe2a30c4156be4bb22b8814ad98 "HTTP/1.1 200 OK"
+2026-03-31 09:55:03 | INFO | src.fetcher | Fetched iCal successfully for property=prop_03
+2026-03-31 09:55:05 | INFO | src.fetcher | Fetching iCal for property=prop_04 (Property 04)
+2026-03-31 09:55:05 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1291302241861413464.ics?t=c508242628ca486e851da66567cc0f87 "HTTP/1.1 200 OK"
+2026-03-31 09:55:05 | INFO | src.fetcher | Fetched iCal successfully for property=prop_04
+2026-03-31 09:55:07 | INFO | src.fetcher | Fetching iCal for property=prop_05 (Property 05)
+2026-03-31 09:55:08 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1292667868790646090.ics?t=90c9126d7fb4411bbed9eff5d3c766e4 "HTTP/1.1 200 OK"
+2026-03-31 09:55:08 | INFO | src.fetcher | Fetched iCal successfully for property=prop_05
+2026-03-31 09:55:10 | INFO | src.fetcher | Fetching iCal for property=prop_06 (Property 06)
+2026-03-31 09:55:10 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1298350451641201758.ics?t=95dd1dc4ed404c918e0bccd6c2e7b8b2 "HTTP/1.1 200 OK"
+2026-03-31 09:55:10 | INFO | src.fetcher | Fetched iCal successfully for property=prop_06
+2026-03-31 09:55:12 | INFO | src.fetcher | Fetching iCal for property=prop_07 (Property 07)
+2026-03-31 09:55:12 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1572209567626235879.ics?t=07d9856e7cf540119d00acab3a92b78f "HTTP/1.1 200 OK"
+2026-03-31 09:55:12 | INFO | src.fetcher | Fetched iCal successfully for property=prop_07
+2026-03-31 09:55:14 | INFO | src.fetcher | Fetching iCal for property=prop_08 (Property 08)
+2026-03-31 09:55:14 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581955295247196376.ics?t=d77f130290ae41b499e7ab481f516f6e "HTTP/1.1 200 OK"
+2026-03-31 09:55:14 | INFO | src.fetcher | Fetched iCal successfully for property=prop_08
+2026-03-31 09:55:16 | INFO | src.fetcher | Fetching iCal for property=prop_09 (Property 09)
+2026-03-31 09:55:17 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581947449551593237.ics?t=52cf6fbbd7f34e83b286a344aa4ee9a8 "HTTP/1.1 200 OK"
+2026-03-31 09:55:17 | INFO | src.fetcher | Fetched iCal successfully for property=prop_09
+2026-03-31 09:55:19 | INFO | src.fetcher | Fetching iCal for property=prop_10 (Property 10)
+2026-03-31 09:55:19 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581810809115787451.ics?t=0b866cf127014723ace8b0df7941100d "HTTP/1.1 200 OK"
+2026-03-31 09:55:19 | INFO | src.fetcher | Fetched iCal successfully for property=prop_10
+2026-03-31 09:55:21 | INFO | src.fetcher | Fetching iCal for property=prop_11 (Property 11)
+2026-03-31 09:55:21 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1581815830064787563.ics?t=665ab1d5fa7845ce9d9e75bebd96d159 "HTTP/1.1 200 OK"
+2026-03-31 09:55:21 | INFO | src.fetcher | Fetched iCal successfully for property=prop_11
+2026-03-31 09:55:23 | INFO | src.fetcher | Fetching iCal for property=prop_12 (Property 12)
+2026-03-31 09:55:24 | INFO | httpx | HTTP Request: GET https://www.airbnb.com/calendar/ical/1573104728411079591.ics?t=23a9b5c1ad784d9f85c26e9865a8910a "HTTP/1.1 200 OK"
+2026-03-31 09:55:24 | INFO | src.fetcher | Fetched iCal successfully for property=prop_12
+2026-03-31 09:55:24 | INFO | __main__ | Occupancy update finished. Exported 12 properties to ./data/occupancy.json
+2026-03-31 09:55:24 | INFO | src.html_calendar | Calendar HTML exported to ./data/occupancy_calendar.html
+2026-03-31 09:55:24 | ERROR | src.deployer | Git command failed during deployment: ['git', 'clone', '--branch', 'main', '--single-branch', 'https://github.com/<USERNAME>/riana-calendar.git', '/home/runner/work/riana-calendar/riana-calendar/deploy_repo']
+stdout: 
+stderr: Cloning into '/home/runner/work/riana-calendar/riana-calendar/deploy_repo'...
+fatal: unable to access 'https://github.com/<USERNAME>/riana-calendar.git/': The requested URL returned error: 400
+
