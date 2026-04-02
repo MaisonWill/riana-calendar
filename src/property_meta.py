@@ -33,7 +33,10 @@ class PropertyExtras(BaseModel):
     def strip_url(cls, v: Any) -> Any:
         if v is None:
             return ""
-        return str(v).strip()
+        val = str(v).strip()
+        if val and not (val.lower().startswith("http://") or val.lower().startswith("https://")):
+            raise ValueError("URL must start with http:// or https://")
+        return val
 
     @field_validator("bedrooms", "bathrooms", mode="before")
     @classmethod
