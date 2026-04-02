@@ -9,6 +9,15 @@ from src.parser import BookingEvent, get_occupied_dates
 
 
 @dataclass(frozen=True, slots=True)
+class FormatOptions:
+    """Options for formatting booking events report."""
+
+    include_blocks: bool = False
+    full_year: bool = False
+    iso_dates: bool = False
+
+
+@dataclass(frozen=True, slots=True)
 class UnavailableRange:
     """One contiguous stretch of unavailable nights.
 
@@ -177,9 +186,7 @@ def format_property_bookings_per_event_text(
     property_name: str,
     events: list[BookingEvent],
     *,
-    include_blocks: bool = False,
-    full_year: bool = False,
-    iso_dates: bool = False,
+    options: FormatOptions,
 ) -> str:
     """Text report: each calendar event on its own line, no merging.
 
@@ -189,9 +196,7 @@ def format_property_bookings_per_event_text(
         property_id: Property id from config.
         property_name: Display name.
         events: Parsed future events from parse_ical.
-        include_blocks: If True, also list host blocks (Not available).
-        full_year: Always use dd.mm.yyyy on both ends (ignored if iso_dates).
-        iso_dates: Use YYYY-MM-DD - YYYY-MM-DD.
+        options: Formatting options (blocks, year format, ISO dates).
 
     Returns:
         Multi-line block for one property.
@@ -199,7 +204,7 @@ def format_property_bookings_per_event_text(
     header = f"[{property_id}] {property_name}"
     rows: list[BookingEvent] = []
     for event in events:
-        if include_blocks:
+        if options.include_blocks:
             rows.append(event)
         elif not event.is_blocked:
             rows.append(event)
@@ -208,19 +213,27 @@ def format_property_bookings_per_event_text(
     if not rows:
         empty_note = (
             "(нет бронирований по iCal)"
-            if not include_blocks
+            if not options.include_blocks
             else "(нет событий в iCal)"
         )
-        hint = "" if include_blocks else " — только блокировки? Запустите с --include-ical-blocks"
+        hint = (
+            ""
+            if options.include_blocks
+            else " — только блокировки? Запустите с --include-ical-blocks"
+        )
         return f"{header}\n  {empty_note}{hint}\n"
 
     sub = (
         "  События календаря (каждое отдельно, без склейки):"
-        if include_blocks
+        if options.include_blocks
         else "  Бронирования (каждое событие отдельно, без склейки):"
     )
     lines = [header, sub]
     for event in rows:
-        lines.append(_format_event_one_line(event, full_year=full_year, iso_dates=iso_dates))
+        lines.append(
+            _format_event_one_line(
+                event, full_year=options.full_year, iso_dates=options.iso_dates
+            )
+        )
     lines.append("")
     return "\n".join(lines)
