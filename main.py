@@ -19,7 +19,11 @@ from src.parser import parse_ical
 from src.property_meta import load_property_meta
 from src.scheduler import run_scheduler
 from src.deployer import deploy_to_github_pages
-from src.unavailability import format_full_report_text, format_property_bookings_per_event_text
+from src.unavailability import (
+    FormatOptions,
+    format_full_report_text,
+    format_property_bookings_per_event_text,
+)
 
 BANGKOK_TZ = ZoneInfo("Asia/Bangkok")
 LOGGER = logging.getLogger(__name__)
@@ -199,9 +203,11 @@ def run_pipeline(
                 property_config.id,
                 property_config.name,
                 events,
-                include_blocks=include_ical_blocks,
-                full_year=unavailable_compact,
-                iso_dates=unavailable_iso_dates,
+                options=FormatOptions(
+                    include_blocks=include_ical_blocks,
+                    full_year=unavailable_compact,
+                    iso_dates=unavailable_iso_dates,
+                ),
             )
             property_reports.append(occupancy)
             all_events_for_summary.append(events)
