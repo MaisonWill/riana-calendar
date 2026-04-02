@@ -90,6 +90,11 @@
   }
   .vt-btn:hover { background:var(--side-hover); color:var(--side-text-bright); }
   .vt-btn.active { background:var(--side-accent-dim); border-color:rgba(212,168,75,0.35); color:var(--side-accent); }
+  .vt-btn:focus-visible, .prop-btn:focus-visible, .gdrive-btn:focus-visible, .mob-select:focus-visible, .ov-row:focus-visible {
+    outline: 2px solid var(--side-accent);
+    outline-offset: 2px;
+  }
+
 
   .side-label { padding:14px 20px 7px; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--side-text); opacity:0.4; flex-shrink:0; }
   .side-list { flex:1; overflow-y:auto; padding:0 8px 16px; scrollbar-width:thin; scrollbar-color:var(--side-border) transparent; }
@@ -328,12 +333,12 @@
   </div>
 
   <div class="view-toggle">
-    <button class="vt-btn active" id="btnSingle" onclick="setView('single')">
-      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="1" width="14" height="14" rx="2"/><line x1="1" y1="6" x2="15" y2="6"/><line x1="6" y1="6" x2="6" y2="15"/></svg>
+    <button class="vt-btn active" id="btnSingle" onclick="setView('single')" aria-pressed="true">
+      <svg aria-hidden="true" width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="1" width="14" height="14" rx="2"/><line x1="1" y1="6" x2="15" y2="6"/><line x1="6" y1="6" x2="6" y2="15"/></svg>
       Объект
     </button>
-    <button class="vt-btn" id="btnOverview" onclick="setView('overview')">
-      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="4" x2="15" y2="4"/><line x1="1" y1="8" x2="15" y2="8"/><line x1="1" y1="12" x2="15" y2="12"/></svg>
+    <button class="vt-btn" id="btnOverview" onclick="setView('overview')" aria-pressed="false">
+      <svg aria-hidden="true" width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="4" x2="15" y2="4"/><line x1="1" y1="8" x2="15" y2="8"/><line x1="1" y1="12" x2="15" y2="12"/></svg>
       Обзор
     </button>
   </div>
@@ -346,7 +351,7 @@
 
 <!-- Main -->
 <main class="main" id="mainArea">
-  <div class="mobile-bar"><select class="mob-select" id="mobSelect" onchange="selectProp(this.value)"></select></div>
+  <div class="mobile-bar"><select class="mob-select" id="mobSelect" onchange="selectProp(this.value)" aria-label="Выберите объект"></select></div>
   <div class="topbar" id="topbar">
     <div class="topbar-left"><div class="prop-title" id="propTitle"></div></div>
     <div class="month-stats" id="monthStats"></div>
@@ -355,7 +360,7 @@
 </main>
 
 <script>
-const CALENDAR_DATA = {"properties":[{"id":"prop_01","name":"UNIT 1","display_name":"UNIT 1","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_02","name":"UNIT 2","display_name":"UNIT 2","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_03","name":"UNIT 3","display_name":"UNIT 3","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_04","name":"UNIT 4","display_name":"UNIT 4","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_05","name":"UNIT 5","display_name":"UNIT 5","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_06","name":"UNIT 6","display_name":"UNIT 6","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_07","name":"UNIT 1.1","display_name":"UNIT 1.1","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_08","name":"UNIT 1.2","display_name":"UNIT 1.2","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_09","name":"UNIT 1.3","display_name":"UNIT 1.3","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_10","name":"UNIT 1.4","display_name":"UNIT 1.4","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"},{"id":"prop_11","name":"UNIT 1.5","display_name":"UNIT 1.5","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"},{"id":"prop_12","name":"UNIT 1.6","display_name":"UNIT 1.6","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"}],"bookings":{"prop_01":[{"start":"2026-04-02","end":"2026-04-16","nights":15},{"start":"2026-07-23","end":"2026-08-23","nights":32}],"prop_02":[{"start":"2026-04-02","end":"2026-04-17","nights":16}],"prop_03":[],"prop_04":[{"start":"2026-04-02","end":"2026-04-09","nights":8},{"start":"2026-06-08","end":"2026-07-07","nights":30}],"prop_05":[],"prop_06":[],"prop_07":[],"prop_08":[{"start":"2026-04-02","end":"2026-06-04","nights":64}],"prop_09":[],"prop_10":[{"start":"2026-07-11","end":"2026-07-24","nights":14}],"prop_11":[{"start":"2026-04-14","end":"2026-06-13","nights":61}],"prop_12":[]},"blocked":{"prop_01":[],"prop_02":[{"start":"2027-02-10","end":"2027-04-02","nights":52}],"prop_03":[{"start":"2026-04-02","end":"2026-04-02","nights":1},{"start":"2027-02-10","end":"2027-04-02","nights":52}],"prop_04":[{"start":"2027-04-02","end":"2027-04-02","nights":1}],"prop_05":[{"start":"2026-04-02","end":"2026-04-03","nights":2},{"start":"2027-02-10","end":"2027-04-02","nights":52}],"prop_06":[{"start":"2026-04-02","end":"2026-04-15","nights":14},{"start":"2027-02-10","end":"2027-04-02","nights":52}],"prop_07":[{"start":"2027-04-02","end":"2027-04-02","nights":1}],"prop_08":[{"start":"2027-04-02","end":"2027-04-02","nights":1}],"prop_09":[{"start":"2027-04-02","end":"2027-04-02","nights":1}],"prop_10":[{"start":"2027-04-02","end":"2027-04-02","nights":1}],"prop_11":[{"start":"2027-04-02","end":"2027-04-02","nights":1}],"prop_12":[{"start":"2027-04-02","end":"2027-04-02","nights":1}]},"generated_at":"2026-04-02T08:58:53.148888Z"};
+const CALENDAR_DATA = {"properties":[{"id":"prop_01","name":"UNIT 1","display_name":"UNIT 1","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_02","name":"UNIT 2","display_name":"UNIT 2","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_03","name":"UNIT 3","display_name":"UNIT 3","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_04","name":"UNIT 4","display_name":"UNIT 4","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_05","name":"UNIT 5","display_name":"UNIT 5","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_06","name":"UNIT 6","display_name":"UNIT 6","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/1-2PioovDG9cQM-5CGGiLwdbCqmWcxU9z?usp=drive_link"},{"id":"prop_07","name":"UNIT 1.1","display_name":"UNIT 1.1","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_08","name":"UNIT 1.2","display_name":"UNIT 1.2","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_09","name":"UNIT 1.3","display_name":"UNIT 1.3","bedrooms":3.0,"bathrooms":4.0,"photos_url":"https://drive.google.com/drive/folders/1GbyMlKJWX-YuQTplLBcaRGVedystoPAl?usp=drive_link"},{"id":"prop_10","name":"UNIT 1.4","display_name":"UNIT 1.4","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"},{"id":"prop_11","name":"UNIT 1.5","display_name":"UNIT 1.5","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"},{"id":"prop_12","name":"UNIT 1.6","display_name":"UNIT 1.6","bedrooms":2.0,"bathrooms":3.0,"photos_url":"https://drive.google.com/drive/folders/17vxxm4FlEqiP2C-L-ldcnGwy3Va7xGC4?usp=drive_link"}],"bookings":{"prop_01":[{"start":"2026-04-02","end":"2026-04-16","nights":15},{"start":"2026-07-23","end":"2026-08-23","nights":32}],"prop_02":[{"start":"2026-04-02","end":"2026-04-17","nights":16}],"prop_03":[],"prop_04":[{"start":"2026-04-02","end":"2026-04-09","nights":8},{"start":"2026-06-08","end":"2026-07-07","nights":30}],"prop_05":[],"prop_06":[],"prop_07":[],"prop_08":[{"start":"2026-04-02","end":"2026-06-04","nights":64}],"prop_09":[],"prop_10":[{"start":"2026-07-11","end":"2026-07-24","nights":14}],"prop_11":[{"start":"2026-04-14","end":"2026-06-13","nights":61}],"prop_12":[]},"blocked":{"prop_01":[],"prop_02":[{"start":"2027-02-10","end":"2027-04-02","nights":52}],"prop_03":[{"start":"2026-04-02","end":"2026-04-02","nights":1},{"start":"2027-02-10","end":"2027-04-02","nights":52}],"prop_04":[{"start":"2027-04-02","end":"2027-04-02","nights":1}],"prop_05":[{"start":"2026-04-02","end":"2026-04-03","nights":2},{"start":"2027-02-10","end":"2027-04-02","nights":52}],"prop_06":[{"start":"2026-04-02","end":"2026-04-15","nights":14},{"start":"2027-02-10","end":"2027-04-02","nights":52}],"prop_07":[{"start":"2027-04-02","end":"2027-04-02","nights":1}],"prop_08":[{"start":"2027-04-02","end":"2027-04-02","nights":1}],"prop_09":[{"start":"2027-04-02","end":"2027-04-02","nights":1}],"prop_10":[{"start":"2027-04-02","end":"2027-04-02","nights":1}],"prop_11":[{"start":"2027-04-02","end":"2027-04-02","nights":1}],"prop_12":[{"start":"2027-04-02","end":"2027-04-02","nights":1}]},"generated_at":"2026-04-02T10:02:00.993847Z"};
 
 const MO = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
 const MO_SHORT = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
@@ -482,7 +487,8 @@ function renderPropRow(p){
   var gBtn=g?'<a class="gdrive-btn" href="'+escAttr(g)+'" target="_blank" rel="noopener noreferrer" title="Фото в Google Диске" aria-label="Фото объекта">'+ICON_GDRIVE+'</a>':'';
   var inner='<span class="prop-dot"></span><span class="prop-name">'+esc(p.display_name||p.name)+formatBadges(p,true)+'</span>';
   var safeId=String(p.id).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-  return '<div class="prop-row"><button type="button" class="prop-btn'+(p.id===sel?' active':'')+'" data-id="'+escAttr(p.id)+'" onclick="selectProp(\''+safeId+'\')">'+inner+'</button>'+gBtn+'</div>';
+  var isActive=(p.id===sel);
+  return '<div class="prop-row"><button type="button" class="prop-btn'+(isActive?' active':'')+'" data-id="'+escAttr(p.id)+'" onclick="selectProp(\''+safeId+'\')" aria-pressed="'+(isActive?'true':'false')+'">'+inner+'</button>'+gBtn+'</div>';
 }
 
 function renderSidebar(){
@@ -597,7 +603,7 @@ function renderOverviewView(){
       }
       monthsHtml+='<div class="ov-month" title="'+MO[m.month]+' '+m.year+'">'+segHtml+'<span class="ov-mlabel">'+MO_SHORT[m.month]+'</span></div>';
     });
-    h+='<div class="ov-row" onclick="setViewAndSelect(\'single\',\''+escAttr(p.id)+'\')">';
+    h+='<div class="ov-row" tabindex="0" role="button" onclick="setViewAndSelect(\'single\',\''+escAttr(p.id)+'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();this.click();}">';
     h+='<div class="ov-name">'+esc(p.display_name||p.name)+'</div>';
     h+='<div class="ov-badges">'+(p.bedrooms?'<span>🛏 '+esc(String(p.bedrooms))+' сп.</span>':'')+'</div>';
     h+='<div class="ov-months">'+monthsHtml+'</div>';
@@ -636,8 +642,16 @@ function attachTooltips(){
 // ─── View control ───
 function setView(v){
   currentView=v;
-  document.getElementById('btnSingle').classList.toggle('active', v==='single');
-  document.getElementById('btnOverview').classList.toggle('active', v==='overview');
+  var singleActive = (v==='single');
+  var btnSingle = document.getElementById('btnSingle');
+  btnSingle.classList.toggle('active', singleActive);
+  btnSingle.setAttribute('aria-pressed', singleActive ? 'true' : 'false');
+
+  var overviewActive = (v==='overview');
+  var btnOverview = document.getElementById('btnOverview');
+  btnOverview.classList.toggle('active', overviewActive);
+  btnOverview.setAttribute('aria-pressed', overviewActive ? 'true' : 'false');
+
   renderTopbarStats();
   document.getElementById('mainArea').scrollTop=0;
   if(v==='single') renderSingleView();
@@ -653,7 +667,11 @@ function setViewAndSelect(v, propId){
 
 function selectProp(id){
   sel=id;
-  document.querySelectorAll('.prop-btn').forEach(function(b){b.classList.toggle('active',b.dataset.id===id);});
+  document.querySelectorAll('.prop-btn').forEach(function(b){
+    var isActive = (b.dataset.id===id);
+    b.classList.toggle('active',isActive);
+    b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
   document.getElementById('mobSelect').value=id;
   renderTopbarStats();
   if(currentView==='single') renderSingleView();
