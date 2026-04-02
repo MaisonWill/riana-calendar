@@ -87,27 +87,23 @@ def _load_previous_properties(output_path: str) -> dict[str, dict]:
 
 def _property_from_stale(previous_item: dict, expected_name: str) -> PropertyOccupancy:
     """Convert stale JSON property payload into PropertyOccupancy."""
-    monthly_data = previous_item.get("monthly_data", [])
-    normalized_monthly = []
-    for month in monthly_data:
-        normalized_monthly.append(
-            {
-                "year": int(month.get("year", 0)),
-                "month": int(month.get("month", 0)),
-                "month_name": str(month.get("month_name", "")),
-                "total_days": int(month.get("total_days", 0)),
-                "reserved_days": int(month.get("reserved_days", 0)),
-                "blocked_days": int(month.get("blocked_days", 0)),
-                "available_days": int(month.get("available_days", 0)),
-                "occupancy_rate": float(month.get("occupancy_rate", 0.0)),
-                "occupancy_rate_with_blocked": float(month.get("occupancy_rate_with_blocked", 0.0)),
-            }
-        )
-
-    # Reuse dataclass constructor from calculate module by creating through keyword unpacking.
     from src.calculator import MonthlyOccupancy
 
-    month_objects = [MonthlyOccupancy(**item) for item in normalized_monthly]
+    monthly_data = previous_item.get("monthly_data", [])
+    month_objects = [
+        MonthlyOccupancy(
+            year=int(month.get("year", 0)),
+            month=int(month.get("month", 0)),
+            month_name=str(month.get("month_name", "")),
+            total_days=int(month.get("total_days", 0)),
+            reserved_days=int(month.get("reserved_days", 0)),
+            blocked_days=int(month.get("blocked_days", 0)),
+            available_days=int(month.get("available_days", 0)),
+            occupancy_rate=float(month.get("occupancy_rate", 0.0)),
+            occupancy_rate_with_blocked=float(month.get("occupancy_rate_with_blocked", 0.0)),
+        )
+        for month in monthly_data
+    ]
     return PropertyOccupancy(
         property_id=str(previous_item.get("property_id", "")),
         property_name=str(previous_item.get("property_name", expected_name)),
