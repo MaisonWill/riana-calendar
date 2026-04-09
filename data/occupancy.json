@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-04-09T23:13:14.550426+07:00",
+  "generated_at": "2026-04-10T00:53:51.318887+07:00",
   "properties_count": 12,
   "properties": [
     {
       "property_id": "prop_01",
       "property_name": "Property 01",
-      "last_updated": "2026-04-09T23:13:14.540028+07:00",
+      "last_updated": "2026-04-10T00:53:51.311756+07:00",
       "total_upcoming_reservations": 2,
       "next_checkin": "2026-07-23",
       "monthly_data": [
@@ -82,7 +82,7 @@
     {
       "property_id": "prop_02",
       "property_name": "Property 02",
-      "last_updated": "2026-04-09T23:13:14.541509+07:00",
+      "last_updated": "2026-04-10T00:53:51.312740+07:00",
       "total_upcoming_reservations": 1,
       "next_checkin": null,
       "monthly_data": [
@@ -159,7 +159,7 @@
     {
       "property_id": "prop_03",
       "property_name": "Property 03",
-      "last_updated": "2026-04-09T23:13:14.542749+07:00",
+      "last_updated": "2026-04-10T00:53:51.313588+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -236,7 +236,7 @@
     {
       "property_id": "prop_04",
       "property_name": "Property 04",
-      "last_updated": "2026-04-09T23:13:14.543680+07:00",
+      "last_updated": "2026-04-10T00:53:51.314480+07:00",
       "total_upcoming_reservations": 2,
       "next_checkin": "2026-06-08",
       "monthly_data": [
@@ -246,10 +246,10 @@
           "month_name": "April 2026",
           "total_days": 22,
           "reserved_days": 1,
-          "blocked_days": 0,
-          "available_days": 21,
+          "blocked_days": 1,
+          "available_days": 20,
           "occupancy_rate": 4.5,
-          "occupancy_rate_with_blocked": 4.5
+          "occupancy_rate_with_blocked": 9.1
         },
         {
           "year": 2026,
@@ -313,7 +313,7 @@
     {
       "property_id": "prop_05",
       "property_name": "Property 05",
-      "last_updated": "2026-04-09T23:13:14.544540+07:00",
+      "last_updated": "2026-04-10T00:53:51.315158+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -390,7 +390,7 @@
     {
       "property_id": "prop_06",
       "property_name": "Property 06",
-      "last_updated": "2026-04-09T23:13:14.545526+07:00",
+      "last_updated": "2026-04-10T00:53:51.315839+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -467,7 +467,7 @@
     {
       "property_id": "prop_07",
       "property_name": "Property 07",
-      "last_updated": "2026-04-09T23:13:14.546239+07:00",
+      "last_updated": "2026-04-10T00:53:51.316127+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -544,7 +544,7 @@
     {
       "property_id": "prop_08",
       "property_name": "Property 08",
-      "last_updated": "2026-04-09T23:13:14.547245+07:00",
+      "last_updated": "2026-04-10T00:53:51.316619+07:00",
       "total_upcoming_reservations": 1,
       "next_checkin": null,
       "monthly_data": [
@@ -621,7 +621,7 @@
     {
       "property_id": "prop_09",
       "property_name": "Property 09",
-      "last_updated": "2026-04-09T23:13:14.547806+07:00",
+      "last_updated": "2026-04-10T00:53:51.316942+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -698,7 +698,7 @@
     {
       "property_id": "prop_10",
       "property_name": "Property 10",
-      "last_updated": "2026-04-09T23:13:14.548702+07:00",
+      "last_updated": "2026-04-10T00:53:51.317622+07:00",
       "total_upcoming_reservations": 2,
       "next_checkin": "2026-07-11",
       "monthly_data": [
@@ -775,7 +775,7 @@
     {
       "property_id": "prop_11",
       "property_name": "Property 11",
-      "last_updated": "2026-04-09T23:13:14.549453+07:00",
+      "last_updated": "2026-04-10T00:53:51.318138+07:00",
       "total_upcoming_reservations": 1,
       "next_checkin": "2026-04-14",
       "monthly_data": [
@@ -852,7 +852,7 @@
     {
       "property_id": "prop_12",
       "property_name": "Property 12",
-      "last_updated": "2026-04-09T23:13:14.550199+07:00",
+      "last_updated": "2026-04-10T00:53:51.318675+07:00",
       "total_upcoming_reservations": 1,
       "next_checkin": "2026-04-09",
       "monthly_data": [
