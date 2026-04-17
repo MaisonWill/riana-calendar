@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-17T17:05:51.968738+07:00",
+  "generated_at": "2026-04-17T18:43:06.758074+07:00",
   "properties_count": 12,
   "properties": [
     {
@@ -76,7 +76,7 @@
           "occupancy_rate_with_blocked": 0.0
         }
       ],
-      "stale": false,
+      "stale": true,
       "unavailable_ranges_text": "[prop_01] Property 01\n  Бронирования (каждое событие отдельно, без склейки):\n  • 23.07 - 24.08 (32 ноч.)\n"
     },
     {
@@ -153,7 +153,7 @@
           "occupancy_rate_with_blocked": 0.0
         }
       ],
-      "stale": false,
+      "stale": true,
       "unavailable_ranges_text": "[prop_02] Property 02\n  Бронирования (каждое событие отдельно, без склейки):\n  • 21.03 - 18.04 (28 ноч.)\n"
     },
     {
@@ -230,7 +230,7 @@
           "occupancy_rate_with_blocked": 0.0
         }
       ],
-      "stale": false,
+      "stale": true,
       "unavailable_ranges_text": "[prop_03] Property 03\n  (нет бронирований по iCal) — только блокировки? Запустите с --include-ical-blocks\n"
     },
     {
@@ -307,7 +307,7 @@
           "occupancy_rate_with_blocked": 0.0
         }
       ],
-      "stale": false,
+      "stale": true,
       "unavailable_ranges_text": "[prop_04] Property 04\n  Бронирования (каждое событие отдельно, без склейки):\n  • 08.06 - 08.07 (30 ноч.)\n"
     },
     {
@@ -384,7 +384,7 @@
           "occupancy_rate_with_blocked": 0.0
         }
       ],
-      "stale": false,
+      "stale": true,
       "unavailable_ranges_text": "[prop_05] Property 05\n  (нет бронирований по iCal) — только блокировки? Запустите с --include-ical-blocks\n"
     },
     {
@@ -461,7 +461,7 @@
           "occupancy_rate_with_blocked": 0.0
         }
       ],
-      "stale": false,
+      "stale": true,
       "unavailable_ranges_text": "[prop_06] Property 06\n  (нет бронирований по iCal) — только блокировки? Запустите с --include-ical-blocks\n"
     },
     {
@@ -538,13 +538,13 @@
           "occupancy_rate_with_blocked": 0.0
         }
       ],
-      "stale": false,
+      "stale": true,
       "unavailable_ranges_text": "[prop_07] Property 07\n  (нет бронирований по iCal) — только блокировки? Запустите с --include-ical-blocks\n"
     },
     {
       "property_id": "prop_08",
       "property_name": "Property 08",
-      "last_updated": "2026-04-17T17:05:51.966306+07:00",
+      "last_updated": "2026-04-17T18:43:06.756352+07:00",
       "total_upcoming_reservations": 1,
       "next_checkin": null,
       "monthly_data": [
@@ -621,7 +621,7 @@
     {
       "property_id": "prop_09",
       "property_name": "Property 09",
-      "last_updated": "2026-04-17T17:05:51.966759+07:00",
+      "last_updated": "2026-04-17T18:43:06.756961+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -698,7 +698,7 @@
     {
       "property_id": "prop_10",
       "property_name": "Property 10",
-      "last_updated": "2026-04-17T17:05:51.967327+07:00",
+      "last_updated": "2026-04-17T18:43:06.757629+07:00",
       "total_upcoming_reservations": 1,
       "next_checkin": "2026-07-11",
       "monthly_data": [
@@ -846,7 +846,7 @@
           "occupancy_rate_with_blocked": 0.0
         }
       ],
-      "stale": false,
+      "stale": true,
       "unavailable_ranges_text": "[prop_11] Property 11\n  Бронирования (каждое событие отдельно, без склейки):\n  • 14.04 - 14.06 (61 ноч.)\n"
     },
     {
@@ -923,7 +923,7 @@
           "occupancy_rate_with_blocked": 0.0
         }
       ],
-      "stale": false,
+      "stale": true,
       "unavailable_ranges_text": "[prop_12] Property 12\n  Бронирования (каждое событие отдельно, без склейки):\n  • 09.04 - 26.04 (17 ноч.)\n"
     }
   ],
@@ -932,6 +932,6 @@
     "average_occupancy_next_month": 16.7,
     "most_occupied_property": "prop_08",
     "least_occupied_property": "prop_01",
-    "total_reserved_nights_30_days": 70
+    "total_reserved_nights_30_days": 30
   }
 }
