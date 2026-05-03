@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-05-03T17:44:50.104271+07:00",
+  "generated_at": "2026-05-03T18:35:39.893973+07:00",
   "properties_count": 12,
   "properties": [
     {
       "property_id": "prop_01",
       "property_name": "Property 01",
-      "last_updated": "2026-05-03T17:44:50.098139+07:00",
+      "last_updated": "2026-05-03T18:35:39.886998+07:00",
       "total_upcoming_reservations": 2,
       "next_checkin": "2026-07-23",
       "monthly_data": [
@@ -82,7 +82,7 @@
     {
       "property_id": "prop_02",
       "property_name": "Property 02",
-      "last_updated": "2026-05-03T16:13:48.520626+07:00",
+      "last_updated": "2026-05-03T18:35:39.887898+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -153,13 +153,13 @@
           "occupancy_rate_with_blocked": 0.0
         }
       ],
-      "stale": true,
+      "stale": false,
       "unavailable_ranges_text": "[prop_02] Property 02\n  (нет бронирований по iCal) — только блокировки? Запустите с --include-ical-blocks\n"
     },
     {
       "property_id": "prop_03",
       "property_name": "Property 03",
-      "last_updated": "2026-05-03T17:44:50.098891+07:00",
+      "last_updated": "2026-05-03T18:35:39.888679+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -169,10 +169,10 @@
           "month_name": "May 2026",
           "total_days": 29,
           "reserved_days": 0,
-          "blocked_days": 0,
-          "available_days": 29,
+          "blocked_days": 1,
+          "available_days": 28,
           "occupancy_rate": 0.0,
-          "occupancy_rate_with_blocked": 0.0
+          "occupancy_rate_with_blocked": 3.4
         },
         {
           "year": 2026,
@@ -191,10 +191,10 @@
           "month_name": "July 2026",
           "total_days": 31,
           "reserved_days": 0,
-          "blocked_days": 0,
-          "available_days": 31,
+          "blocked_days": 31,
+          "available_days": 0,
           "occupancy_rate": 0.0,
-          "occupancy_rate_with_blocked": 0.0
+          "occupancy_rate_with_blocked": 100.0
         },
         {
           "year": 2026,
@@ -236,9 +236,9 @@
     {
       "property_id": "prop_04",
       "property_name": "Property 04",
-      "last_updated": "2026-05-03T17:44:50.099201+07:00",
-      "total_upcoming_reservations": 0,
-      "next_checkin": null,
+      "last_updated": "2026-05-03T18:35:39.889466+07:00",
+      "total_upcoming_reservations": 1,
+      "next_checkin": "2026-06-08",
       "monthly_data": [
         {
           "year": 2026,
@@ -246,32 +246,32 @@
           "month_name": "May 2026",
           "total_days": 29,
           "reserved_days": 0,
-          "blocked_days": 0,
-          "available_days": 29,
+          "blocked_days": 1,
+          "available_days": 28,
           "occupancy_rate": 0.0,
-          "occupancy_rate_with_blocked": 0.0
+          "occupancy_rate_with_blocked": 3.4
         },
         {
           "year": 2026,
           "month": 6,
           "month_name": "June 2026",
           "total_days": 30,
-          "reserved_days": 0,
+          "reserved_days": 23,
           "blocked_days": 0,
-          "available_days": 30,
-          "occupancy_rate": 0.0,
-          "occupancy_rate_with_blocked": 0.0
+          "available_days": 7,
+          "occupancy_rate": 76.7,
+          "occupancy_rate_with_blocked": 76.7
         },
         {
           "year": 2026,
           "month": 7,
           "month_name": "July 2026",
           "total_days": 31,
-          "reserved_days": 0,
+          "reserved_days": 7,
           "blocked_days": 0,
-          "available_days": 31,
-          "occupancy_rate": 0.0,
-          "occupancy_rate_with_blocked": 0.0
+          "available_days": 24,
+          "occupancy_rate": 22.6,
+          "occupancy_rate_with_blocked": 22.6
         },
         {
           "year": 2026,
@@ -308,12 +308,12 @@
         }
       ],
       "stale": false,
-      "unavailable_ranges_text": "[prop_04] Property 04\n  (нет бронирований по iCal) — только блокировки? Запустите с --include-ical-blocks\n"
+      "unavailable_ranges_text": "[prop_04] Property 04\n  Бронирования (каждое событие отдельно, без склейки):\n  • 08.06 - 08.07 (30 ноч.)\n"
     },
     {
       "property_id": "prop_05",
       "property_name": "Property 05",
-      "last_updated": "2026-05-03T17:44:50.099522+07:00",
+      "last_updated": "2026-05-03T18:35:39.890079+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -323,10 +323,10 @@
           "month_name": "May 2026",
           "total_days": 29,
           "reserved_days": 0,
-          "blocked_days": 0,
-          "available_days": 29,
+          "blocked_days": 1,
+          "available_days": 28,
           "occupancy_rate": 0.0,
-          "occupancy_rate_with_blocked": 0.0
+          "occupancy_rate_with_blocked": 3.4
         },
         {
           "year": 2026,
@@ -390,7 +390,7 @@
     {
       "property_id": "prop_06",
       "property_name": "Property 06",
-      "last_updated": "2026-05-03T17:44:50.100208+07:00",
+      "last_updated": "2026-05-03T18:35:39.890664+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -467,7 +467,7 @@
     {
       "property_id": "prop_07",
       "property_name": "Property 07",
-      "last_updated": "2026-05-03T17:44:50.100755+07:00",
+      "last_updated": "2026-05-03T18:35:39.891067+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -544,7 +544,7 @@
     {
       "property_id": "prop_08",
       "property_name": "Property 08",
-      "last_updated": "2026-05-03T17:44:50.101508+07:00",
+      "last_updated": "2026-05-03T18:35:39.891666+07:00",
       "total_upcoming_reservations": 1,
       "next_checkin": null,
       "monthly_data": [
@@ -621,7 +621,7 @@
     {
       "property_id": "prop_09",
       "property_name": "Property 09",
-      "last_updated": "2026-05-03T17:44:50.102042+07:00",
+      "last_updated": "2026-05-03T18:35:39.892096+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -698,7 +698,7 @@
     {
       "property_id": "prop_10",
       "property_name": "Property 10",
-      "last_updated": "2026-05-03T17:44:50.102781+07:00",
+      "last_updated": "2026-05-03T18:35:39.892719+07:00",
       "total_upcoming_reservations": 1,
       "next_checkin": "2026-07-11",
       "monthly_data": [
@@ -775,7 +775,7 @@
     {
       "property_id": "prop_11",
       "property_name": "Property 11",
-      "last_updated": "2026-05-03T17:44:50.103542+07:00",
+      "last_updated": "2026-05-03T18:35:39.893349+07:00",
       "total_upcoming_reservations": 1,
       "next_checkin": null,
       "monthly_data": [
@@ -852,7 +852,7 @@
     {
       "property_id": "prop_12",
       "property_name": "Property 12",
-      "last_updated": "2026-05-03T17:44:50.104075+07:00",
+      "last_updated": "2026-05-03T18:35:39.893795+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -929,7 +929,7 @@
   ],
   "summary": {
     "average_occupancy_current_month": 20.4,
-    "average_occupancy_next_month": 4.7,
+    "average_occupancy_next_month": 11.1,
     "most_occupied_property": "prop_08",
     "least_occupied_property": "prop_02",
     "total_reserved_nights_30_days": 73
