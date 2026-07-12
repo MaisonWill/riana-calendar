@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-07-12T06:43:21.823261+07:00",
+  "generated_at": "2026-07-12T08:46:59.377646+07:00",
   "properties_count": 12,
   "properties": [
     {
       "property_id": "prop_01",
       "property_name": "Property 01",
-      "last_updated": "2026-07-12T06:43:21.809723+07:00",
+      "last_updated": "2026-07-12T08:46:59.362528+07:00",
       "total_upcoming_reservations": 2,
       "next_checkin": "2026-07-23",
       "monthly_data": [
@@ -13,8 +13,8 @@
           "year": 2026,
           "month": 7,
           "month_name": "July 2026",
-          "total_days": 21,
-          "reserved_days": 21,
+          "total_days": 20,
+          "reserved_days": 20,
           "blocked_days": 0,
           "available_days": 0,
           "occupancy_rate": 100.0,
@@ -82,7 +82,7 @@
     {
       "property_id": "prop_02",
       "property_name": "Property 02",
-      "last_updated": "2026-07-12T06:43:21.810510+07:00",
+      "last_updated": "2026-07-12T08:46:59.363380+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -90,12 +90,12 @@
           "year": 2026,
           "month": 7,
           "month_name": "July 2026",
-          "total_days": 21,
+          "total_days": 20,
           "reserved_days": 0,
           "blocked_days": 20,
-          "available_days": 1,
+          "available_days": 0,
           "occupancy_rate": 0.0,
-          "occupancy_rate_with_blocked": 95.2
+          "occupancy_rate_with_blocked": 100.0
         },
         {
           "year": 2026,
@@ -159,7 +159,7 @@
     {
       "property_id": "prop_03",
       "property_name": "Property 03",
-      "last_updated": "2026-07-12T06:43:21.811162+07:00",
+      "last_updated": "2026-07-12T08:46:59.364144+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -167,9 +167,9 @@
           "year": 2026,
           "month": 7,
           "month_name": "July 2026",
-          "total_days": 21,
+          "total_days": 20,
           "reserved_days": 0,
-          "blocked_days": 21,
+          "blocked_days": 20,
           "available_days": 0,
           "occupancy_rate": 0.0,
           "occupancy_rate_with_blocked": 100.0
@@ -236,7 +236,7 @@
     {
       "property_id": "prop_04",
       "property_name": "Property 04",
-      "last_updated": "2026-07-12T06:43:21.811817+07:00",
+      "last_updated": "2026-07-12T08:46:59.371289+07:00",
       "total_upcoming_reservations": 1,
       "next_checkin": "2026-07-14",
       "monthly_data": [
@@ -244,12 +244,12 @@
           "year": 2026,
           "month": 7,
           "month_name": "July 2026",
-          "total_days": 21,
+          "total_days": 20,
           "reserved_days": 18,
           "blocked_days": 1,
-          "available_days": 2,
-          "occupancy_rate": 85.7,
-          "occupancy_rate_with_blocked": 90.5
+          "available_days": 1,
+          "occupancy_rate": 90.0,
+          "occupancy_rate_with_blocked": 95.0
         },
         {
           "year": 2026,
@@ -313,7 +313,7 @@
     {
       "property_id": "prop_05",
       "property_name": "Property 05",
-      "last_updated": "2026-07-12T06:43:21.819480+07:00",
+      "last_updated": "2026-07-12T08:46:59.372069+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -321,12 +321,12 @@
           "year": 2026,
           "month": 7,
           "month_name": "July 2026",
-          "total_days": 21,
+          "total_days": 20,
           "reserved_days": 0,
           "blocked_days": 1,
-          "available_days": 20,
+          "available_days": 19,
           "occupancy_rate": 0.0,
-          "occupancy_rate_with_blocked": 4.8
+          "occupancy_rate_with_blocked": 5.0
         },
         {
           "year": 2026,
@@ -390,7 +390,7 @@
     {
       "property_id": "prop_06",
       "property_name": "Property 06",
-      "last_updated": "2026-07-12T06:43:21.820359+07:00",
+      "last_updated": "2026-07-12T08:46:59.373016+07:00",
       "total_upcoming_reservations": 1,
       "next_checkin": null,
       "monthly_data": [
@@ -398,8 +398,8 @@
           "year": 2026,
           "month": 7,
           "month_name": "July 2026",
-          "total_days": 21,
-          "reserved_days": 21,
+          "total_days": 20,
+          "reserved_days": 20,
           "blocked_days": 0,
           "available_days": 0,
           "occupancy_rate": 100.0,
@@ -467,7 +467,7 @@
     {
       "property_id": "prop_07",
       "property_name": "Property 07",
-      "last_updated": "2026-07-12T06:43:21.820670+07:00",
+      "last_updated": "2026-07-12T08:46:59.373584+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -475,10 +475,10 @@
           "year": 2026,
           "month": 7,
           "month_name": "July 2026",
-          "total_days": 21,
+          "total_days": 20,
           "reserved_days": 0,
           "blocked_days": 0,
-          "available_days": 21,
+          "available_days": 20,
           "occupancy_rate": 0.0,
           "occupancy_rate_with_blocked": 0.0
         },
@@ -544,16 +544,16 @@
     {
       "property_id": "prop_08",
       "property_name": "Property 08",
-      "last_updated": "2026-07-12T06:43:21.821289+07:00",
+      "last_updated": "2026-07-12T08:46:59.374513+07:00",
       "total_upcoming_reservations": 1,
-      "next_checkin": "2026-07-11",
+      "next_checkin": null,
       "monthly_data": [
         {
           "year": 2026,
           "month": 7,
           "month_name": "July 2026",
-          "total_days": 21,
-          "reserved_days": 21,
+          "total_days": 20,
+          "reserved_days": 20,
           "blocked_days": 0,
           "available_days": 0,
           "occupancy_rate": 100.0,
@@ -621,7 +621,7 @@
     {
       "property_id": "prop_09",
       "property_name": "Property 09",
-      "last_updated": "2026-07-12T06:43:21.821759+07:00",
+      "last_updated": "2026-07-12T08:46:59.375237+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -629,9 +629,9 @@
           "year": 2026,
           "month": 7,
           "month_name": "July 2026",
-          "total_days": 21,
+          "total_days": 20,
           "reserved_days": 0,
-          "blocked_days": 21,
+          "blocked_days": 20,
           "available_days": 0,
           "occupancy_rate": 0.0,
           "occupancy_rate_with_blocked": 100.0
@@ -698,20 +698,20 @@
     {
       "property_id": "prop_10",
       "property_name": "Property 10",
-      "last_updated": "2026-07-12T06:43:21.822222+07:00",
+      "last_updated": "2026-07-12T08:46:59.376014+07:00",
       "total_upcoming_reservations": 1,
-      "next_checkin": "2026-07-11",
+      "next_checkin": null,
       "monthly_data": [
         {
           "year": 2026,
           "month": 7,
           "month_name": "July 2026",
-          "total_days": 21,
-          "reserved_days": 14,
+          "total_days": 20,
+          "reserved_days": 13,
           "blocked_days": 0,
           "available_days": 7,
-          "occupancy_rate": 66.7,
-          "occupancy_rate_with_blocked": 66.7
+          "occupancy_rate": 65.0,
+          "occupancy_rate_with_blocked": 65.0
         },
         {
           "year": 2026,
@@ -775,7 +775,7 @@
     {
       "property_id": "prop_11",
       "property_name": "Property 11",
-      "last_updated": "2026-07-12T06:43:21.822507+07:00",
+      "last_updated": "2026-07-12T08:46:59.376554+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -783,10 +783,10 @@
           "year": 2026,
           "month": 7,
           "month_name": "July 2026",
-          "total_days": 21,
+          "total_days": 20,
           "reserved_days": 0,
           "blocked_days": 0,
-          "available_days": 21,
+          "available_days": 20,
           "occupancy_rate": 0.0,
           "occupancy_rate_with_blocked": 0.0
         },
@@ -852,7 +852,7 @@
     {
       "property_id": "prop_12",
       "property_name": "Property 12",
-      "last_updated": "2026-07-12T06:43:21.823055+07:00",
+      "last_updated": "2026-07-12T08:46:59.377432+07:00",
       "total_upcoming_reservations": 0,
       "next_checkin": null,
       "monthly_data": [
@@ -860,12 +860,12 @@
           "year": 2026,
           "month": 7,
           "month_name": "July 2026",
-          "total_days": 21,
+          "total_days": 20,
           "reserved_days": 0,
-          "blocked_days": 20,
+          "blocked_days": 19,
           "available_days": 1,
           "occupancy_rate": 0.0,
-          "occupancy_rate_with_blocked": 95.2
+          "occupancy_rate_with_blocked": 95.0
         },
         {
           "year": 2026,
@@ -928,10 +928,10 @@
     }
   ],
   "summary": {
-    "average_occupancy_current_month": 37.7,
+    "average_occupancy_current_month": 37.9,
     "average_occupancy_next_month": 10.8,
     "most_occupied_property": "prop_01",
     "least_occupied_property": "prop_02",
-    "total_reserved_nights_30_days": 118
+    "total_reserved_nights_30_days": 116
   }
 }
